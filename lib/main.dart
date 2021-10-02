@@ -1,5 +1,7 @@
 import 'package:ai_counseling_platform/constants.dart';
+import 'package:ai_counseling_platform/controllers/scrollable_appbar_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'screens/landing_screen.dart';
 
 void main() {
@@ -11,13 +13,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'ai counseling platform',
-      theme: ThemeData(
-        textTheme: kTextTheme,
-      ),
-      home: const LandingScreen(),
-    );
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => ScrollableAppbarController(),
+          )
+        ],
+        builder: (context, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'ai counseling platform',
+            theme: ThemeData(
+              textTheme: kTextTheme.apply(
+                fontFamily: "Noto_sans_kr",
+              ),
+            ),
+            home: const LandingScreen(),
+          );
+        });
   }
 }

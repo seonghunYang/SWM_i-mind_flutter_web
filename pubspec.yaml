@@ -60,6 +60,22 @@ flutter:
   assets:
     - assets/images/
 
+  fonts:
+    - family: Noto_sans_kr
+      fonts:
+        - asset: assets/font/Noto_Sans_KR/NotoSansKR-Thin.otf
+          weight: 100
+        - asset: assets/font/Noto_Sans_KR/NotoSansKR-Light.otf
+          weight: 300
+        - asset: assets/font/Noto_Sans_KR/NotoSansKR-Regular.otf
+          weight: 400
+        - asset: assets/font/Noto_Sans_KR/NotoSansKR-Medium.otf
+          weight: 500
+        - asset: assets/font/Noto_Sans_KR/NotoSansKR-Bold.otf
+          weight: 700
+        - asset: assets/font/Noto_Sans_KR/NotoSansKR-Black.otf
+          weight: 900
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
