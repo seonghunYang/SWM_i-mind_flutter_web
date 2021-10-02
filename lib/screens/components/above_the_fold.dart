@@ -1,4 +1,7 @@
+import 'package:ai_counseling_platform/screens/components/rounded_button.dart';
 import 'package:flutter/material.dart';
+
+import '../../constants.dart';
 
 class AboveTheFold extends StatelessWidget {
   const AboveTheFold({
@@ -64,19 +67,18 @@ class AboveTheFold extends StatelessWidget {
               child: AspectRatio(
                 aspectRatio: 4 / 3,
                 child: Container(
-                  padding: EdgeInsets.all(30),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.all(30),
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
                     ),
                   ),
-                  child: FittedBox(
+                  child: const FittedBox(
                     fit: BoxFit.cover,
-                    child: Image(
-                      image:
-                          AssetImage("assets/images/main_platform_info.jpeg"),
-                    ),
+                    // child: Image(
+                    //   image: AssetImage("assets/images/main_dashboard.jpeg"),
+                    // ),
                   ),
                 ),
               ),
