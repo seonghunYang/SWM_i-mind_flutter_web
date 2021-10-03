@@ -7,13 +7,13 @@ class SalesPointItem extends StatelessWidget {
     Key? key,
     required this.title,
     required this.subTitle,
-    required this.imageSrc,
+    required this.image,
     required this.tag,
   }) : super(key: key);
 
   final Widget title;
   final Widget subTitle;
-  final String imageSrc;
+  final Widget image;
   final String tag;
 
   @override
@@ -29,7 +29,7 @@ class SalesPointItem extends StatelessWidget {
                 Container(
                   width: 40,
                   height: 40,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: kMainColor,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
@@ -42,7 +42,7 @@ class SalesPointItem extends StatelessWidget {
                         .copyWith(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: defaultPadding,
                 ),
                 title,
@@ -60,11 +60,8 @@ class SalesPointItem extends StatelessWidget {
             padding: const EdgeInsets.only(right: defaultPadding * 15),
             child: FittedBox(
               child: ConstrainedBox(
-                constraints: BoxConstraints(minWidth: 1, minHeight: 1),
-                child: Image(
-                  image: AssetImage(imageSrc),
-                ),
-              ),
+                  constraints: BoxConstraints(minWidth: 1, minHeight: 1),
+                  child: image),
             ),
           ),
         ),

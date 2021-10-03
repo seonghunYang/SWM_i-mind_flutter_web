@@ -1,4 +1,6 @@
 import 'package:ai_counseling_platform/controllers/scrollable_appbar_controller.dart';
+import 'package:ai_counseling_platform/screens/custom_screen/custom_screen.dart';
+import 'package:ai_counseling_platform/screens/landing_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../constants.dart';
@@ -6,7 +8,10 @@ import '../../constants.dart';
 class ScrollableAppbar extends StatelessWidget with PreferredSizeWidget {
   const ScrollableAppbar({
     Key? key,
+    required this.transparent,
   }) : super(key: key);
+
+  final bool transparent;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -19,12 +24,16 @@ class ScrollableAppbar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isTransparent =
-        context.watch<ScrollableAppbarController>().isTransparent;
+    final bool isTransparent;
+    if (transparent) {
+      isTransparent = context.watch<ScrollableAppbarController>().isTransparent;
+    } else {
+      isTransparent = false;
+    }
     TextStyle? textStyle =
         getTextStyleWithBackgroundColor(context, isTransparent);
     return AppBar(
-      elevation: 0,
+      elevation: isTransparent ? 0 : 0.5,
       backgroundColor: isTransparent ? Colors.transparent : Colors.white,
       flexibleSpace: isTransparent
           ? Container(
@@ -34,17 +43,24 @@ class ScrollableAppbar extends StatelessWidget with PreferredSizeWidget {
             )
           : null,
       leadingWidth: 200,
-      leading: const Padding(
-        padding: EdgeInsets.all(defaultPadding * 1.5),
-        child: Image(
-          image: AssetImage("assets/images/logo.png"),
+      leading: Padding(
+        padding: const EdgeInsets.all(defaultPadding * 1.5),
+        child: InkWell(
+          onTap: () {
+            Navigator.pushNamed(context, LandingScreen.id);
+          },
+          child: const Image(
+            image: AssetImage("assets/images/logo.png"),
+          ),
         ),
       ),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, CustomScreen.id);
+            },
             child: Text(
               "서비스 소개",
               style: textStyle,

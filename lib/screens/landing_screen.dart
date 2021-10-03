@@ -6,25 +6,43 @@ import 'components/above_the_fold.dart';
 import 'components/footer.dart';
 import 'components/partnes.dart';
 import 'components/platform_info.dart';
-import 'components/rounded_button.dart';
-import 'components/sales_point_item.dart';
+
 import 'components/sales_points.dart';
 import 'components/scrollable_appbar.dart';
 
-class LandingScreen extends StatelessWidget {
+class LandingScreen extends StatefulWidget {
   const LandingScreen({Key? key}) : super(key: key);
+
+  static const String id = "landingScreen";
+
+  @override
+  State<LandingScreen> createState() => _LandingScreenState();
+}
+
+class _LandingScreenState extends State<LandingScreen> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _scrollController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final controller =
-        context.read<ScrollableAppbarController>().getScrollController();
+    context
+        .read<ScrollableAppbarController>()
+        .scrollListener(_scrollController);
     return Scaffold(
-      appBar: const ScrollableAppbar(),
+      appBar: const ScrollableAppbar(
+        transparent: true,
+      ),
       extendBodyBehindAppBar: true,
       body: Container(
         color: Colors.white,
         child: CustomScrollView(
-          controller: controller,
+          controller: _scrollController,
           slivers: [
             SliverList(
               delegate: SliverChildListDelegate([
