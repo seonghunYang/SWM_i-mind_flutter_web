@@ -38,3 +38,26 @@ const kTextTheme = TextTheme(
 const defaultPadding = 8.0;
 
 const kMainColor = Color(0xff03CFB5);
+
+// const kSelectedContainerColor = Color(0xff6791e9);
+const kSelectedContainerColor = Color(0xff4B9BFB);
+
+const kContainerColor = Color(0xffD5E9FF);
+
+const List<String> labels = [
+  "대화 듣기",
+  "말하기",
+  "물체 보기",
+  "물체 잡기",
+  "물체 던지기",
+  "식사하기",
+  "폭력적인 행동",
+  "앉기",
+  "일어나기",
+  "싸우기",
+  "걷기",
+  "뛰기",
+  "밀기",
+  "손 흔들기",
+  "읽기",
+];

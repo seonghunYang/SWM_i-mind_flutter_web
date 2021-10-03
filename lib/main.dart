@@ -1,5 +1,8 @@
 import 'package:ai_counseling_platform/constants.dart';
+import 'package:ai_counseling_platform/controllers/chips_controller.dart';
 import 'package:ai_counseling_platform/controllers/scrollable_appbar_controller.dart';
+import 'package:ai_counseling_platform/controllers/slider_controller.dart';
+import 'package:ai_counseling_platform/controllers/stepper_controller.dart';
 import 'package:ai_counseling_platform/controllers/user_controller.dart';
 import 'package:ai_counseling_platform/screens/custom_screen/custom_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +25,15 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (context) => UserController(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => StepperController(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => SliderController(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => ChipsController(),
           ),
         ],
         builder: (context, child) {
