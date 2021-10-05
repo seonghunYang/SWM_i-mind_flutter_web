@@ -41,6 +41,7 @@ const kMainColor = Color(0xff03CFB5);
 
 // const kSelectedContainerColor = Color(0xff6791e9);
 const kSelectedContainerColor = Color(0xff4B9BFB);
+const kTextColor = Color(0xff1253f3);
 
 const kContainerColor = Color(0xffD5E9FF);
 

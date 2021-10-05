@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class ScrollableAppbarController extends ChangeNotifier {
+class ScrollPositionController extends ChangeNotifier {
   bool isTransparent = true;
 
   void scrollListener(ScrollController scrollController) {
@@ -13,5 +13,11 @@ class ScrollableAppbarController extends ChangeNotifier {
         notifyListeners();
       }
     });
+  }
+
+  void scrollToPosition(ScrollController scrollController) {
+    scrollController.jumpTo(340);
+
+    notifyListeners();
   }
 }

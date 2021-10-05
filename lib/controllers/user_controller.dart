@@ -9,12 +9,14 @@ class UserController extends ChangeNotifier {
     //todo 로그인 http 통신
     user = User(email: email, centerName: "그로잉맘");
     isLogin = true;
+    notifyListeners();
     return isLogin;
   }
 
   bool logout() {
     //todo 로그인 http 통신
     isLogin = false;
+    notifyListeners();
     return true;
   }
 }

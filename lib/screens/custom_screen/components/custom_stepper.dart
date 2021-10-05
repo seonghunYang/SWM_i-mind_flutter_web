@@ -1,35 +1,20 @@
+import 'package:ai_counseling_platform/controllers/scrollable_position_controller.dart';
 import 'package:ai_counseling_platform/controllers/slider_controller.dart';
+import 'package:ai_counseling_platform/screens/custom_screen/components/stepper_advanced.dart';
 import 'package:ai_counseling_platform/screens/custom_screen/components/stepper_fundemental.dart';
 import 'package:ai_counseling_platform/screens/custom_screen/components/stepper_item.dart';
 import 'package:ai_counseling_platform/screens/custom_screen/components/stepper_line.dart';
-import 'package:ai_counseling_platform/screens/custom_screen/components/threshold_slider.dart';
+import 'package:ai_counseling_platform/screens/custom_screen/components/stepper_pricing.dart';
+import 'package:ai_counseling_platform/screens/custom_screen/components/stepper_remote_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ai_counseling_platform/controllers/stepper_controller.dart';
 import '../../../constants.dart';
-import 'action_label_wrap.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 
-class CustomStepper extends StatefulWidget {
+class CustomStepper extends StatelessWidget {
   const CustomStepper({
     Key? key,
   }) : super(key: key);
-
-  @override
-  State<CustomStepper> createState() => _CustomStepperState();
-}
-
-class _CustomStepperState extends State<CustomStepper> {
-  int currentNumberKey = 0;
-
-  Widget getStepperScreen() {
-    switch (currentNumberKey) {
-      case 0:
-        return const StepperFundemental();
-      default:
-        return const StepperFundemental();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +60,7 @@ class _CustomStepperState extends State<CustomStepper> {
                       currentNumberKey: currentNumberKey,
                     ),
                     StepperItem(
-                      text: "3단계: 요금 설정 및 최종 확인",
+                      text: "3단계: 요금 확인 및 모델 생성",
                       currentNumberKey: currentNumberKey,
                       numberKey: 2,
                       width: 210,
@@ -83,52 +68,29 @@ class _CustomStepperState extends State<CustomStepper> {
                   ],
                 );
               }),
-          getStepperScreen(),
           Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: defaultPadding * 28,
+            padding: EdgeInsets.symmetric(vertical: defaultPadding * 12),
+            margin: const EdgeInsets.only(
+              left: defaultPadding * 28,
+              right: defaultPadding * 28,
+              top: defaultPadding * 6,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    if (currentNumberKey > 0) {
-                      setState(() {
-                        currentNumberKey--;
-                      });
-                    }
-                  },
-                  child: Text(
-                    "Back",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText2!
-                        .copyWith(fontSize: 16, color: kSelectedContainerColor),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    if (currentNumberKey < 2) {
-                      setState(() {
-                        currentNumberKey++;
-                      });
-                    }
-                  },
-                  child: StepperItem(
-                    text: "Next",
-                    numberKey: 7,
-                    currentNumberKey: 7,
-                    fontSize: 16,
-                    borderWidth: 5,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: defaultPadding * 6,
-                        vertical: defaultPadding * 1.5),
-                  ),
-                )
-              ],
+            decoration:
+                BoxDecoration(border: Border.all(color: kContainerColor)),
+            child: Consumer<StepperController>(
+              builder: (context, stepperController, _) {
+                int currentNumberKey = stepperController.currentNumberKey;
+
+                if (currentNumberKey == 0) {
+                  return const StepperFundemental();
+                } else if (currentNumberKey == 1) {
+                  return const StepperAdvanced();
+                } else {
+                  return const StepperPricing();
+                }
+              },
             ),
-          )
+          ),
         ],
       ),
     );

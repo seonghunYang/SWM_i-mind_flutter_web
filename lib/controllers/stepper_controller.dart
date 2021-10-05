@@ -5,8 +5,13 @@ class StepperController extends ChangeNotifier {
 
   int get getCurrentNumberKey => currentNumberKey;
 
-  void updateCurrentNumberKey(int newValue) {
-    currentNumberKey = newValue;
+  void plusCurrentNumberKey() {
+    currentNumberKey++;
+    notifyListeners();
+  }
+
+  void minusCurrentNumberKey() {
+    currentNumberKey--;
     notifyListeners();
   }
 }

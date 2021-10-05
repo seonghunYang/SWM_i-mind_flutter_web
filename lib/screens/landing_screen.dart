@@ -1,5 +1,5 @@
 import 'package:ai_counseling_platform/constants.dart';
-import 'package:ai_counseling_platform/controllers/scrollable_appbar_controller.dart';
+import 'package:ai_counseling_platform/controllers/scrollable_position_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'components/above_the_fold.dart';
@@ -31,9 +31,7 @@ class _LandingScreenState extends State<LandingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    context
-        .read<ScrollableAppbarController>()
-        .scrollListener(_scrollController);
+    context.read<ScrollPositionController>().scrollListener(_scrollController);
     return Scaffold(
       appBar: const ScrollableAppbar(
         transparent: true,

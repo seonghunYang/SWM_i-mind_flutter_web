@@ -11,6 +11,7 @@ class StepperItem extends StatelessWidget {
     this.fontSize = 12,
     this.borderWidth = 2.0,
     this.currentNumberKey,
+    this.inactiveColor = kContainerColor,
     this.selectedNumberKeyList,
     this.padding = const EdgeInsets.symmetric(
         horizontal: defaultPadding * 1.5, vertical: defaultPadding * 1.5),
@@ -23,6 +24,7 @@ class StepperItem extends StatelessWidget {
   final double? width;
   final double fontSize;
   final double borderWidth;
+  final Color inactiveColor;
   final List<int>? selectedNumberKeyList;
   final EdgeInsetsGeometry padding;
 
@@ -41,8 +43,8 @@ class StepperItem extends StatelessWidget {
       width: width,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-          color: isSelected() ? kSelectedContainerColor : kContainerColor,
-          border: Border.all(color: kContainerColor, width: borderWidth),
+          color: isSelected() ? kSelectedContainerColor : inactiveColor,
+          border: Border.all(color: inactiveColor, width: borderWidth),
           borderRadius: BorderRadius.all(Radius.circular(30.0))),
       child: Text(
         text,

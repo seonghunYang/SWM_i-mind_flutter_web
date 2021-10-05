@@ -1,5 +1,7 @@
-import 'package:ai_counseling_platform/controllers/scrollable_appbar_controller.dart';
+import 'package:ai_counseling_platform/controllers/scrollable_position_controller.dart';
+import 'package:ai_counseling_platform/controllers/user_controller.dart';
 import 'package:ai_counseling_platform/screens/custom_screen/custom_screen.dart';
+import 'package:ai_counseling_platform/screens/dashboard_screen/dashboard_router_screen.dart';
 import 'package:ai_counseling_platform/screens/landing_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,9 +11,11 @@ class ScrollableAppbar extends StatelessWidget with PreferredSizeWidget {
   const ScrollableAppbar({
     Key? key,
     required this.transparent,
+    this.buttonColor = kMainColor,
   }) : super(key: key);
 
   final bool transparent;
+  final Color buttonColor;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -24,9 +28,10 @@ class ScrollableAppbar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UserController userController = context.watch<UserController>();
     final bool isTransparent;
     if (transparent) {
-      isTransparent = context.watch<ScrollableAppbarController>().isTransparent;
+      isTransparent = context.watch<ScrollPositionController>().isTransparent;
     } else {
       isTransparent = false;
     }
@@ -91,9 +96,12 @@ class ScrollableAppbar extends StatelessWidget with PreferredSizeWidget {
       centerTitle: true,
       actions: [
         InkWell(
+          onTap: () {
+            userController.login(email: 'asd@dasd', password: "asd123");
+          },
           child: Center(
             child: Text(
-              "로그인",
+              userController.isLogin ? "" : "로그인",
               style: textStyle!.copyWith(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
@@ -104,21 +112,28 @@ class ScrollableAppbar extends StatelessWidget with PreferredSizeWidget {
         const SizedBox(
           width: 30,
         ),
-        Container(
-          alignment: Alignment.center,
-          margin: const EdgeInsets.symmetric(vertical: defaultPadding),
-          padding: const EdgeInsets.symmetric(horizontal: defaultPadding * 3),
-          child: Text(
-            "무료 회원가입",
-            style: TextStyle(
-              color: isTransparent ? kMainColor : Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
+        InkWell(
+          onTap: () {
+            if (userController.isLogin) {
+              Navigator.pushNamed(context, DashboardRouterScreen.id);
+            }
+          },
+          child: Container(
+            alignment: Alignment.center,
+            margin: const EdgeInsets.symmetric(vertical: defaultPadding),
+            padding: const EdgeInsets.symmetric(horizontal: defaultPadding * 3),
+            child: Text(
+              userController.isLogin ? "내 상담실" : "무료 회원가입",
+              style: TextStyle(
+                color: isTransparent ? kMainColor : Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
             ),
+            decoration: BoxDecoration(
+                color: isTransparent ? Colors.white : buttonColor,
+                borderRadius: BorderRadius.all(Radius.circular(20.0))),
           ),
-          decoration: BoxDecoration(
-              color: isTransparent ? Colors.white : kMainColor,
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
         ),
         const SizedBox(
           width: 30,

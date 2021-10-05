@@ -10,7 +10,8 @@ class ServiceInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      color: const Color(0xfff7f8fc),
       padding: const EdgeInsets.symmetric(
           horizontal: defaultPadding * 15, vertical: defaultPadding * 3),
       child: Row(

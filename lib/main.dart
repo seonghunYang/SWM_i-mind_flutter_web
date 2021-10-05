@@ -1,10 +1,13 @@
 import 'package:ai_counseling_platform/constants.dart';
 import 'package:ai_counseling_platform/controllers/chips_controller.dart';
-import 'package:ai_counseling_platform/controllers/scrollable_appbar_controller.dart';
+import 'package:ai_counseling_platform/controllers/custom_logic_controller.dart';
+import 'package:ai_counseling_platform/controllers/menu_controller.dart';
+import 'package:ai_counseling_platform/controllers/scrollable_position_controller.dart';
 import 'package:ai_counseling_platform/controllers/slider_controller.dart';
 import 'package:ai_counseling_platform/controllers/stepper_controller.dart';
 import 'package:ai_counseling_platform/controllers/user_controller.dart';
 import 'package:ai_counseling_platform/screens/custom_screen/custom_screen.dart';
+import 'package:ai_counseling_platform/screens/dashboard_screen/dashboard_router_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'screens/landing_screen.dart';
@@ -21,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
-            create: (context) => ScrollableAppbarController(),
+            create: (context) => ScrollPositionController(),
           ),
           ChangeNotifierProvider(
             create: (context) => UserController(),
@@ -35,6 +38,12 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (context) => ChipsController(),
           ),
+          ChangeNotifierProvider(
+            create: (context) => CustomLogicController(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => MenuController(),
+          ),
         ],
         builder: (context, child) {
           return MaterialApp(
@@ -47,8 +56,10 @@ class MyApp extends StatelessWidget {
             ),
             initialRoute: LandingScreen.id,
             routes: {
-              LandingScreen.id: (context) => LandingScreen(),
-              CustomScreen.id: (context) => CustomScreen(),
+              LandingScreen.id: (context) => const LandingScreen(),
+              CustomScreen.id: (context) => const CustomScreen(),
+              DashboardRouterScreen.id: (context) =>
+                  const DashboardRouterScreen(),
             },
           );
         });
