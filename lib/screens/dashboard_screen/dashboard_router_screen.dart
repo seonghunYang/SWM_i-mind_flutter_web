@@ -1,4 +1,5 @@
 import 'package:ai_counseling_platform/controllers/menu_controller.dart';
+import 'package:ai_counseling_platform/screens/dashboard_screen/screens/dashboard_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 
@@ -21,7 +22,7 @@ class DashboardRouterScreen extends StatelessWidget {
             if (Responsive.isDesktop(context)) Expanded(child: SideMenu()),
             Expanded(
               flex: 5,
-              child: Container(),
+              child: DashboardHomeScreen(),
             ),
           ],
         ),
