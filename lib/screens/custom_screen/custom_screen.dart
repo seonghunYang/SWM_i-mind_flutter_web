@@ -29,7 +29,6 @@ class _CustomScreenState extends State<CustomScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("a");
     return Scaffold(
       appBar: const ScrollableAppbar(
         transparent: false,
@@ -41,14 +40,16 @@ class _CustomScreenState extends State<CustomScreen> {
           controller: _scrollController,
           slivers: [
             SliverList(
-              delegate: SliverChildListDelegate([
-                const ServiceInfo(),
-                const CustomStepper(),
-                StepperRemoteButtons(
-                  scrollController: _scrollController,
-                ),
-                const Footer(),
-              ]),
+              delegate: SliverChildListDelegate(
+                [
+                  const ServiceInfo(),
+                  const CustomStepper(),
+                  StepperRemoteButtons(
+                    scrollController: _scrollController,
+                  ),
+                  const Footer(),
+                ],
+              ),
             ),
           ],
         ),

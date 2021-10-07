@@ -35,6 +35,8 @@ dependencies:
   fl_chart: ^0.40.0
   http: ^0.13.3
   flutter_svg: ^0.22.0
+  syncfusion_flutter_datagrid: ^19.3.44
+  table_calendar: ^3.0.2
 
 dev_dependencies:
   flutter_test:

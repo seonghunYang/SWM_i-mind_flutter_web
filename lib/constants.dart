@@ -63,9 +63,8 @@ const List<String> labels = [
   "읽기",
 ];
 
-// const kDashboardMenuColor = Color(0xffFEFDFF);
+const kDashboardMenuColor = Color(0xffFEFDFF);
 
-const kDashboardMenuColor = Color(0xfff9fafb);
-
+// const kDashboardMenuColor = Color(0xfff9fafb);
 const kDashboardTextColor = Color(0xffa3acad);
 const kSelectedDashboardTextColor = Color(0xff49AD77);
