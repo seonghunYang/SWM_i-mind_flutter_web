@@ -1,16 +1,11 @@
-import 'package:ai_counseling_platform/controllers/customer_controller.dart';
-import 'package:ai_counseling_platform/model/customer.dart';
+import 'package:ai_counseling_platform/screens/dashboard_screen/components/customer_table.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/components/dashboard_bar_chart.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/components/line_area_chart.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/components/number_data_card.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/components/profile_card.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/components/schedule_calendar.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
-import 'package:syncfusion_flutter_datagrid/datagrid.dart';
-import 'package:table_calendar/table_calendar.dart';
 import '../../../constants.dart';
-import 'package:intl/intl.dart';
 
 class DashboardHomeScreen extends StatefulWidget {
   const DashboardHomeScreen({Key? key}) : super(key: key);
@@ -61,7 +56,7 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
                         ),
                       ),
                       Row(
-                        children: [
+                        children: const [
                           Expanded(
                             flex: 1,
                             child: NumberDataCard(
@@ -234,7 +229,7 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
                           left: BorderSide(color: Colors.grey, width: 0.3))),
                   child: Column(
                     children: [
-                      ProfileCard(),
+                      ProfileCard(isBorder: true),
                       Container(
                         padding: EdgeInsets.all(defaultPadding * 1.5),
                         child: ScheduleCalendar(),

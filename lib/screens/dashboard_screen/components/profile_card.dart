@@ -5,8 +5,10 @@ import '../../../constants.dart';
 class ProfileCard extends StatelessWidget {
   const ProfileCard({
     Key? key,
+    required this.isBorder,
   }) : super(key: key);
 
+  final bool isBorder;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,7 +19,9 @@ class ProfileCard extends StatelessWidget {
       ),
       decoration: BoxDecoration(
           color: kDashboardMenuColor,
-          border: Border(bottom: BorderSide(color: Colors.grey, width: 0.3))),
+          border: isBorder
+              ? Border(bottom: BorderSide(color: Colors.grey, width: 0.3))
+              : null),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

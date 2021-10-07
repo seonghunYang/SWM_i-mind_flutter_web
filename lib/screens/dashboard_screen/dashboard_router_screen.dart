@@ -1,6 +1,8 @@
 import 'package:ai_counseling_platform/controllers/menu_controller.dart';
+import 'package:ai_counseling_platform/screens/dashboard_screen/screens/dashboard_customer_manage_screen.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/screens/dashboard_home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:provider/src/provider.dart';
 
 import '../../responsive.dart';
@@ -11,6 +13,17 @@ class DashboardRouterScreen extends StatelessWidget {
 
   static String id = "dashboardRouterScreen";
 
+  Widget getDashboardScreen(int index) {
+    switch (index) {
+      case 0:
+        return const DashboardHomeScreen();
+      case 1:
+        return const DashboardCustomerManageScreen();
+      default:
+        return const DashboardHomeScreen();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,10 +33,12 @@ class DashboardRouterScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (Responsive.isDesktop(context)) Expanded(child: SideMenu()),
-            Expanded(
-              flex: 5,
-              child: DashboardHomeScreen(),
-            ),
+            Consumer<MenuController>(builder: (context, menuController, _) {
+              return Expanded(
+                flex: 5,
+                child: getDashboardScreen(menuController.selectedMenuIndex),
+              );
+            }),
           ],
         ),
       ),

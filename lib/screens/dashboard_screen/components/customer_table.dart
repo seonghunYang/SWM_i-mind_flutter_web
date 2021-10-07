@@ -1,3 +1,8 @@
+import 'package:ai_counseling_platform/controllers/customer_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+
 class CustomerTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
