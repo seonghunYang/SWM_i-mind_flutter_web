@@ -207,6 +207,9 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
                                       .subtitle1!
                                       .copyWith(fontWeight: FontWeight.bold),
                                 ),
+                                SizedBox(
+                                  height: defaultPadding * 2,
+                                ),
                                 Expanded(
                                   child: CustomerTable(),
                                 ),

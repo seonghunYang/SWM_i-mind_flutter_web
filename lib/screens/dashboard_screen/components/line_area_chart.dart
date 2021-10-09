@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
+import '../../../constants.dart';
+
 class LineAreaChart extends StatelessWidget {
   const LineAreaChart({
     Key? key,
+    this.bottomLineVisible = true,
+    this.leftLineVisible = true,
+    this.gridLineVisible = true,
+    this.areaColor = kSelectedDashboardTextColor,
   }) : super(key: key);
+
+  final bool bottomLineVisible;
+  final bool leftLineVisible;
+  final bool gridLineVisible;
+  final Color areaColor;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +27,7 @@ class LineAreaChart extends StatelessWidget {
           ),
         ),
         gridData: FlGridData(
-          show: true,
+          show: gridLineVisible,
           drawVerticalLine: false,
           getDrawingHorizontalLine: (value) {
             return FlLine(
@@ -30,7 +41,7 @@ class LineAreaChart extends StatelessWidget {
           rightTitles: SideTitles(showTitles: false),
           topTitles: SideTitles(showTitles: false),
           bottomTitles: SideTitles(
-            showTitles: true,
+            showTitles: bottomLineVisible,
             reservedSize: 22,
             interval: 1,
             getTextStyles: (context, value) => const TextStyle(
@@ -55,7 +66,7 @@ class LineAreaChart extends StatelessWidget {
             margin: 0,
           ),
           leftTitles: SideTitles(
-            showTitles: true,
+            showTitles: leftLineVisible,
             interval: 1,
             getTextStyles: (context, value) => const TextStyle(
               color: Colors.black38,
@@ -114,7 +125,7 @@ class LineAreaChart extends StatelessWidget {
               FlSpot(20, 3.8),
             ],
             isCurved: true,
-            colors: [Color(0xff5CB082)],
+            colors: [areaColor],
             barWidth: 2,
             isStrokeCapRound: true,
             dotData: FlDotData(
@@ -125,7 +136,7 @@ class LineAreaChart extends StatelessWidget {
               gradientTo: Offset(1, 0.8),
               show: true,
               colors: [
-                Color(0xffa2e2a9),
+                areaColor,
                 Colors.white,
               ].map((color) => color.withOpacity(0.3)).toList(),
             ),

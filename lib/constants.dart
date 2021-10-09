@@ -18,8 +18,8 @@ const kTextTheme = TextTheme(
   ),
   headline4: TextStyle(
     color: Colors.black,
-    fontSize: 34,
-    fontWeight: FontWeight.w500,
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
   ),
   subtitle1: TextStyle(
     color: Colors.black,
