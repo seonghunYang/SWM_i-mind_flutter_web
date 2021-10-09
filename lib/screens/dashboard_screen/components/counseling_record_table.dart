@@ -1,3 +1,4 @@
+import 'package:ai_counseling_platform/controllers/counseling_record_controller.dart';
 import 'package:ai_counseling_platform/controllers/customer_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
@@ -10,11 +11,12 @@ const TextStyle headerTextStyle =
 const EdgeInsetsGeometry headerPadding = EdgeInsets.symmetric(
     vertical: defaultPadding, horizontal: defaultPadding * 2);
 
-class CustomerTable extends StatelessWidget {
+class CounselingRecordTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final CustomerDataSource customerDataSource =
-        context.watch<CustomerController>().getCustomerDataSource();
+    final CounselingRecordDattaSource counselingRecordDattaSource = context
+        .watch<CounselingRecordController>()
+        .getCounselingRecordDattaSource(context);
     return SfDataGrid(
       selectionMode: SelectionMode.single,
       headerGridLinesVisibility: GridLinesVisibility.none,
@@ -22,65 +24,55 @@ class CustomerTable extends StatelessWidget {
       gridLinesVisibility: GridLinesVisibility.none,
       columnWidthMode: ColumnWidthMode.fill,
       rowHeight: 60,
-      source: customerDataSource,
+      source: counselingRecordDattaSource,
       columns: <GridColumn>[
         GridColumn(
-            columnName: 'Id',
+            columnName: 'counselingId',
             label: Container(
                 color: kDasboardTextColor,
                 padding: headerPadding,
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'ID',
+                  '상담ID',
                   style: headerTextStyle,
                 ))),
         GridColumn(
-            columnName: 'Name',
+            columnName: 'customerId',
             label: Container(
                 color: kDasboardTextColor,
                 padding: headerPadding,
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Name',
+                  '고객ID',
                   style: headerTextStyle,
                 ))),
         GridColumn(
-            columnName: 'Category',
+            columnName: 'childName',
+            label: Container(
+                color: kDasboardTextColor,
+                padding: headerPadding,
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '자녀이름',
+                  style: headerTextStyle,
+                ))),
+        GridColumn(
+            columnName: 'category',
             width: 120,
             label: Container(
                 color: kDasboardTextColor,
                 padding: headerPadding,
                 alignment: Alignment.centerLeft,
-                child: Text('Category', style: headerTextStyle))),
+                child: Text('상담종류', style: headerTextStyle))),
         GridColumn(
-            columnName: 'Age',
+            columnName: 'date',
+            maximumWidth: 150,
             label: Container(
                 color: kDasboardTextColor,
                 padding: headerPadding,
                 alignment: Alignment.centerRight,
                 child: Text(
-                  'Age',
-                  style: headerTextStyle,
-                ))),
-        GridColumn(
-            columnName: 'Gender',
-            label: Container(
-                color: kDasboardTextColor,
-                padding: headerPadding,
-                alignment: Alignment.centerRight,
-                child: Text(
-                  'Gender',
-                  style: headerTextStyle,
-                ))),
-        GridColumn(
-            columnName: 'Email',
-            width: 190,
-            label: Container(
-                color: kDasboardTextColor,
-                padding: headerPadding,
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Email',
+                  '날짜',
                   style: headerTextStyle,
                 ))),
         GridColumn(

@@ -1,81 +1,75 @@
-import 'package:ai_counseling_platform/model/customer.dart';
+import 'package:ai_counseling_platform/controllers/menu_controller.dart';
+import 'package:ai_counseling_platform/model/conseling_record.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 import '../constants.dart';
 
-class CustomerController extends ChangeNotifier {
-  bool isSelected = true;
-  String? selectedCustomerId;
+class CounselingRecordController extends ChangeNotifier {
+  String? selectedCounselingRecordId;
 
-  void selectCustomer() {
-    isSelected = true;
+  void selectCounselingRecord(String id) {
+    selectedCounselingRecordId = id;
+    //todo 탭바도 이
     notifyListeners();
   }
 
-  void unSelectCustomer() {
-    isSelected = false;
-    notifyListeners();
+  void getCounselingRecordInfo(String customerId) async {
+    //todo 상담기록들 가져오기
   }
 
-  void getCustomerInfo(String customerId) async {
-    //todo 고객 정보 받아오기
-  }
-
-  List<Customer> customers = [
-    Customer(10001, '양희남', "양성훈", 4, "남아", "didtjgns852@gmail.com"),
-    Customer(10001, '양희남', "양성훈", 4, "남아", "didtjgns852@gmail.com"),
-    Customer(10001, '양희남', "양성훈", 4, "남아", "didtjgns852@gmail.com"),
-    Customer(10001, '양희남', "양성훈", 4, "남아", "didtjgns852@gmail.com"),
-    Customer(10001, '양희남', "양성훈", 4, "남아", "didtjgns852@gmail.com"),
-    Customer(10001, '양희남', "양성훈", 4, "남아", "didtjgns852@gmail.com"),
-    Customer(10001, '양희남', "양성훈", 4, "남아", "didtjgns852@gmail.com"),
-    Customer(10001, '양희남', "양성훈", 4, "남아", "didtjgns852@gmail.com"),
-    Customer(10001, '양희남', "양성훈", 4, "남아", "didtjgns852@gmail.com"),
+  List<CounselingRecord> counselingRecordList = [
+    CounselingRecord("1", "10001", "양성훈", "놀이영상분석", "2021-03-18"),
+    CounselingRecord("2", "10001", "양성훈", "놀이영상분석", "2021-05-21"),
+    CounselingRecord("3", "10001", "양성훈", "놀이영상분석", "2021-07-31"),
+    CounselingRecord("4", "10001", "양성훈", "놀이영상분석", "2021-09-28"),
   ];
 
-  CustomerDataSource getCustomerDataSource() {
-    return CustomerDataSource(
-        customers: customers,
-        selectCustomer: selectCustomer,
-        unSelectCustomer: unSelectCustomer);
+  CounselingRecordDattaSource getCounselingRecordDattaSource(
+      BuildContext context) {
+    return CounselingRecordDattaSource(
+      counselingRecordList: counselingRecordList,
+      selectCounselingRecord: selectCounselingRecord,
+      context: context,
+    );
   }
 }
 
-class CustomerDataSource extends DataGridSource {
-  CustomerDataSource(
-      {required List<Customer> customers,
-      required selectCustomer,
-      required unSelectCustomer}) {
-    _customers = customers
+class CounselingRecordDattaSource extends DataGridSource {
+  CounselingRecordDattaSource({
+    required List<CounselingRecord> counselingRecordList,
+    required selectCounselingRecord,
+    required context,
+  }) {
+    _counselingRecordList = counselingRecordList
         .map<DataGridRow>((e) => DataGridRow(cells: [
-              DataGridCell<int>(columnName: 'Id', value: e.id),
               DataGridCell<String>(
-                  columnName: 'parentName', value: e.parentName),
+                  columnName: 'counselingId', value: e.counselingId),
+              DataGridCell<String>(
+                  columnName: 'customerId', value: e.customerId),
               DataGridCell<String>(columnName: 'childName', value: e.childName),
-              DataGridCell<int>(columnName: 'Age', value: e.age),
-              DataGridCell<String>(columnName: 'Gender', value: e.gender),
-              DataGridCell<String>(columnName: 'Email', value: e.email),
+              DataGridCell<String>(columnName: 'category', value: e.category),
+              DataGridCell<String>(columnName: 'date', value: e.date),
               DataGridCell<String>(columnName: '', value: ""),
             ]))
         .toList();
-    this.selectCustomer = selectCustomer;
-    this.unSelectCustomer = unSelectCustomer;
+    this.selectCounselingRecord = selectCounselingRecord;
+    this.context = context;
   }
 
-  List<DataGridRow> _customers = [];
+  List<DataGridRow> _counselingRecordList = [];
 
-  late void Function() selectCustomer;
-  late void Function() unSelectCustomer;
-
+  late void Function(String) selectCounselingRecord;
+  late BuildContext context;
   @override
-  List<DataGridRow> get rows => _customers;
+  List<DataGridRow> get rows => _counselingRecordList;
 
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
     Color getBackgroundColor() {
-      int index = _customers.indexOf(row) + 1;
+      int index = _counselingRecordList.indexOf(row) + 1;
       if (index % 2 != 0) {
         return Colors.white;
       } else {
@@ -86,7 +80,7 @@ class CustomerDataSource extends DataGridSource {
     return DataGridRowAdapter(
         color: getBackgroundColor(),
         cells: row.getCells().map<Widget>((dataGridCell) {
-          if (dataGridCell.columnName == "Category") {
+          if (dataGridCell.columnName == "category") {
             return Container(
               alignment: Alignment.centerRight,
               padding: EdgeInsets.symmetric(
@@ -117,7 +111,8 @@ class CustomerDataSource extends DataGridSource {
                 child: PopupMenuButton(
                   onSelected: (value) {
                     if (value == 0) {
-                      selectCustomer();
+                      selectCounselingRecord(row.getCells()[0].value);
+                      context.read<MenuController>().updateMenuIndex(2);
                     }
                   },
                   icon: Icon(
@@ -127,14 +122,14 @@ class CustomerDataSource extends DataGridSource {
                   itemBuilder: (context) => [
                     const PopupMenuItem(
                       value: 0,
-                      child: Text('고객 상세정보'),
+                      child: Text('상담 기록 조회'),
                     ),
                   ],
                 ));
           } else {
             return Container(
-              alignment: dataGridCell.columnName == "Id" ||
-                      dataGridCell.columnName == "parentName" ||
+              alignment: dataGridCell.columnName == "counselingId" ||
+                      dataGridCell.columnName == "customerId" ||
                       dataGridCell.columnName == "childName"
                   ? Alignment.centerLeft
                   : Alignment.centerRight,

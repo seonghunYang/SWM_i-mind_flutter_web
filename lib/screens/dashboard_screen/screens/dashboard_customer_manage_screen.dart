@@ -1,4 +1,5 @@
 import 'package:ai_counseling_platform/controllers/customer_controller.dart';
+import 'package:ai_counseling_platform/screens/dashboard_screen/components/counseling_record_table.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/components/customer_table.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/components/facial_distribution.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/components/facial_info_card.dart';
@@ -148,6 +149,32 @@ class DashboardCustomerManageScreen extends StatelessWidget {
                                   ),
                                 )
                               ],
+                            ),
+                            SizedBox(
+                              height: defaultPadding,
+                            ),
+                            Expanded(
+                              child: Card(
+                                  elevation: 4,
+                                  child: Container(
+                                    padding: EdgeInsets.all(defaultPadding),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "상담 기록",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle1!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.bold),
+                                        ),
+                                        SizedBox(height: defaultPadding * 2),
+                                        CounselingRecordTable(),
+                                      ],
+                                    ),
+                                  )),
                             )
                           ],
                         ),

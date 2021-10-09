@@ -31,27 +31,26 @@ class CustomerTable extends StatelessWidget {
                 padding: headerPadding,
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'ID',
+                  '고객ID',
                   style: headerTextStyle,
                 ))),
         GridColumn(
-            columnName: 'Name',
+            columnName: 'parentName',
             label: Container(
                 color: kDasboardTextColor,
                 padding: headerPadding,
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Name',
+                  '보호자',
                   style: headerTextStyle,
                 ))),
         GridColumn(
-            columnName: 'Category',
-            width: 120,
+            columnName: 'childName',
             label: Container(
                 color: kDasboardTextColor,
                 padding: headerPadding,
                 alignment: Alignment.centerLeft,
-                child: Text('Category', style: headerTextStyle))),
+                child: Text('자녀이름', style: headerTextStyle))),
         GridColumn(
             columnName: 'Age',
             label: Container(
@@ -59,17 +58,17 @@ class CustomerTable extends StatelessWidget {
                 padding: headerPadding,
                 alignment: Alignment.centerRight,
                 child: Text(
-                  'Age',
+                  '나이',
                   style: headerTextStyle,
                 ))),
         GridColumn(
-            columnName: 'Gender',
+            columnName: 'gender',
             label: Container(
                 color: kDasboardTextColor,
                 padding: headerPadding,
                 alignment: Alignment.centerRight,
                 child: Text(
-                  'Gender',
+                  '성별',
                   style: headerTextStyle,
                 ))),
         GridColumn(

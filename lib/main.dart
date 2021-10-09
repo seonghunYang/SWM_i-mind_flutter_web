@@ -10,6 +10,7 @@ import 'package:ai_counseling_platform/screens/custom_screen/custom_screen.dart'
 import 'package:ai_counseling_platform/screens/dashboard_screen/dashboard_router_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'controllers/counseling_record_controller.dart';
 import 'controllers/customer_controller.dart';
 import 'screens/landing_screen.dart';
 
@@ -47,6 +48,9 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (context) => CustomerController(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => CounselingRecordController(),
           ),
         ],
         builder: (context, child) {

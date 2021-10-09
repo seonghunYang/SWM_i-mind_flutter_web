@@ -21,13 +21,13 @@ class _StatsRadarChartState extends State<StatsRadarChart> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             ChartIndicator(
-              color: Color(0xff4af699),
+              color: kSelectedDashboardTextColor,
               text: "최근 상담",
               isSquare: false,
               size: 12,
             ),
             ChartIndicator(
-              color: Color(0xffaa4cfc),
+              color: kSelectedContainerColor,
               text: "또래 점수평균",
               isSquare: false,
               size: 12,
