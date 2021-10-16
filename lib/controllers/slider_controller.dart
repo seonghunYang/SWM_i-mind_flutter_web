@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class SliderController extends ChangeNotifier {
-  double value = 50;
+  late dynamic value;
+  final String tooltipMessage;
+  SliderController({required this.value, this.tooltipMessage = ""});
 
   void updateValue(double newValue) {
-    value = newValue;
-    notifyListeners();
+    value = newValue.round();
   }
 }

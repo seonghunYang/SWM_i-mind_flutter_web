@@ -2,13 +2,13 @@ import 'package:ai_counseling_platform/constants.dart';
 import 'package:ai_counseling_platform/controllers/scrollable_position_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'components/above_the_fold.dart';
-import 'components/footer.dart';
-import 'components/partnes.dart';
-import 'components/platform_info.dart';
+import '../../components/above_the_fold.dart';
+import '../../components/footer.dart';
+import '../../components/partnes.dart';
+import '../../components/platform_info.dart';
 
-import 'components/sales_points.dart';
-import 'components/scrollable_appbar.dart';
+import '../../components/sales_points.dart';
+import '../../components/scrollable_appbar.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({Key? key}) : super(key: key);

@@ -33,17 +33,7 @@ class CounselingRecordTable extends StatelessWidget {
                 padding: headerPadding,
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  '상담ID',
-                  style: headerTextStyle,
-                ))),
-        GridColumn(
-            columnName: 'customerId',
-            label: Container(
-                color: kDasboardTextColor,
-                padding: headerPadding,
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  '고객ID',
+                  '번호',
                   style: headerTextStyle,
                 ))),
         GridColumn(
@@ -53,7 +43,17 @@ class CounselingRecordTable extends StatelessWidget {
                 padding: headerPadding,
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  '자녀이름',
+                  '아이이름',
+                  style: headerTextStyle,
+                ))),
+        GridColumn(
+            columnName: 'counselor',
+            label: Container(
+                color: kDasboardTextColor,
+                padding: headerPadding,
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '상담사',
                   style: headerTextStyle,
                 ))),
         GridColumn(
@@ -62,8 +62,18 @@ class CounselingRecordTable extends StatelessWidget {
             label: Container(
                 color: kDasboardTextColor,
                 padding: headerPadding,
-                alignment: Alignment.centerLeft,
+                alignment: Alignment.centerRight,
                 child: Text('상담종류', style: headerTextStyle))),
+        GridColumn(
+            columnName: 'counselingStatus',
+            label: Container(
+                color: kDasboardTextColor,
+                padding: headerPadding,
+                alignment: Alignment.centerRight,
+                child: Text(
+                  '상태',
+                  style: headerTextStyle,
+                ))),
         GridColumn(
             columnName: 'date',
             maximumWidth: 150,

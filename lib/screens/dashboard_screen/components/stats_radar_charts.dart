@@ -1,3 +1,4 @@
+import 'package:ai_counseling_platform/model/radarchart_rawdata.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -5,7 +6,14 @@ import '../../../constants.dart';
 import 'chart_indicator.dart';
 
 class StatsRadarChart extends StatefulWidget {
-  const StatsRadarChart({Key? key}) : super(key: key);
+  const StatsRadarChart({
+    Key? key,
+    required this.rawDatasets,
+    required this.indicators,
+  }) : super(key: key);
+
+  final List<RadarChartRawDataSet> rawDatasets;
+  final List<ChartIndicator> indicators;
 
   @override
   State<StatsRadarChart> createState() => _StatsRadarChartState();
@@ -18,22 +26,8 @@ class _StatsRadarChartState extends State<StatsRadarChart> {
     return Column(
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            ChartIndicator(
-              color: kSelectedDashboardTextColor,
-              text: "최근 상담",
-              isSquare: false,
-              size: 12,
-            ),
-            ChartIndicator(
-              color: kSelectedContainerColor,
-              text: "또래 점수평균",
-              isSquare: false,
-              size: 12,
-            ),
-          ],
-        ),
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: widget.indicators),
         SizedBox(
           height: defaultPadding * 2,
         ),
@@ -79,7 +73,7 @@ class _StatsRadarChartState extends State<StatsRadarChart> {
   }
 
   List<RadarDataSet> showingDataSets() {
-    return rawDataSets().asMap().entries.map((entry) {
+    return widget.rawDatasets.asMap().entries.map((entry) {
       var index = entry.key;
       var rawDataSet = entry.value;
       return RadarDataSet(
@@ -94,43 +88,4 @@ class _StatsRadarChartState extends State<StatsRadarChart> {
       );
     }).toList();
   }
-
-  List<RawDataSet> rawDataSets() {
-    return [
-      RawDataSet(
-        title: 'mean',
-        color: kSelectedContainerColor,
-        values: [
-          7,
-          6,
-          7,
-          6,
-          7,
-        ],
-      ),
-      RawDataSet(
-        title: 'recent',
-        color: kSelectedDashboardTextColor,
-        values: [
-          10,
-          8,
-          9,
-          10,
-          7,
-        ],
-      ),
-    ];
-  }
-}
-
-class RawDataSet {
-  final String title;
-  final Color color;
-  final List<double> values;
-
-  RawDataSet({
-    required this.title,
-    required this.color,
-    required this.values,
-  });
 }

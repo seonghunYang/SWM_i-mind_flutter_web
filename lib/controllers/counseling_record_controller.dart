@@ -21,10 +21,42 @@ class CounselingRecordController extends ChangeNotifier {
   }
 
   List<CounselingRecord> counselingRecordList = [
-    CounselingRecord("1", "10001", "양성훈", "놀이영상분석", "2021-03-18"),
-    CounselingRecord("2", "10001", "양성훈", "놀이영상분석", "2021-05-21"),
-    CounselingRecord("3", "10001", "양성훈", "놀이영상분석", "2021-07-31"),
-    CounselingRecord("4", "10001", "양성훈", "놀이영상분석", "2021-09-28"),
+    CounselingRecord(
+      counselingId: "4",
+      childName: "양성훈",
+      customerId: "양희남",
+      counselor: "이다랑",
+      category: "놀이영상분석",
+      date: "2021-09-28",
+      counselingStatus: "분석중",
+    ),
+    CounselingRecord(
+      counselingId: "3",
+      childName: "양성훈",
+      customerId: "양희남",
+      counselor: "이다랑",
+      category: "놀이영상분석",
+      date: "2021-07-31",
+      counselingStatus: "분석완료",
+    ),
+    CounselingRecord(
+      counselingId: "2",
+      childName: "양성훈",
+      customerId: "양희남",
+      counselor: "이다랑",
+      category: "놀이영상분석",
+      date: "2021-05-21",
+      counselingStatus: "상담완료",
+    ),
+    CounselingRecord(
+      counselingId: "1",
+      childName: "양성훈",
+      customerId: "양희남",
+      counselor: "이다랑",
+      category: "놀이영상분석",
+      date: "2021-03-18",
+      counselingStatus: "상담완료",
+    ),
   ];
 
   CounselingRecordDattaSource getCounselingRecordDattaSource(
@@ -47,10 +79,11 @@ class CounselingRecordDattaSource extends DataGridSource {
         .map<DataGridRow>((e) => DataGridRow(cells: [
               DataGridCell<String>(
                   columnName: 'counselingId', value: e.counselingId),
-              DataGridCell<String>(
-                  columnName: 'customerId', value: e.customerId),
               DataGridCell<String>(columnName: 'childName', value: e.childName),
+              DataGridCell<String>(columnName: 'counselor', value: e.counselor),
               DataGridCell<String>(columnName: 'category', value: e.category),
+              DataGridCell<String>(
+                  columnName: 'counselingStatus', value: e.counselingStatus),
               DataGridCell<String>(columnName: 'date', value: e.date),
               DataGridCell<String>(columnName: '', value: ""),
             ]))
@@ -74,6 +107,16 @@ class CounselingRecordDattaSource extends DataGridSource {
         return Colors.white;
       } else {
         return kDasboardTextColor.withOpacity(0.3);
+      }
+    }
+
+    Color getCounselingStatus(String status) {
+      if (status == "분석중") {
+        return Colors.red;
+      } else if (status == "분석완료") {
+        return Colors.blue;
+      } else {
+        return kSelectedDashboardTextColor;
       }
     }
 
@@ -129,7 +172,7 @@ class CounselingRecordDattaSource extends DataGridSource {
           } else {
             return Container(
               alignment: dataGridCell.columnName == "counselingId" ||
-                      dataGridCell.columnName == "customerId" ||
+                      dataGridCell.columnName == "counselor" ||
                       dataGridCell.columnName == "childName"
                   ? Alignment.centerLeft
                   : Alignment.centerRight,
@@ -137,8 +180,18 @@ class CounselingRecordDattaSource extends DataGridSource {
                 horizontal: 16.0,
               ),
               child: Text(
-                dataGridCell.value.toString(),
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                dataGridCell.columnName == "counselingStatus"
+                    ? "[${dataGridCell.value.toString()}]"
+                    : dataGridCell.value.toString(),
+                style: dataGridCell.columnName == "counselingStatus"
+                    ? TextStyle(
+                        fontSize: 12,
+                        fontStyle: FontStyle.italic,
+                        color: getCounselingStatus(dataGridCell.value))
+                    : TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
               ),
             );
           }

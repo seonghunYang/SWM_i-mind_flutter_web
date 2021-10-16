@@ -2,10 +2,12 @@ import 'package:ai_counseling_platform/controllers/scrollable_position_controlle
 import 'package:ai_counseling_platform/controllers/user_controller.dart';
 import 'package:ai_counseling_platform/screens/custom_screen/custom_screen.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/dashboard_router_screen.dart';
-import 'package:ai_counseling_platform/screens/landing_screen.dart';
+import 'package:ai_counseling_platform/screens/dashboard_screen/components/landing_screen.dart';
+import 'package:ai_counseling_platform/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../constants.dart';
+import '../signup_screen.dart';
 
 class ScrollableAppbar extends StatelessWidget with PreferredSizeWidget {
   const ScrollableAppbar({
@@ -97,11 +99,13 @@ class ScrollableAppbar extends StatelessWidget with PreferredSizeWidget {
       actions: [
         InkWell(
           onTap: () {
-            userController.login(email: 'asd@dasd', password: "asd123");
+            userController.user != null
+                ? userController.logout()
+                : Navigator.pushNamed(context, LoginScreen.id);
           },
           child: Center(
             child: Text(
-              userController.isLogin ? "" : "로그인",
+              userController.user != null ? "로그아웃" : "로그인",
               style: textStyle!.copyWith(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
@@ -114,8 +118,12 @@ class ScrollableAppbar extends StatelessWidget with PreferredSizeWidget {
         ),
         InkWell(
           onTap: () {
-            if (userController.isLogin) {
+            if (userController.user != null) {
               Navigator.pushNamed(context, DashboardRouterScreen.id);
+            } else {
+              // userController.signUp();
+              // userController.confirm();
+              Navigator.pushNamed(context, SignupScreen.id);
             }
           },
           child: Container(
@@ -123,7 +131,7 @@ class ScrollableAppbar extends StatelessWidget with PreferredSizeWidget {
             margin: const EdgeInsets.symmetric(vertical: defaultPadding),
             padding: const EdgeInsets.symmetric(horizontal: defaultPadding * 3),
             child: Text(
-              userController.isLogin ? "내 상담실" : "무료 회원가입",
+              userController.user != null ? "내 상담실" : "무료 회원가입",
               style: TextStyle(
                 color: isTransparent ? kMainColor : Colors.white,
                 fontSize: 14,

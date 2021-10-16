@@ -1,9 +1,12 @@
+import 'package:ai_counseling_platform/model/linechart_metadata.dart';
+import 'package:ai_counseling_platform/model/linechart_rawdata.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/components/customer_table.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/components/dashboard_bar_chart.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/components/line_area_chart.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/components/number_data_card.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/components/profile_card.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/components/schedule_calendar.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import '../../../constants.dart';
 
@@ -140,9 +143,74 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
                                             .copyWith(
                                                 fontWeight: FontWeight.bold),
                                       ),
-                                      AspectRatio(
-                                        aspectRatio: 1.4,
-                                        child: LineAreaChart(),
+                                      Expanded(
+                                        child: LineAreaChart(
+                                          lineChartMetaData: LineChartMetaData(
+                                            minX: 0,
+                                            maxX: 20,
+                                            minY: 0,
+                                            maxY: 6,
+                                            leftTitle: (value) {
+                                              switch (value.toInt()) {
+                                                case 1:
+                                                  return '20';
+                                                case 2:
+                                                  return '40';
+                                                case 3:
+                                                  return '60';
+                                                case 4:
+                                                  return '80';
+                                                case 5:
+                                                  return '100';
+                                              }
+                                              return '';
+                                            },
+                                            bottomTitle: (value) {
+                                              switch (value.toInt()) {
+                                                case 2:
+                                                  return 'JAN';
+                                                case 6:
+                                                  return 'MAR';
+                                                case 10:
+                                                  return 'JUN';
+                                                case 14:
+                                                  return 'SEP';
+                                                case 18:
+                                                  return 'NOV';
+                                              }
+                                              return '';
+                                            },
+                                          ),
+                                          lineChartRawDataSets: [
+                                            LineChartRawDataSet(
+                                                title: "--",
+                                                color:
+                                                    kSelectedDashboardTextColor,
+                                                values: [
+                                                  [0, 2],
+                                                  [1, 1.8],
+                                                  [2, 2],
+                                                  [3, 2.1],
+                                                  [4, 2.2],
+                                                  [5, 3.5],
+                                                  [6, 4.4],
+                                                  [7, 4.6],
+                                                  [8, 3.9],
+                                                  [9, 3.8],
+                                                  [10, 4.4],
+                                                  [11, 3.5],
+                                                  [12, 2.9],
+                                                  [13, 3.25],
+                                                  [14, 3.8],
+                                                  [15, 3.9],
+                                                  [16, 4.1],
+                                                  [17, 4.2],
+                                                  [18, 4.5],
+                                                  [19, 3.9],
+                                                  [20, 3.8],
+                                                ])
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -175,8 +243,7 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
                                             .copyWith(
                                                 fontWeight: FontWeight.bold),
                                       ),
-                                      AspectRatio(
-                                        aspectRatio: 0.8,
+                                      Expanded(
                                         child: DashboardBarChart(),
                                       ),
                                     ],

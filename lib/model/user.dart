@@ -1,9 +1,11 @@
 class User {
   final String email;
-  final String centerName;
+  final String token;
+  final String clientId;
 
   User({
-    required this.centerName,
+    required this.token,
     required this.email,
+    required this.clientId,
   });
 }

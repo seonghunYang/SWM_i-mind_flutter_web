@@ -28,19 +28,19 @@ class AboveTheFold extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "인공지능\n아동심리상담 플랫폼",
+                    "스마트한 심리상담을 위한\n단 하나의 플랫폼",
                     style: Theme.of(context).textTheme.headline1!.copyWith(
-                        color: Colors.white, fontSize: 50, height: 1.25),
+                        color: Colors.white, fontSize: 45, height: 1.25),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: defaultPadding * 2,
                   ),
                   Text(
-                    "인공지능 기반 아동심리분석으로 상담업무의 효율성을 높이세요!",
+                    "i-mind는 인공지능기반 아동놀이영상 분석으로 업무의 효율성을 높이고 대시보드를 통해 고객 정보관리와 상담 정보관리까지 지원되는 심리상담센터 현장에 최적화된 통합 서비스입니다.",
                     style: Theme.of(context).textTheme.subtitle2,
                   ),
                   const SizedBox(
-                    height: 40,
+                    height: defaultPadding * 3,
                   ),
                   RoundedButton(
                     text: Text(
@@ -51,7 +51,7 @@ class AboveTheFold extends StatelessWidget {
                           .copyWith(fontWeight: FontWeight.bold),
                     ),
                     onPressed: () {},
-                  )
+                  ),
                 ],
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:ai_counseling_platform/controllers/customer_controller.dart';
+import 'package:ai_counseling_platform/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
@@ -6,15 +7,19 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import '../../../constants.dart';
 
 const TextStyle headerTextStyle =
-    TextStyle(fontWeight: FontWeight.bold, color: Colors.black38, fontSize: 12);
+    TextStyle(fontWeight: FontWeight.bold, color: Colors.black38, fontSize: 11);
 const EdgeInsetsGeometry headerPadding = EdgeInsets.symmetric(
     vertical: defaultPadding, horizontal: defaultPadding * 2);
 
 class CustomerTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final CustomerController customerController =
+        context.watch<CustomerController>();
+    final UserController userController = context.read<UserController>();
     final CustomerDataSource customerDataSource =
-        context.watch<CustomerController>().getCustomerDataSource();
+        customerController.getCustomerDataSource(context: context);
+    customerController.getCustomerList(token: "asd", clientId: "Asd");
     return SfDataGrid(
       selectionMode: SelectionMode.single,
       headerGridLinesVisibility: GridLinesVisibility.none,
@@ -31,7 +36,7 @@ class CustomerTable extends StatelessWidget {
                 padding: headerPadding,
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  '고객ID',
+                  '고객번호',
                   style: headerTextStyle,
                 ))),
         GridColumn(
@@ -41,7 +46,27 @@ class CustomerTable extends StatelessWidget {
                 padding: headerPadding,
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  '보호자',
+                  '부모이름',
+                  style: headerTextStyle,
+                ))),
+        GridColumn(
+            columnName: 'parentAge',
+            label: Container(
+                color: kDasboardTextColor,
+                padding: headerPadding,
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '부모나이',
+                  style: headerTextStyle,
+                ))),
+        GridColumn(
+            columnName: 'parentRelation',
+            label: Container(
+                color: kDasboardTextColor,
+                padding: headerPadding,
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '부모관계',
                   style: headerTextStyle,
                 ))),
         GridColumn(
@@ -50,25 +75,25 @@ class CustomerTable extends StatelessWidget {
                 color: kDasboardTextColor,
                 padding: headerPadding,
                 alignment: Alignment.centerLeft,
-                child: Text('자녀이름', style: headerTextStyle))),
+                child: Text('아이이름', style: headerTextStyle))),
         GridColumn(
-            columnName: 'Age',
+            columnName: 'childAge',
             label: Container(
                 color: kDasboardTextColor,
                 padding: headerPadding,
-                alignment: Alignment.centerRight,
+                alignment: Alignment.centerLeft,
                 child: Text(
-                  '나이',
+                  '아이나이',
                   style: headerTextStyle,
                 ))),
         GridColumn(
-            columnName: 'gender',
+            columnName: 'childGender',
             label: Container(
                 color: kDasboardTextColor,
                 padding: headerPadding,
-                alignment: Alignment.centerRight,
+                alignment: Alignment.centerLeft,
                 child: Text(
-                  '성별',
+                  '아이성별',
                   style: headerTextStyle,
                 ))),
         GridColumn(
@@ -79,7 +104,7 @@ class CustomerTable extends StatelessWidget {
                 padding: headerPadding,
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Email',
+                  '이메일',
                   style: headerTextStyle,
                 ))),
         GridColumn(

@@ -1,10 +1,22 @@
 class Customer {
-  Customer(this.id, this.parentName, this.childName, this.age, this.gender,
-      this.email);
-  final int id;
+  Customer({
+    required this.id,
+    required this.parentName,
+    required this.childName,
+    required this.childAge,
+    required this.parentAge,
+    required this.childGender,
+    required this.parentRelation,
+    required this.email,
+    required this.special,
+  });
+  final String id;
   final String parentName;
   final String childName;
-  final int age;
-  final String gender;
+  final int childAge;
+  final int parentAge;
+  final String childGender;
+  final String parentRelation;
   final String email;
+  final String special;
 }
