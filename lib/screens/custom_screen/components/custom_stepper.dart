@@ -26,7 +26,7 @@ class CustomStepper extends StatelessWidget {
             height: defaultPadding * 6,
           ),
           Text(
-            "맞춤 모델 만들기",
+            "맞춤 모델 문의하기",
             style: Theme.of(context).textTheme.headline2,
           ),
           const SizedBox(
@@ -60,7 +60,7 @@ class CustomStepper extends StatelessWidget {
                       currentNumberKey: currentNumberKey,
                     ),
                     StepperItem(
-                      text: "3단계: 요금 확인 및 모델 생성",
+                      text: "3단계: 옵셔 선택 및 문의 완료",
                       currentNumberKey: currentNumberKey,
                       numberKey: 2,
                       width: 210,
@@ -69,11 +69,13 @@ class CustomStepper extends StatelessWidget {
                 );
               }),
           Container(
-            padding: EdgeInsets.symmetric(vertical: defaultPadding * 12),
+            padding: EdgeInsets.only(
+              top: defaultPadding * 8,
+            ),
             margin: const EdgeInsets.only(
               left: defaultPadding * 28,
               right: defaultPadding * 28,
-              top: defaultPadding * 6,
+              top: defaultPadding * 4,
             ),
             decoration:
                 BoxDecoration(border: Border.all(color: kContainerColor)),
@@ -84,7 +86,7 @@ class CustomStepper extends StatelessWidget {
                 if (currentNumberKey == 0) {
                   return const StepperFundemental();
                 } else if (currentNumberKey == 1) {
-                  return const StepperAdvanced();
+                  return StepperAdvanced();
                 } else {
                   return const StepperPricing();
                 }

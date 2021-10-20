@@ -37,6 +37,7 @@ dependencies:
   flutter_svg: ^0.22.0
   syncfusion_flutter_datagrid: ^19.3.44
   table_calendar: ^3.0.2
+  dio: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +69,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/video/
 
   fonts:
     - family: Noto_sans_kr

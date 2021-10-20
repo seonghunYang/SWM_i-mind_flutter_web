@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ai_counseling_platform/model/customer.dart';
+import 'package:ai_counseling_platform/model/user.dart';
 import 'package:ai_counseling_platform/network_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +14,13 @@ import 'menu_controller.dart';
 
 class CustomerController extends ChangeNotifier {
   bool isSelected = false;
-  String? selectedCustomerId;
+  bool isInit = false;
+  late Customer selectedCustomer;
+  List<Customer> customers = [];
 
-  void selectCustomer() {
+  void selectCustomer(int selectedCustomerIndex) {
     isSelected = true;
+    selectedCustomer = customers[selectedCustomerIndex];
     notifyListeners();
   }
 
@@ -47,7 +51,36 @@ class CustomerController extends ChangeNotifier {
       "Authorization": userInfo["body"]["AuthenticationResult"]["IdToken"],
     });
 
-    print(response.body);
+    List customerInfoList = jsonDecode(response.body)["body"];
+
+    setCustomerList(customerInfoList);
+    if (isInit == false) {
+      isInit = true;
+    }
+    notifyListeners();
+    return true;
+  }
+
+  void setCustomerList(List customerRawList) {
+    customers = List<Customer>.generate(customerRawList.length, (index) {
+      DateTime childBirth =
+          DateTime.parse(customerRawList[index]["child_birthday"]);
+      DateTime parentBirth =
+          DateTime.parse(customerRawList[index]["parent_birthday"]);
+      int childAge = DateTime.now().difference(childBirth).inDays ~/ 30;
+      int parentAge = DateTime.now().year - parentBirth.year;
+      return Customer(
+        id: customerRawList[index]["ID"].toString(),
+        parentName: customerRawList[index]["parent_name"],
+        childName: customerRawList[index]["child_name"],
+        childAge: childAge.toString(),
+        childGender: customerRawList[index]["child_gender"],
+        parentAge: parentAge.toString(),
+        parentRelation: customerRawList[index]["parent_relation"],
+        email: customerRawList[index]["email"],
+        special: customerRawList[index]["special"],
+      );
+    });
   }
 
   Future createCustomer({
@@ -81,80 +114,31 @@ class CustomerController extends ChangeNotifier {
         "special": special,
       }),
     );
+    isInit = false;
+    notifyListeners();
+    await getCustomerList(clientId: "asd", token: "asd");
 
-    print(response.body);
-
-    return false;
+    return true;
   }
 
-  List<Customer> customers = [
-    Customer(
-      id: "1001",
-      parentName: "양희남",
-      childName: "양성훈",
-      childAge: 41,
-      childGender: "남아",
-      parentAge: 38,
-      parentRelation: "아빠",
-      email: "didtjdgns852@gmail.com",
-      special: "리틀소시에 / 수 23시",
-    ),
-    Customer(
-      id: "1001",
-      parentName: "양희남",
-      childName: "양성훈",
-      childAge: 41,
-      childGender: "남아",
-      parentAge: 38,
-      parentRelation: "아빠",
-      email: "didtjdgns852@gmail.com",
-      special: "리틀소시에 / 수 23시",
-    ),
-    Customer(
-      id: "1001",
-      parentName: "양희남",
-      childName: "양성훈",
-      childAge: 41,
-      childGender: "남아",
-      parentAge: 38,
-      parentRelation: "아빠",
-      email: "didtjdgns852@gmail.com",
-      special: "리틀소시에 / 수 23시",
-    ),
-    Customer(
-      id: "1001",
-      parentName: "양희남",
-      childName: "양성훈",
-      childAge: 41,
-      childGender: "남아",
-      parentAge: 38,
-      parentRelation: "아빠",
-      email: "didtjdgns852@gmail.com",
-      special: "리틀소시에 / 수 23시",
-    ),
-    Customer(
-      id: "1001",
-      parentName: "양희남",
-      childName: "양성훈",
-      childAge: 41,
-      childGender: "남아",
-      parentAge: 38,
-      parentRelation: "아빠",
-      email: "didtjdgns852@gmail.com",
-      special: "리틀소시에 / 수 23시",
-    ),
-    Customer(
-      id: "1001",
-      parentName: "양희남",
-      childName: "양성훈",
-      childAge: 41,
-      childGender: "남아",
-      parentAge: 38,
-      parentRelation: "아빠",
-      email: "didtjdgns852@gmail.com",
-      special: "리틀소시에 / 수 23시",
-    ),
-  ];
+  Future deleteCustomer({
+    // required User user,
+    required String id,
+    required int index,
+  }) async {
+    var user = await testLogin();
+    Uri url = Uri.parse(NetworkHelper.customerDeleteUrl);
+    http.Response response = await http.delete(url,
+        headers: {
+          "Authorization": user["body"]["AuthenticationResult"]["IdToken"],
+        },
+        body: json
+            .encode({"clientId": user["body"]["clientId"], "patientNum": id}));
+
+    customers.removeAt(index);
+    notifyListeners();
+    if (response.statusCode == 200) {}
+  }
 
   CustomerDataSource getCustomerDataSource({required BuildContext context}) {
     return CustomerDataSource(
@@ -177,11 +161,11 @@ class CustomerDataSource extends DataGridSource {
               DataGridCell<String>(columnName: 'Id', value: e.id),
               DataGridCell<String>(
                   columnName: 'parentName', value: e.parentName),
-              DataGridCell<int>(columnName: 'parentAge', value: e.parentAge),
+              DataGridCell<String>(columnName: 'parentAge', value: e.parentAge),
               DataGridCell<String>(
                   columnName: 'parentRelation', value: e.parentRelation),
               DataGridCell<String>(columnName: 'childName', value: e.childName),
-              DataGridCell<int>(columnName: 'childAge', value: e.childAge),
+              DataGridCell<String>(columnName: 'childAge', value: e.childAge),
               DataGridCell<String>(
                   columnName: 'childGender', value: e.childGender),
               DataGridCell<String>(columnName: 'Email', value: e.email),
@@ -192,7 +176,7 @@ class CustomerDataSource extends DataGridSource {
 
   List<DataGridRow> _customers = [];
 
-  late final void Function() selectCustomer;
+  late final void Function(int) selectCustomer;
   late final void Function() unSelectCustomer;
   late final BuildContext context;
 
@@ -253,9 +237,15 @@ class CustomerDataSource extends DataGridSource {
                 ),
                 child: PopupMenuButton(
                   onSelected: (value) {
+                    String id = row.getCells()[0].value;
+                    int index = _customers.indexOf(row);
                     if (value == 0) {
-                      selectCustomer();
+                      selectCustomer(index);
                       context.read<MenuController>().updateMenuIndex(1);
+                    } else if (value == 1) {
+                      context
+                          .read<CustomerController>()
+                          .deleteCustomer(id: id, index: index);
                     }
                   },
                   icon: Icon(
@@ -265,7 +255,17 @@ class CustomerDataSource extends DataGridSource {
                   itemBuilder: (context) => [
                     const PopupMenuItem(
                       value: 0,
-                      child: Text('고객 상세정보'),
+                      child: Text(
+                        '고객 상세정보',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                    ),
+                    const PopupMenuItem(
+                      value: 1,
+                      child: Text(
+                        '고객 삭제',
+                        style: TextStyle(fontSize: 14),
+                      ),
                     ),
                   ],
                 ));

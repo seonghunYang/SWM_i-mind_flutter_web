@@ -10,6 +10,7 @@ class LineAreaChart extends StatelessWidget {
     Key? key,
     required this.lineChartRawDataSets,
     required this.lineChartMetaData,
+    required this.onTap,
     this.bottomLineVisible = true,
     this.leftLineVisible = true,
     this.gridLineVisible = true,
@@ -20,6 +21,7 @@ class LineAreaChart extends StatelessWidget {
   final bool gridLineVisible;
   final List<LineChartRawDataSet> lineChartRawDataSets;
   final LineChartMetaData lineChartMetaData;
+  final void Function(int) onTap;
 
   List<LineChartBarData> getLineChartBarDatas() {
     return lineChartRawDataSets
@@ -50,6 +52,12 @@ class LineAreaChart extends StatelessWidget {
     return LineChart(
       LineChartData(
         lineTouchData: LineTouchData(
+          touchCallback: (FlTouchEvent event, LineTouchResponse? response) {
+            if (event is FlTapUpEvent) {
+              print("tap");
+              onTap(response!.lineBarSpots![0].spotIndex);
+            }
+          },
           touchTooltipData: LineTouchTooltipData(
             tooltipBgColor: Colors.black,
           ),

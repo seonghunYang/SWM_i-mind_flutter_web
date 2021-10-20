@@ -12,4 +12,12 @@ class NetworkHelper {
   static String customerCreateUrl = "$_ROOT_API/customer/create";
   static String customerDeleteUrl = "$_ROOT_API/customer/delete";
   static String customerUpdateUrl = "$_ROOT_API/customer/update";
+  static String customerDetailRecordIndicatorUrl =
+      "$_ROOT_API/customer/detail/indicators";
+  static String customerDetailRecentIndicatorUrl =
+      "$_ROOT_API/customer/detail/avgindicators";
+  static String counselingRecordReadListUrl =
+      "$_ROOT_API/counselingrecord/recordlist";
+
+  static String counselingRecordCreateUrl = "$_ROOT_API/recordcontrol";
 }

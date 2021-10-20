@@ -8,11 +8,13 @@ class BottomInfoAppBar extends StatelessWidget with PreferredSizeWidget {
     required this.infoList,
     required this.title,
     required this.onTap,
+    this.isLeading = true,
   }) : super(key: key);
 
   final List<Widget> infoList;
   final String title;
   final void Function() onTap;
+  final bool isLeading;
 
   @override
   Size get preferredSize => Size.fromHeight(100);
@@ -34,13 +36,15 @@ class BottomInfoAppBar extends StatelessWidget with PreferredSizeWidget {
       ),
       elevation: 1,
       titleSpacing: 20,
-      leading: InkWell(
-        child: Icon(
-          Icons.arrow_back_ios_outlined,
-          color: Colors.grey,
-        ),
-        onTap: onTap,
-      ),
+      leading: isLeading
+          ? InkWell(
+              child: Icon(
+                Icons.arrow_back_ios_outlined,
+                color: Colors.grey,
+              ),
+              onTap: onTap,
+            )
+          : null,
       title: Text(
         title,
         style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 20),

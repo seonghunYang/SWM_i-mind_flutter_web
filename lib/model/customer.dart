@@ -13,8 +13,8 @@ class Customer {
   final String id;
   final String parentName;
   final String childName;
-  final int childAge;
-  final int parentAge;
+  final String childAge;
+  final String parentAge;
   final String childGender;
   final String parentRelation;
   final String email;

@@ -27,7 +27,7 @@ class StepperFundemental extends StatelessWidget {
           height: defaultPadding * 12,
         ),
         Text(
-          "2. 행동 분석 강도를 선택하세요",
+          "2. 행동 인식의 강도를 선택하세요",
           style: Theme.of(context).textTheme.headline4!.copyWith(fontSize: 20),
         ),
         const SizedBox(
@@ -71,7 +71,10 @@ class StepperFundemental extends StatelessWidget {
               print('switched to: $index');
             },
           ),
-        )
+        ),
+        const SizedBox(
+          height: defaultPadding * 12,
+        ),
       ],
     );
   }

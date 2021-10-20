@@ -38,20 +38,25 @@ class StepperItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: padding,
-      width: width,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          color: isSelected() ? kSelectedContainerColor : inactiveColor,
-          border: Border.all(color: inactiveColor, width: borderWidth),
-          borderRadius: BorderRadius.all(Radius.circular(30.0))),
-      child: Text(
-        text,
-        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-            fontSize: fontSize,
-            color: isSelected() ? Colors.white : kSelectedContainerColor),
-      ),
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          padding: padding,
+          width: width,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              color: isSelected() ? kSelectedContainerColor : inactiveColor,
+              border: Border.all(color: inactiveColor, width: borderWidth),
+              borderRadius: BorderRadius.all(Radius.circular(30.0))),
+          child: Text(
+            text,
+            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                fontSize: fontSize,
+                color: isSelected() ? Colors.white : kSelectedContainerColor),
+          ),
+        ),
+      ],
     );
   }
 }

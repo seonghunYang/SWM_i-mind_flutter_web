@@ -17,108 +17,121 @@ class CustomerTable extends StatelessWidget {
     final CustomerController customerController =
         context.watch<CustomerController>();
     final UserController userController = context.read<UserController>();
-    final CustomerDataSource customerDataSource =
-        customerController.getCustomerDataSource(context: context);
-    customerController.getCustomerList(token: "asd", clientId: "Asd");
-    return SfDataGrid(
-      selectionMode: SelectionMode.single,
-      headerGridLinesVisibility: GridLinesVisibility.none,
-      headerRowHeight: 40,
-      gridLinesVisibility: GridLinesVisibility.none,
-      columnWidthMode: ColumnWidthMode.fill,
-      rowHeight: 60,
-      source: customerDataSource,
-      columns: <GridColumn>[
-        GridColumn(
-            columnName: 'Id',
-            label: Container(
-                color: kDasboardTextColor,
-                padding: headerPadding,
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  '고객번호',
-                  style: headerTextStyle,
-                ))),
-        GridColumn(
-            columnName: 'parentName',
-            label: Container(
-                color: kDasboardTextColor,
-                padding: headerPadding,
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  '부모이름',
-                  style: headerTextStyle,
-                ))),
-        GridColumn(
-            columnName: 'parentAge',
-            label: Container(
-                color: kDasboardTextColor,
-                padding: headerPadding,
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  '부모나이',
-                  style: headerTextStyle,
-                ))),
-        GridColumn(
-            columnName: 'parentRelation',
-            label: Container(
-                color: kDasboardTextColor,
-                padding: headerPadding,
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  '부모관계',
-                  style: headerTextStyle,
-                ))),
-        GridColumn(
-            columnName: 'childName',
-            label: Container(
-                color: kDasboardTextColor,
-                padding: headerPadding,
-                alignment: Alignment.centerLeft,
-                child: Text('아이이름', style: headerTextStyle))),
-        GridColumn(
-            columnName: 'childAge',
-            label: Container(
-                color: kDasboardTextColor,
-                padding: headerPadding,
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  '아이나이',
-                  style: headerTextStyle,
-                ))),
-        GridColumn(
-            columnName: 'childGender',
-            label: Container(
-                color: kDasboardTextColor,
-                padding: headerPadding,
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  '아이성별',
-                  style: headerTextStyle,
-                ))),
-        GridColumn(
-            columnName: 'Email',
-            width: 190,
-            label: Container(
-                color: kDasboardTextColor,
-                padding: headerPadding,
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  '이메일',
-                  style: headerTextStyle,
-                ))),
-        GridColumn(
-            columnName: '',
-            maximumWidth: 80,
-            label: Container(
-                color: kDasboardTextColor,
-                padding: headerPadding,
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  '',
-                  style: headerTextStyle,
-                ))),
-      ],
-    );
+
+    if (!customerController.isInit) {
+      customerController.getCustomerList(token: "asd", clientId: "ASd");
+      return Container(
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircularProgressIndicator(),
+          ],
+        ),
+      );
+    } else {
+      final CustomerDataSource customerDataSource =
+          customerController.getCustomerDataSource(context: context);
+      return SfDataGrid(
+        selectionMode: SelectionMode.single,
+        headerGridLinesVisibility: GridLinesVisibility.none,
+        headerRowHeight: 40,
+        gridLinesVisibility: GridLinesVisibility.none,
+        columnWidthMode: ColumnWidthMode.fill,
+        rowHeight: 60,
+        source: customerDataSource,
+        columns: <GridColumn>[
+          GridColumn(
+              columnName: 'Id',
+              label: Container(
+                  color: kDasboardTextColor,
+                  padding: headerPadding,
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '고객번호',
+                    style: headerTextStyle,
+                  ))),
+          GridColumn(
+              columnName: 'parentName',
+              label: Container(
+                  color: kDasboardTextColor,
+                  padding: headerPadding,
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '부모이름',
+                    style: headerTextStyle,
+                  ))),
+          GridColumn(
+              columnName: 'parentAge',
+              label: Container(
+                  color: kDasboardTextColor,
+                  padding: headerPadding,
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '부모나이',
+                    style: headerTextStyle,
+                  ))),
+          GridColumn(
+              columnName: 'parentRelation',
+              label: Container(
+                  color: kDasboardTextColor,
+                  padding: headerPadding,
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '부모관계',
+                    style: headerTextStyle,
+                  ))),
+          GridColumn(
+              columnName: 'childName',
+              label: Container(
+                  color: kDasboardTextColor,
+                  padding: headerPadding,
+                  alignment: Alignment.centerLeft,
+                  child: Text('아이이름', style: headerTextStyle))),
+          GridColumn(
+              columnName: 'childAge',
+              label: Container(
+                  color: kDasboardTextColor,
+                  padding: headerPadding,
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '아이나이',
+                    style: headerTextStyle,
+                  ))),
+          GridColumn(
+              columnName: 'childGender',
+              label: Container(
+                  color: kDasboardTextColor,
+                  padding: headerPadding,
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '아이성별',
+                    style: headerTextStyle,
+                  ))),
+          GridColumn(
+              columnName: 'Email',
+              width: 190,
+              label: Container(
+                  color: kDasboardTextColor,
+                  padding: headerPadding,
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '이메일',
+                    style: headerTextStyle,
+                  ))),
+          GridColumn(
+              columnName: '',
+              maximumWidth: 80,
+              label: Container(
+                  color: kDasboardTextColor,
+                  padding: headerPadding,
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '',
+                    style: headerTextStyle,
+                  ))),
+        ],
+      );
+    }
   }
 }

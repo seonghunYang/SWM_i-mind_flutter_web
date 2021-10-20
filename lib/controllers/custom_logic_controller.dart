@@ -1,20 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:ai_counseling_platform/model/logic_block.dart';
 
-class CustomLogicController extends ChangeNotifier {
-  List<LogicBlock> selectedLogicList = [
-    LogicBlock(label: "거리 처리", value: "1"),
-    LogicBlock(label: "행동 분류 처리", value: "2"),
-  ];
+class CustomLogicController {
+  List<LogicBlock> selectedLogicList = [];
 
   void addLogic(LogicBlock logic) {
     selectedLogicList.add(logic);
-    notifyListeners();
   }
 
   void removeLogic(int index) {
     selectedLogicList.removeAt(index);
-    notifyListeners();
   }
 
   void reOrderLogic(int oldIndex, int newIndex) {
@@ -23,6 +18,5 @@ class CustomLogicController extends ChangeNotifier {
     }
     final LogicBlock item = selectedLogicList.removeAt(oldIndex);
     selectedLogicList.insert(newIndex, item);
-    notifyListeners();
   }
 }

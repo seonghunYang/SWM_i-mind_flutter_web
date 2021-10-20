@@ -21,7 +21,7 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 import '../../../constants.dart';
-import '../user_create_alert_dialog.dart';
+import '../components/user_create_alert_dialog.dart';
 import 'dashboard_customer_info_screen.dart';
 
 class DashboardCustomerManageScreen extends StatelessWidget {

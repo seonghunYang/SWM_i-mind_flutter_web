@@ -1,5 +1,6 @@
 import 'package:ai_counseling_platform/controllers/menu_controller.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/screens/dashboard_counseling_record_manage_screen.dart';
+import 'package:ai_counseling_platform/screens/dashboard_screen/screens/dashboard_counseling_report_screen.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/screens/dashboard_customer_manage_screen.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/screens/dashboard_home_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,8 @@ class DashboardRouterScreen extends StatelessWidget {
         return const DashboardCustomerManageScreen();
       case 2:
         return const DashboardCounselingRecordManageScreen();
+      case 3:
+        return const DashboardCounselingReportScreen();
       default:
         return const DashboardHomeScreen();
     }

@@ -1,7 +1,7 @@
 import 'package:ai_counseling_platform/controllers/user_controller.dart';
 import 'package:ai_counseling_platform/screens/components/form_submit_button.dart';
 import 'package:ai_counseling_platform/screens/components/user_form_textfield.dart';
-import 'package:ai_counseling_platform/screens/dashboard_screen/components/landing_screen.dart';
+import 'package:ai_counseling_platform/screens/landing_screen.dart';
 import 'package:ai_counseling_platform/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';

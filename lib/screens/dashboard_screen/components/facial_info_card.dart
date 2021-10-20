@@ -77,6 +77,7 @@ class FacialInfoCard extends StatelessWidget {
             flex: 2,
             child: Container(
                 child: LineAreaChart(
+              onTap: (value) {},
               lineChartMetaData: LineChartMetaData(
                 minX: 0,
                 maxX: 20,

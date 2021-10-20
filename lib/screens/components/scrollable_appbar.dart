@@ -2,7 +2,7 @@ import 'package:ai_counseling_platform/controllers/scrollable_position_controlle
 import 'package:ai_counseling_platform/controllers/user_controller.dart';
 import 'package:ai_counseling_platform/screens/custom_screen/custom_screen.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/dashboard_router_screen.dart';
-import 'package:ai_counseling_platform/screens/dashboard_screen/components/landing_screen.dart';
+import 'package:ai_counseling_platform/screens/landing_screen.dart';
 import 'package:ai_counseling_platform/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -118,13 +118,14 @@ class ScrollableAppbar extends StatelessWidget with PreferredSizeWidget {
         ),
         InkWell(
           onTap: () {
-            if (userController.user != null) {
-              Navigator.pushNamed(context, DashboardRouterScreen.id);
-            } else {
-              // userController.signUp();
-              // userController.confirm();
-              Navigator.pushNamed(context, SignupScreen.id);
-            }
+            Navigator.pushNamed(context, DashboardRouterScreen.id);
+            // if (userController.user != null) {
+            //   Navigator.pushNamed(context, DashboardRouterScreen.id);
+            // } else {
+            //   // userController.signUp();
+            //   // userController.confirm();
+            //   Navigator.pushNamed(context, SignupScreen.id);
+            // }
           },
           child: Container(
             alignment: Alignment.center,

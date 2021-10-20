@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SliderController extends ChangeNotifier {
+class SliderController {
   late dynamic value;
   final String tooltipMessage;
   SliderController({required this.value, this.tooltipMessage = ""});

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 
 import '../../constants.dart';
-import '../dashboard_screen/components/landing_screen.dart';
+import '../landing_screen.dart';
 
 class ConfirmForm extends StatefulWidget {
   ConfirmForm({

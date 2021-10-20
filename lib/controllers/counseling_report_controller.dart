@@ -5,12 +5,6 @@ import 'package:ai_counseling_platform/model/guide_ment.dart';
 import 'package:flutter/cupertino.dart';
 
 class CounselingReportController extends ChangeNotifier {
-  // TextEditingController statSensitivity = TextEditingController();
-  // TextEditingController statRepeat = TextEditingController();
-  // TextEditingController statHappy = TextEditingController();
-  // TextEditingController statLeading = TextEditingController();
-  // TextEditingController statPersistence = TextEditingController();
-
   SliderController statRepeat = SliderController(
       value: 5,
       tooltipMessage:

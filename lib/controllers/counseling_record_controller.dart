@@ -1,10 +1,14 @@
+import 'dart:convert';
+import 'package:http_parser/http_parser.dart';
+import 'package:dio/dio.dart';
 import 'package:ai_counseling_platform/controllers/menu_controller.dart';
 import 'package:ai_counseling_platform/model/conseling_record.dart';
+import 'package:ai_counseling_platform/network_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
-
+import 'package:http/http.dart' as http;
 import '../constants.dart';
 
 class CounselingRecordController extends ChangeNotifier {
@@ -18,6 +22,65 @@ class CounselingRecordController extends ChangeNotifier {
 
   void getCounselingRecordInfo(String customerId) async {
     //todo 상담기록들 가져오기
+  }
+
+  Future testLogin() async {
+    Uri test = Uri.parse(NetworkHelper.loginUrl);
+    http.Response data = await http.post(
+      test,
+      body: json.encode({"ID": "s.h.yang0230@gmail.com", "PW": "11111111!"}),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+    return jsonDecode(data.body);
+  }
+
+  Future getVideoFileSavedUrl() async {
+    var userInfo = await testLogin();
+    http.Response response = await http.post(
+      Uri.parse(NetworkHelper.counselingRecordCreateUrl),
+      body: json.encode({
+        "clientId": userInfo["body"]["clientId"],
+      }),
+      headers: {
+        "Authorization": userInfo["body"]["AuthenticationResult"]["IdToken"],
+        'Content-Type': 'application/json',
+      },
+    );
+
+    return jsonDecode(response.body);
+  }
+
+  Future createCounselingRecord(
+      {required List<int> selectedFile, required String bianry}) async {
+    var metaVideoInfo = await getVideoFileSavedUrl();
+    var userInfo = await testLogin();
+    print(metaVideoInfo);
+
+    var dio = Dio();
+
+    FormData formData = FormData.fromMap({
+      "key": metaVideoInfo["fields"]["key"],
+      "x-amz-algorithm": metaVideoInfo["fields"]["x-amz-algorithm"],
+      "x-amz-credential": metaVideoInfo["fields"]["x-amz-credential"],
+      "x-amz-date": metaVideoInfo["fields"]["x-amz-date"],
+      "x-amz-security-token": metaVideoInfo["fields"]["x-amz-security-token"],
+      "policy": metaVideoInfo["fields"]["policy"],
+      "x-amz-signature": metaVideoInfo["fields"]["x-amz-signature"],
+      "file": MultipartFile.fromBytes(selectedFile),
+    });
+    var response = await dio.post(
+      metaVideoInfo["url"],
+      data: formData,
+      options: Options(
+        headers: {
+          Headers.contentLengthHeader: formData.length, // set content-length
+        },
+      ),
+    );
+    print(response);
+    return false;
   }
 
   List<CounselingRecord> counselingRecordList = [
