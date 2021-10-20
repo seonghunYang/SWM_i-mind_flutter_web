@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:ai_counseling_platform/controllers/customer_controller.dart';
 import 'package:ai_counseling_platform/controllers/selected_customer_controller.dart';
+import 'package:ai_counseling_platform/model/conseling_record.dart';
 import 'package:ai_counseling_platform/model/customer.dart';
 import 'package:ai_counseling_platform/model/customer_detail.dart';
 import 'package:ai_counseling_platform/model/radarchart_rawdata.dart';
@@ -91,6 +92,9 @@ class DashBoardCustomerInfoScreen extends StatelessWidget {
                 ),
               );
             } else {
+              var data = snapshot.data;
+              // print(data["avgIndicator"]["responsiveness"]);
+              // print(data["avgIndicator"]["responsiveness"].runtimeType);
               return Container(
                 padding: EdgeInsets.all(defaultPadding * 1.5),
                 child: Row(
@@ -122,7 +126,26 @@ class DashBoardCustomerInfoScreen extends StatelessWidget {
                                           SizedBox(
                                             height: defaultPadding * 2,
                                           ),
-                                          Expanded(child: MultiLineChart()),
+                                          Expanded(
+                                              child: MultiLineChart(
+                                            lineChartBarDataSpotList: [
+                                              data["indicatorRecordList"]
+                                                  ["responsiveness"],
+                                              data["indicatorRecordList"]
+                                                  ["persistence"],
+                                              data["indicatorRecordList"]
+                                                  ["scrupulosity"],
+                                            ],
+                                            lineChartBarColorList: [
+                                              Color(0xff4af699),
+                                              Color(0xffaa4cfc),
+                                              Color(0xff27b6fc)
+                                            ],
+                                            getBottomTitle: (value) {
+                                              return data["date"]
+                                                  [value.toInt()];
+                                            },
+                                          )),
                                         ],
                                       ),
                                     ),
@@ -169,11 +192,11 @@ class DashBoardCustomerInfoScreen extends StatelessWidget {
                                                 title: 'mean',
                                                 color: kSelectedContainerColor,
                                                 values: [
-                                                  7,
-                                                  6,
-                                                  7,
-                                                  6,
-                                                  7,
+                                                  data["avgIndicator"][0],
+                                                  data["avgIndicator"][1],
+                                                  data["avgIndicator"][2],
+                                                  data["avgIndicator"][3],
+                                                  data["avgIndicator"][4],
                                                 ],
                                               ),
                                               RadarChartRawDataSet(
@@ -181,11 +204,16 @@ class DashBoardCustomerInfoScreen extends StatelessWidget {
                                                 color:
                                                     kSelectedDashboardTextColor,
                                                 values: [
-                                                  10,
-                                                  8,
-                                                  9,
-                                                  10,
-                                                  7,
+                                                  data["recentIndicator"]
+                                                      ["responsiveness"],
+                                                  data["recentIndicator"]
+                                                      ["persistence"],
+                                                  data["recentIndicator"]
+                                                      ["scrupulosity"],
+                                                  data["recentIndicator"]
+                                                      ["point1"],
+                                                  data["recentIndicator"]
+                                                      ["point2"],
                                                 ],
                                               ),
                                             ],
@@ -231,7 +259,38 @@ class DashBoardCustomerInfoScreen extends StatelessWidget {
                                         ),
                                         SizedBox(height: defaultPadding * 2),
                                         Expanded(
-                                            child: CounselingRecordTable()),
+                                          child: CounselingRecordTable(
+                                            counselingRecordList:
+                                                List<CounselingRecord>.generate(
+                                              data["counselingRecordList"]
+                                                  .length,
+                                              (index) => CounselingRecord(
+                                                counselingId:
+                                                    data["counselingRecordList"]
+                                                            [index]["ID"]
+                                                        .toString(),
+                                                customerId:
+                                                    data["counselingRecordList"]
+                                                                [index]
+                                                            ["patient_ID"]
+                                                        .toString(),
+                                                category:
+                                                    data["counselingRecordList"]
+                                                        [index]["category"],
+                                                childName:
+                                                    selectedCustomer.childName,
+                                                counselingStatus: "상담완료",
+                                                // data["counselingRecordList"]
+                                                //         [index]
+                                                //     ["counselingStatus"],
+                                                date:
+                                                    data["counselingRecordList"]
+                                                        [index]["date"],
+                                                counselor: "이다랑",
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   )),

@@ -4,7 +4,51 @@ import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 
+// Color(0xff27b6fc)
 class MultiLineChart extends StatelessWidget {
+  final List<List<int>> lineChartBarDataSpotList;
+  final List<Color> lineChartBarColorList;
+  final String Function(double) getBottomTitle;
+
+  MultiLineChart({
+    required this.lineChartBarDataSpotList,
+    required this.lineChartBarColorList,
+    required this.getBottomTitle,
+  });
+
+  LineChartBarData getLineChartBarData(
+      {required Color color, required List<int> spotDataList}) {
+    return LineChartBarData(
+      isCurved: false,
+      colors: [color],
+      barWidth: 2,
+      isStrokeCapRound: true,
+      dotData: FlDotData(show: false),
+      belowBarData: BarAreaData(show: false),
+      spots: getFlSpot(spotDataList),
+    );
+  }
+
+  List<FlSpot> getFlSpot(List<int> spotDataList) {
+    List<FlSpot> spotList = [];
+    for (int idx = 0; idx < spotDataList.length; idx++) {
+      spotList.add(FlSpot(idx.toDouble(), spotDataList[idx].toDouble()));
+    }
+    return spotList;
+  }
+
+  List<LineChartBarData> get lineBarsData => [
+        getLineChartBarData(
+            color: lineChartBarColorList[0],
+            spotDataList: lineChartBarDataSpotList[0]),
+        getLineChartBarData(
+            color: lineChartBarColorList[1],
+            spotDataList: lineChartBarDataSpotList[1]),
+        getLineChartBarData(
+            color: lineChartBarColorList[2],
+            spotDataList: lineChartBarDataSpotList[2]),
+      ];
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -50,9 +94,9 @@ class MultiLineChart extends StatelessWidget {
         gridData: gridData,
         titlesData: titlesData1,
         borderData: borderData,
-        lineBarsData: lineBarsData1,
-        minX: 1,
-        maxX: 4,
+        lineBarsData: lineBarsData,
+        minX: 0,
+        maxX: 3,
         maxY: 10,
         minY: 1,
       );
@@ -87,12 +131,6 @@ class MultiLineChart extends StatelessWidget {
         ),
       );
 
-  List<LineChartBarData> get lineBarsData1 => [
-        lineChartBarData1_1,
-        lineChartBarData1_2,
-        lineChartBarData1_3,
-      ];
-
   SideTitles leftTitles({required GetTitleFunction getTitles}) => SideTitles(
         getTitles: getTitles,
         showTitles: true,
@@ -116,19 +154,7 @@ class MultiLineChart extends StatelessWidget {
           fontWeight: FontWeight.bold,
           fontSize: 10,
         ),
-        getTitles: (value) {
-          switch (value.toInt()) {
-            case 1:
-              return '2021-03-18';
-            case 2:
-              return '2021-05-21';
-            case 3:
-              return '2021-07-31';
-            case 4:
-              return '2021-09-28';
-          }
-          return '';
-        },
+        getTitles: getBottomTitle,
       );
 
   FlGridData get gridData => FlGridData(
@@ -150,52 +176,5 @@ class MultiLineChart extends StatelessWidget {
           right: BorderSide(color: Colors.transparent),
           top: BorderSide(color: Colors.transparent),
         ),
-      );
-
-  LineChartBarData get lineChartBarData1_1 => LineChartBarData(
-        isCurved: false,
-        colors: [const Color(0xff4af699)],
-        barWidth: 2,
-        isStrokeCapRound: true,
-        dotData: FlDotData(show: false),
-        belowBarData: BarAreaData(show: false),
-        spots: [
-          FlSpot(1, 7),
-          FlSpot(2, 5),
-          FlSpot(3, 4),
-          FlSpot(4, 10),
-        ],
-      );
-
-  LineChartBarData get lineChartBarData1_2 => LineChartBarData(
-        isCurved: false,
-        colors: [const Color(0xffaa4cfc)],
-        barWidth: 2,
-        isStrokeCapRound: true,
-        dotData: FlDotData(show: false),
-        belowBarData: BarAreaData(show: false, colors: [
-          const Color(0x00aa4cfc),
-        ]),
-        spots: [
-          FlSpot(1, 6),
-          FlSpot(2, 4),
-          FlSpot(3, 6),
-          FlSpot(4, 8),
-        ],
-      );
-
-  LineChartBarData get lineChartBarData1_3 => LineChartBarData(
-        isCurved: false,
-        colors: const [Color(0xff27b6fc)],
-        barWidth: 2,
-        isStrokeCapRound: true,
-        dotData: FlDotData(show: false),
-        belowBarData: BarAreaData(show: false),
-        spots: [
-          FlSpot(1, 3),
-          FlSpot(2, 8),
-          FlSpot(3, 9),
-          FlSpot(4, 8),
-        ],
       );
 }

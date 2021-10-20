@@ -60,13 +60,28 @@ class SelectedCustomerController extends ChangeNotifier {
     var userInfo = await testLogin();
     print(customerId);
 
-    var recordIndicator = await getRecordIndicator(userInfo, customerId);
+    List recordIndicator = await getRecordIndicator(userInfo, customerId);
     var recentIndicator = await getRecentIndicator(userInfo, customerId);
     var counselingRecordList = await getCounselingRecord(userInfo, customerId);
-    print("a");
+    Map<String, List<int>> recordIndicatorList = {
+      "responsiveness": [],
+      "persistence": [],
+      "scrupulosity": [],
+    };
+    List<String> counselingDate = [];
+
+    recordIndicator.forEach((element) {
+      counselingDate.add(element["date"]);
+      recordIndicatorList["responsiveness"]!.add(element["responsiveness"]);
+      recordIndicatorList["persistence"]!.add(element["persistence"]);
+      recordIndicatorList["scrupulosity"]!.add(element["scrupulosity"]);
+    });
+
+    print(recordIndicatorList);
 
     return {
-      "indicatorRecordList": recordIndicator,
+      "indicatorRecordList": recordIndicatorList,
+      "date": counselingDate,
       "recentIndicator": recentIndicator["indicators"],
       "avgIndicator": recentIndicator["allIndicators"],
       "counselingRecordList": counselingRecordList

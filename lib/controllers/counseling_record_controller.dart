@@ -83,47 +83,8 @@ class CounselingRecordController extends ChangeNotifier {
     return false;
   }
 
-  List<CounselingRecord> counselingRecordList = [
-    CounselingRecord(
-      counselingId: "4",
-      childName: "양성훈",
-      customerId: "양희남",
-      counselor: "이다랑",
-      category: "놀이영상분석",
-      date: "2021-09-28",
-      counselingStatus: "분석중",
-    ),
-    CounselingRecord(
-      counselingId: "3",
-      childName: "양성훈",
-      customerId: "양희남",
-      counselor: "이다랑",
-      category: "놀이영상분석",
-      date: "2021-07-31",
-      counselingStatus: "분석완료",
-    ),
-    CounselingRecord(
-      counselingId: "2",
-      childName: "양성훈",
-      customerId: "양희남",
-      counselor: "이다랑",
-      category: "놀이영상분석",
-      date: "2021-05-21",
-      counselingStatus: "상담완료",
-    ),
-    CounselingRecord(
-      counselingId: "1",
-      childName: "양성훈",
-      customerId: "양희남",
-      counselor: "이다랑",
-      category: "놀이영상분석",
-      date: "2021-03-18",
-      counselingStatus: "상담완료",
-    ),
-  ];
-
   CounselingRecordDattaSource getCounselingRecordDattaSource(
-      BuildContext context) {
+      BuildContext context, List<CounselingRecord> counselingRecordList) {
     return CounselingRecordDattaSource(
       counselingRecordList: counselingRecordList,
       selectCounselingRecord: selectCounselingRecord,

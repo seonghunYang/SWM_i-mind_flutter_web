@@ -1058,9 +1058,12 @@ class ScoreCard extends StatelessWidget {
       children: [
         Text(
           "$title: ",
-          style: Theme.of(context).textTheme.subtitle1,
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1!
+              .copyWith(fontWeight: FontWeight.bold),
         ),
-        Text("$score", style: Theme.of(context).textTheme.subtitle1),
+        Text("$score", style: Theme.of(context).textTheme.bodyText1),
       ],
     );
   }

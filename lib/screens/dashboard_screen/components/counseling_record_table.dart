@@ -1,5 +1,6 @@
 import 'package:ai_counseling_platform/controllers/counseling_record_controller.dart';
 import 'package:ai_counseling_platform/controllers/customer_controller.dart';
+import 'package:ai_counseling_platform/model/conseling_record.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
@@ -12,11 +13,17 @@ const EdgeInsetsGeometry headerPadding = EdgeInsets.symmetric(
     vertical: defaultPadding, horizontal: defaultPadding * 2);
 
 class CounselingRecordTable extends StatelessWidget {
+  final List<CounselingRecord> counselingRecordList;
+
+  CounselingRecordTable({
+    required this.counselingRecordList,
+  });
+
   @override
   Widget build(BuildContext context) {
     final CounselingRecordDattaSource counselingRecordDattaSource = context
         .watch<CounselingRecordController>()
-        .getCounselingRecordDattaSource(context);
+        .getCounselingRecordDattaSource(context, counselingRecordList);
     return SfDataGrid(
       selectionMode: SelectionMode.single,
       headerGridLinesVisibility: GridLinesVisibility.none,
