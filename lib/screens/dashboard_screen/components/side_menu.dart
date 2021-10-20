@@ -23,14 +23,19 @@ class SideMenu extends StatelessWidget {
             children: [
               DrawerHeader(
                 margin: EdgeInsets.only(
-                    left: defaultPadding * 3,
-                    right: defaultPadding * 3,
+                    left: defaultPadding * 7,
+                    right: defaultPadding * 7,
                     bottom: 0),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Image.asset(
-                    'assets/images/growingmom_logo.png',
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Image.asset(
+                      'assets/images/logo.png',
+                    ),
+                    Image.asset(
+                      'assets/images/growingmom_logo.png',
+                    ),
+                  ],
                 ),
                 decoration: BoxDecoration(
                   border: Border(
@@ -66,17 +71,17 @@ class SideMenu extends StatelessWidget {
                 height: defaultPadding * 1.5,
               ),
               DrawerItem(
-                title: '상담사 프로필 조회',
-                svgSrc: "assets/icons/menu_profile.svg",
-                index: 3,
+                title: '상담 보고서 조회',
+                svgSrc: "assets/icons/menu_tran.svg",
+                index: 4,
               ),
               SizedBox(
                 height: defaultPadding * 1.5,
               ),
               DrawerItem(
-                title: '분석모델 관리',
-                svgSrc: "assets/icons/menu_tran.svg",
-                index: 4,
+                title: '상담사 조회',
+                svgSrc: "assets/icons/menu_profile.svg",
+                index: 3,
               ),
               SizedBox(
                 height: defaultPadding * 1.5,

@@ -81,6 +81,7 @@ class _UserCreateAlertDialogState extends State<UserCreateAlertDialog> {
                         onTap: () async {
                           DateTime? pickedDate = await showDatePicker(
                               context: context,
+                              initialEntryMode: DatePickerEntryMode.calendar,
                               initialDate: DateTime.now(),
                               firstDate: DateTime(
                                   2000), //DateTime.now() - not to allow to choose before today.

@@ -9,12 +9,14 @@ class BottomInfoAppBar extends StatelessWidget with PreferredSizeWidget {
     required this.title,
     required this.onTap,
     this.isLeading = true,
+    this.actions,
   }) : super(key: key);
 
   final List<Widget> infoList;
   final String title;
   final void Function() onTap;
   final bool isLeading;
+  final List<Widget>? actions;
 
   @override
   Size get preferredSize => Size.fromHeight(100);
@@ -23,6 +25,7 @@ class BottomInfoAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: false,
+      actions: actions,
       backgroundColor: Colors.white,
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(40),
