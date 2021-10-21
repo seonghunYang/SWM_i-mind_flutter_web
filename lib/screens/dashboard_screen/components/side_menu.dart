@@ -23,17 +23,32 @@ class SideMenu extends StatelessWidget {
             children: [
               DrawerHeader(
                 margin: EdgeInsets.only(
-                    left: defaultPadding * 7,
-                    right: defaultPadding * 7,
+                    left: defaultPadding * 1,
+                    right: defaultPadding * 1,
                     bottom: 0),
-                child: Column(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Image.asset(
-                      'assets/images/logo.png',
+                    Expanded(
+                      child: Image.asset(
+                        'assets/images/logo.png',
+                      ),
                     ),
-                    Image.asset(
-                      'assets/images/growingmom_logo.png',
+                    SizedBox(
+                      width: defaultPadding,
+                    ),
+                    Container(
+                      width: 1,
+                      height: 30,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(
+                      width: defaultPadding,
+                    ),
+                    Expanded(
+                      child: Image.asset(
+                        'assets/images/growingmom_logo.png',
+                      ),
                     ),
                   ],
                 ),
@@ -73,7 +88,7 @@ class SideMenu extends StatelessWidget {
               DrawerItem(
                 title: '상담 보고서 조회',
                 svgSrc: "assets/icons/menu_tran.svg",
-                index: 4,
+                index: 3,
               ),
               SizedBox(
                 height: defaultPadding * 1.5,
@@ -81,7 +96,7 @@ class SideMenu extends StatelessWidget {
               DrawerItem(
                 title: '상담사 조회',
                 svgSrc: "assets/icons/menu_profile.svg",
-                index: 3,
+                index: 4,
               ),
               SizedBox(
                 height: defaultPadding * 1.5,
