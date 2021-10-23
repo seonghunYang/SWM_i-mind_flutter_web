@@ -8,7 +8,12 @@ import '../../../constants.dart';
 class ThresholdSlider extends StatefulWidget {
   const ThresholdSlider({
     Key? key,
+    required this.labelFormatterCallback,
+    required this.tooltipTextFormatterCallback,
   }) : super(key: key);
+
+  final String Function(dynamic, String)? labelFormatterCallback;
+  final String Function(dynamic, String)? tooltipTextFormatterCallback;
 
   @override
   State<ThresholdSlider> createState() => _ThresholdSliderState();
@@ -35,22 +40,23 @@ class _ThresholdSliderState extends State<ThresholdSlider> {
           sliderController.updateValue(value);
           setState(() {});
         },
-        labelFormatterCallback: (dynamic value, String formattedText) {
-          switch (value) {
-            case 1:
-              return "매우낮음";
-            case 2:
-              return "낮음";
-            case 3:
-              return "보통";
-            case 4:
-              return "높음*";
-            case 5:
-              return "메우높음";
-            default:
-              return "낮음";
-          }
-        },
+        labelFormatterCallback: widget.labelFormatterCallback,
+        //     (dynamic value, String formattedText) {
+        //   switch (value) {
+        //     case 1:
+        //       return "매우낮음";
+        //     case 2:
+        //       return "낮음";
+        //     case 3:
+        //       return "보통";
+        //     case 4:
+        //       return "높음*";
+        //     case 5:
+        //       return "메우높음";
+        //     default:
+        //       return "낮음";
+        //   }
+        // },
         tooltipTextFormatterCallback: (dynamic value, String formattedText) {
           switch (value) {
             case 1:

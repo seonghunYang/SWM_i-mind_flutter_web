@@ -231,11 +231,8 @@ class _IndicatorNameState extends State<IndicatorName> {
               ),
             )
           : Text(
-              "${widget.index}. $value",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline4!
-                  .copyWith(fontWeight: FontWeight.w500, fontSize: 22),
+              "지표: $value",
+              style: Theme.of(context).textTheme.headline4,
               textAlign: TextAlign.center,
             ),
     );
