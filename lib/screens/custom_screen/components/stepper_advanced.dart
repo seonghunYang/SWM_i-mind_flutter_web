@@ -22,7 +22,7 @@ class StepperAdvanced extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("- 구체적인 수치와 지표선정 기준은 문의 주신 내용을 바탕으로 상호 협의 후 결정합니다.",
+            Text("- 머신러닝 지표분석을 원하시면 help@i-mind.com으로 문의 부탁드립니다.",
                 style: TextStyle(
                   color: Colors.grey,
                   fontSize: 13,

@@ -1,6 +1,9 @@
+import 'package:ai_counseling_platform/controllers/logic_custom_controller.dart';
+import 'package:ai_counseling_platform/model/custom_indiactor_save.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
+import 'package:provider/src/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 import '../../../constants.dart';
@@ -27,65 +30,6 @@ class CustomLogic extends StatefulWidget {
 }
 
 class _CustomLogicState extends State<CustomLogic> {
-  int selectedIndex = 0;
-  List<int> finishedIndexList = [];
-  String stepOneText = "아이";
-  String stepTwoText = "대표행동";
-  String stepThreeText = "지속시간 구하기";
-  String stepFourText = "최대값 비교";
-  List<String> stepTwoSubList = [];
-
-  void updateStepTwoSubList(String newValue, bool isSelected) {
-    if (isSelected) {
-      setState(() {
-        stepTwoSubList.add(newValue);
-      });
-    } else {
-      setState(() {
-        stepTwoSubList.remove(newValue);
-      });
-    }
-  }
-
-  void updateSelectedIndex(int newIndex) {
-    setState(() {
-      selectedIndex = newIndex;
-    });
-  }
-
-  void updateFinishIndex(int newIndex) {
-    if (!finishedIndexList.contains(newIndex)) {
-      setState(() {
-        finishedIndexList.add(newIndex);
-      });
-    }
-    updateSelectedIndex(newIndex + 1);
-  }
-
-  void updateStepOneText(String newText) {
-    setState(() {
-      stepOneText = newText;
-    });
-  }
-
-  void updateStepTwoText(String newText) {
-    setState(() {
-      stepTwoText = newText;
-    });
-  }
-
-  void updateStepThreeText(String newText) {
-    setState(() {
-      stepThreeText = newText;
-    });
-  }
-
-  void updateStepFourText(String newText) {
-    setState(() {
-      stepFourText = newText;
-    });
-  }
-
   String getSubText(List<String> list) {
     String value = "";
     for (int i = 0; i < list.length; i++) {
@@ -95,31 +39,55 @@ class _CustomLogicState extends State<CustomLogic> {
     return value;
   }
 
-  Widget getSelectedContent() {
-    switch (selectedIndex) {
+  Widget getSelectedContent(LogicCustomController logicCustomController) {
+    CustomIndicatorSave indicatorSave =
+        logicCustomController.customDbList[widget.index];
+    switch (indicatorSave.selectedIndex) {
       case 0:
         return LogicSettingOne(
-          updateSelectedIndex: updateFinishIndex,
-          updateStepOneText: updateStepOneText,
+          updateSelectedIndex: (int newIndex) {
+            logicCustomController.updateFinishIndex(widget.index, newIndex);
+          },
+          updateStepOneText: (String newText) {
+            logicCustomController.updateStepOneText(widget.index, newText);
+          },
         );
       case 1:
         return LogicSettingTwo(
-          updateSelectedIndex: updateFinishIndex,
-          updateStepTwoText: updateStepTwoText,
-          selectedValue: stepTwoText,
-          updateSubContent: updateStepTwoSubList,
+          updateSelectedIndex: (int newIndex) {
+            logicCustomController.updateFinishIndex(widget.index, newIndex);
+          },
+          updateStepTwoText: (String newText) {
+            logicCustomController.updateStepTwoText(widget.index, newText);
+          },
+          selectedValue: indicatorSave.stepTwoText,
+          updateSubContent: (String newValue, bool isSelected) {
+            logicCustomController.updateStepTwoSubList(
+                widget.index, newValue, isSelected);
+          },
         );
       case 2:
         return LogicSettingThree(
-          updateSelectedIndex: updateFinishIndex,
-          updateStepThreeText: updateStepThreeText,
+          updateSelectedIndex: (int newIndex) {
+            logicCustomController.updateFinishIndex(widget.index, newIndex);
+          },
+          updateStepThreeText: (String newText) {
+            logicCustomController.updateStepThreeText(widget.index, newText);
+          },
         );
       case 3:
         return LogicSettingFour(
-          updateSelectedIndex: updateFinishIndex,
-          updateStepFourText: updateStepFourText,
-          selectedValue: stepFourText,
-          updateSubContent: updateStepTwoSubList,
+          updateSelectedIndex: (int newIndex) {
+            logicCustomController.updateFinishIndex(widget.index, newIndex);
+          },
+          updateStepFourText: (String newText) {
+            logicCustomController.updateStepFourText(widget.index, newText);
+          },
+          selectedValue: indicatorSave.stepFourText,
+          updateSubContent: (String newValue, bool isSelected) {
+            logicCustomController.updateStepTwoSubList(
+                widget.index, newValue, isSelected);
+          },
         );
       default:
         return Container();
@@ -128,9 +96,12 @@ class _CustomLogicState extends State<CustomLogic> {
 
   @override
   Widget build(BuildContext context) {
+    final LogicCustomController logicCustomController =
+        context.watch<LogicCustomController>();
+    CustomIndicatorSave indicatorSave =
+        logicCustomController.customDbList[widget.index];
     return Column(
       children: [
-        // IndicatorName(index: index),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: defaultPadding * 5),
           child: Row(
@@ -140,59 +111,71 @@ class _CustomLogicState extends State<CustomLogic> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    IndicatorName(index: widget.index),
+                    IndicatorName(index: widget.index + 1),
                     CustomLogicLayer(
-                      isFinished: finishedIndexList.contains(0),
+                      isFinished: indicatorSave.finishedIndexList.contains(0),
                       index: 0,
                       title: "분석 대상",
                       color: kSelectedContainerColor,
-                      onTap: updateSelectedIndex,
-                      isSelected: 0 == selectedIndex,
-                      finishedText: stepOneText,
+                      onTap: (int newIndex) {
+                        logicCustomController.updateSelectedIndex(
+                            widget.index, newIndex);
+                      },
+                      isSelected: 0 == indicatorSave.selectedIndex,
+                      finishedText: indicatorSave.stepOneText,
                     ),
                     SizedBox(
                       height: defaultPadding,
                     ),
                     CustomLogicLayer(
-                      isFinished: finishedIndexList.contains(1),
+                      isFinished: indicatorSave.finishedIndexList.contains(1),
                       index: 1,
                       title: "자료 선택",
                       color: kSelectedContainerColor,
-                      onTap: updateSelectedIndex,
-                      isSelected: 1 == selectedIndex,
+                      onTap: (int newIndex) {
+                        logicCustomController.updateSelectedIndex(
+                            widget.index, newIndex);
+                      },
+                      isSelected: 1 == indicatorSave.selectedIndex,
                       finishedText:
-                          "$stepTwoText\n${getSubText(stepTwoSubList)}",
+                          "${indicatorSave.stepTwoText}\n${getSubText(indicatorSave.stepTwoSubList)}",
                     ),
                     SizedBox(
                       height: defaultPadding,
                     ),
                     CustomLogicLayer(
-                      isFinished: finishedIndexList.contains(2),
+                      isFinished: indicatorSave.finishedIndexList.contains(2),
                       index: 2,
                       title: "분석 방법",
                       color: kSelectedContainerColor,
-                      onTap: updateSelectedIndex,
-                      isSelected: 2 == selectedIndex,
-                      finishedText: stepThreeText,
+                      onTap: (int newIndex) {
+                        logicCustomController.updateSelectedIndex(
+                            widget.index, newIndex);
+                      },
+                      isSelected: 2 == indicatorSave.selectedIndex,
+                      finishedText: indicatorSave.stepThreeText,
                     ),
                     SizedBox(
                       height: defaultPadding,
                     ),
                     CustomLogicLayer(
-                      isFinished: finishedIndexList.contains(3),
+                      isFinished: indicatorSave.finishedIndexList.contains(3),
                       index: 3,
                       title: "지표 산출",
                       color: kSelectedContainerColor,
-                      onTap: updateSelectedIndex,
-                      isSelected: 3 == selectedIndex,
-                      finishedText: stepFourText,
+                      onTap: (int newIndex) {
+                        logicCustomController.updateSelectedIndex(
+                            widget.index, newIndex);
+                      },
+                      isSelected: 3 == indicatorSave.selectedIndex,
+                      finishedText: indicatorSave.stepFourText,
                     ),
                   ],
                 ),
               ),
               Expanded(
                 flex: 4,
-                child: getSelectedContent(),
+                child: getSelectedContent(logicCustomController),
               )
             ],
           ),
