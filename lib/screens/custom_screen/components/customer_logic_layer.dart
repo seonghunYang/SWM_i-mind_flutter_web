@@ -49,11 +49,12 @@ class CustomLogicLayer extends StatelessWidget {
       return Container(
         width: 200,
         alignment: Alignment.center,
+        padding: EdgeInsets.all(defaultPadding),
         decoration: BoxDecoration(
             color: color, borderRadius: BorderRadius.all(Radius.circular(5.0))),
-        height: 35,
         child: Text(
           finishedText,
+          textAlign: TextAlign.center,
           style: TextStyle(
               fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white),
         ),

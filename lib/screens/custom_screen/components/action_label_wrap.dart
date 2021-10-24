@@ -9,7 +9,12 @@ import '../../../constants.dart';
 class ActionLabelWrap extends StatelessWidget {
   const ActionLabelWrap({
     Key? key,
+    required this.labelList,
+    required this.onSelected,
   }) : super(key: key);
+
+  final List<String> labelList;
+  final void Function(int, bool) onSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +28,8 @@ class ActionLabelWrap extends StatelessWidget {
           isRadio: false,
           spacing: 20,
           runSpacing: 10,
-          onSelected: (index, isSelected) {
-            if (isSelected) {
-              chipsController.removeSelectedNumberKeyList(index);
-            } else {
-              chipsController.updateSelectedNumberKeyList(index);
-            }
-          },
-          buttons: labels,
+          onSelected: onSelected,
+          buttons: labelList,
           textPadding: EdgeInsets.zero,
           selectedColor: Colors.black,
           borderRadius: BorderRadius.all(Radius.circular(defaultPadding * 0.5)),

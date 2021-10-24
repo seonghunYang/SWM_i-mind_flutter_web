@@ -12,6 +12,7 @@ class LogicSettingBlock extends StatelessWidget {
     required this.onSelectedButton,
     required this.onTapButton,
     this.subContent,
+    this.height = 200,
   }) : super(key: key);
   final String title;
   final List<String> titleButtonList;
@@ -19,11 +20,12 @@ class LogicSettingBlock extends StatelessWidget {
 
   final void Function(int, bool) onSelectedButton;
   final void Function() onTapButton;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 280,
+      height: height,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -52,8 +54,9 @@ class LogicSettingBlock extends StatelessWidget {
             borderRadius:
                 BorderRadius.all(Radius.circular(defaultPadding * 0.5)),
           ),
+          if (subContent != null) Expanded(child: subContent!),
           SizedBox(
-            height: defaultPadding * 3,
+            height: defaultPadding * 1.5,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -65,22 +68,7 @@ class LogicSettingBlock extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyText1,
                   ))
             ],
-          )
-          // SizedBox(
-          //   height: defaultPadding * 3,
-          // ),
-
-          // Text(
-          //   "1-1. 대표행동 선택",
-          //   style: Theme.of(context)
-          //       .textTheme
-          //       .subtitle1!
-          //       .copyWith(fontWeight: FontWeight.bold),
-          // ),
-          // SizedBox(
-          //   height: defaultPadding * 2,
-          // ),
-          // Expanded(child: ActionLabelWrap()),
+          ),
         ],
       ),
     );

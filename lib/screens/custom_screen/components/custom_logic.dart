@@ -9,7 +9,9 @@ import 'customer_logic_layer.dart';
 import 'logic_custom.dart';
 import 'package:dotted_border/dotted_border.dart';
 
+import 'logic_setting_four.dart';
 import 'logic_setting_one.dart';
+import 'logic_setting_three.dart';
 import 'logic_setting_two.dart';
 
 class CustomLogic extends StatefulWidget {
@@ -29,6 +31,21 @@ class _CustomLogicState extends State<CustomLogic> {
   List<int> finishedIndexList = [];
   String stepOneText = "아이";
   String stepTwoText = "대표행동";
+  String stepThreeText = "지속시간 구하기";
+  String stepFourText = "최대값 비교";
+  List<String> stepTwoSubList = [];
+
+  void updateStepTwoSubList(String newValue, bool isSelected) {
+    if (isSelected) {
+      setState(() {
+        stepTwoSubList.add(newValue);
+      });
+    } else {
+      setState(() {
+        stepTwoSubList.remove(newValue);
+      });
+    }
+  }
 
   void updateSelectedIndex(int newIndex) {
     setState(() {
@@ -57,6 +74,27 @@ class _CustomLogicState extends State<CustomLogic> {
     });
   }
 
+  void updateStepThreeText(String newText) {
+    setState(() {
+      stepThreeText = newText;
+    });
+  }
+
+  void updateStepFourText(String newText) {
+    setState(() {
+      stepFourText = newText;
+    });
+  }
+
+  String getSubText(List<String> list) {
+    String value = "";
+    for (int i = 0; i < list.length; i++) {
+      value += list[i];
+      value += ", ";
+    }
+    return value;
+  }
+
   Widget getSelectedContent() {
     switch (selectedIndex) {
       case 0:
@@ -69,6 +107,19 @@ class _CustomLogicState extends State<CustomLogic> {
           updateSelectedIndex: updateFinishIndex,
           updateStepTwoText: updateStepTwoText,
           selectedValue: stepTwoText,
+          updateSubContent: updateStepTwoSubList,
+        );
+      case 2:
+        return LogicSettingThree(
+          updateSelectedIndex: updateFinishIndex,
+          updateStepThreeText: updateStepThreeText,
+        );
+      case 3:
+        return LogicSettingFour(
+          updateSelectedIndex: updateFinishIndex,
+          updateStepFourText: updateStepFourText,
+          selectedValue: stepFourText,
+          updateSubContent: updateStepTwoSubList,
         );
       default:
         return Container();
@@ -109,7 +160,8 @@ class _CustomLogicState extends State<CustomLogic> {
                       color: kSelectedContainerColor,
                       onTap: updateSelectedIndex,
                       isSelected: 1 == selectedIndex,
-                      finishedText: "",
+                      finishedText:
+                          "$stepTwoText\n${getSubText(stepTwoSubList)}",
                     ),
                     SizedBox(
                       height: defaultPadding,
@@ -121,7 +173,7 @@ class _CustomLogicState extends State<CustomLogic> {
                       color: kSelectedContainerColor,
                       onTap: updateSelectedIndex,
                       isSelected: 2 == selectedIndex,
-                      finishedText: "",
+                      finishedText: stepThreeText,
                     ),
                     SizedBox(
                       height: defaultPadding,
@@ -133,7 +185,7 @@ class _CustomLogicState extends State<CustomLogic> {
                       color: kSelectedContainerColor,
                       onTap: updateSelectedIndex,
                       isSelected: 3 == selectedIndex,
-                      finishedText: "",
+                      finishedText: stepFourText,
                     ),
                   ],
                 ),
@@ -144,6 +196,9 @@ class _CustomLogicState extends State<CustomLogic> {
               )
             ],
           ),
+        ),
+        SizedBox(
+          height: defaultPadding * 10,
         )
       ],
     );

@@ -45,7 +45,7 @@ const kTextColor = Color(0xff1253f3);
 
 const kContainerColor = Color(0xffD5E9FF);
 
-const List<String> labels = [
+const List<String> actionLabels = [
   "대화 듣기",
   "말하기",
   "물체 보기",
@@ -61,6 +61,17 @@ const List<String> labels = [
   "밀기",
   "손 흔들기",
   "읽기",
+];
+
+const List<String> emotionLabels = [
+  "중립",
+  "행복",
+  "슬픔",
+  "분노",
+  "공포",
+  "놀람",
+  "혼란",
+  "앉기",
 ];
 
 const kDashboardMenuColor = Color(0xffFEFDFF);
