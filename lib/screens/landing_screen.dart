@@ -34,7 +34,8 @@ class _LandingScreenState extends State<LandingScreen> {
     context.read<ScrollPositionController>().scrollListener(_scrollController);
     return Scaffold(
       appBar: const ScrollableAppbar(
-        transparent: true,
+        transparent: false,
+        buttonColor: kLandingMainColor,
       ),
       extendBodyBehindAppBar: true,
       body: Container(
@@ -45,6 +46,7 @@ class _LandingScreenState extends State<LandingScreen> {
             SliverList(
               delegate: SliverChildListDelegate([
                 const AboveTheFold(),
+                const Partners(),
                 const PlatformInfo(),
                 const SizedBox(
                   height: 100,
@@ -53,7 +55,6 @@ class _LandingScreenState extends State<LandingScreen> {
                 const SizedBox(
                   height: 100,
                 ),
-                const Partners(),
                 const Footer()
               ]),
             )

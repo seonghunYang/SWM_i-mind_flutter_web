@@ -37,7 +37,38 @@ class _LogicSettingFourState extends State<LogicSettingFour> {
           height: defaultPadding * 3,
         ),
         Text(
-          "4-1. 지표유형 선택",
+          "4-1. 데이터 속성",
+          style: Theme.of(context)
+              .textTheme
+              .subtitle1!
+              .copyWith(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: defaultPadding * 3,
+        ),
+        GroupButton(
+          // selectedTextStyle: TextStyle(),
+          groupRunAlignment: GroupRunAlignment.start,
+          mainGroupAlignment: MainGroupAlignment.start,
+          selectedButton: 0,
+          isRadio: true,
+          spacing: 20,
+          runSpacing: 10,
+          onSelected: (index, bool) {
+            setState(() {
+              selectedIndex = index;
+            });
+          },
+          buttons: ["시간", "확률(%)", "상대거리", "빈도수"],
+          textPadding: EdgeInsets.zero,
+          selectedColor: Colors.black,
+          borderRadius: BorderRadius.all(Radius.circular(defaultPadding * 0.5)),
+        ),
+        SizedBox(
+          height: defaultPadding,
+        ),
+        Text(
+          "4-2. 지표유형 선택",
           style: Theme.of(context)
               .textTheme
               .subtitle1!
@@ -153,7 +184,7 @@ class _LogicSettingFourState extends State<LogicSettingFour> {
   @override
   Widget build(BuildContext context) {
     return LogicSettingBlock(
-      height: isTap ? 350 : 200,
+      height: isTap ? 450 : 280,
       title: "4. 지표 산출",
       titleButtonList: labelList,
       onSelectedButton: (int index, _) {
@@ -179,7 +210,7 @@ class IndicatorInputCell extends StatelessWidget {
     return Row(
       children: [
         Text(
-          "$index   =>",
+          "$index   <=",
           style: Theme.of(context).textTheme.bodyText1,
         ),
         SizedBox(
@@ -191,8 +222,9 @@ class IndicatorInputCell extends StatelessWidget {
             decoration: InputDecoration(
               isDense: true,
               border: OutlineInputBorder(),
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: defaultPadding * 0.75),
+              contentPadding: EdgeInsets.symmetric(
+                  vertical: defaultPadding * 0.75,
+                  horizontal: defaultPadding * 0.75),
             ),
           ),
         ),

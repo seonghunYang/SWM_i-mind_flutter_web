@@ -30,7 +30,7 @@ class SalesPointItem extends StatelessWidget {
                   width: 40,
                   height: 40,
                   decoration: const BoxDecoration(
-                    color: kMainColor,
+                    color: kLandingMainColor,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                   alignment: Alignment.center,

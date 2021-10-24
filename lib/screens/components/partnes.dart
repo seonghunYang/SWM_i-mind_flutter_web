@@ -11,16 +11,16 @@ class Partners extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(
-          top: defaultPadding * 5, bottom: defaultPadding * 7),
-      color: const Color(0xfff5f5f5),
+          top: defaultPadding * 4, bottom: defaultPadding * 7),
+      color: Colors.grey.withOpacity(0.05),
       child: Column(
         children: [
           Text(
             "Partners",
-            style: Theme.of(context).textTheme.headline2,
+            style: Theme.of(context).textTheme.headline1,
           ),
           const SizedBox(
-            height: defaultPadding * 4,
+            height: defaultPadding * 7,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -30,7 +30,7 @@ class Partners extends StatelessWidget {
                 image: AssetImage("assets/images/swm_logo.png"),
               ),
               SizedBox(
-                width: defaultPadding,
+                width: defaultPadding * 6,
               ),
               Image(
                 height: 50,

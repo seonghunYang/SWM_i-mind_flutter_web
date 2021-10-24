@@ -17,11 +17,11 @@ class RoundedButton extends StatelessWidget {
       onPressed: onPressed,
       style: ButtonStyle(
           padding: MaterialStateProperty.all(const EdgeInsets.symmetric(
-              vertical: defaultPadding * 3, horizontal: defaultPadding * 4)),
-          backgroundColor: MaterialStateProperty.all(Colors.white),
+              vertical: defaultPadding * 3, horizontal: defaultPadding * 3.5)),
+          backgroundColor: MaterialStateProperty.all(kLandingMainColor),
           elevation: MaterialStateProperty.all(0),
           shape: MaterialStateProperty.all(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)))),
       child: text,
     );
   }

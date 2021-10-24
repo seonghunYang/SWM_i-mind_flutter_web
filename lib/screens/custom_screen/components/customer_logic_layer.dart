@@ -30,18 +30,19 @@ class CustomLogicLayer extends StatelessWidget {
         borderType: BorderType.RRect,
         radius: Radius.circular(5.0),
         strokeWidth: 3.0,
-        color: isSelected ? color : kContainerColor,
+        color: isSelected ? Colors.black : Colors.black38,
         child: Container(
           width: 200,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-              color: color.withOpacity(isSelected ? 1 : 0.5),
+              color: Colors.white,
+              // color.withOpacity(isSelected ? 1 : 0.5),
               borderRadius: BorderRadius.all(Radius.circular(5.0))),
           height: isSelected ? 35 : 30,
           child: Icon(
             Icons.add,
             size: 20,
-            color: Colors.white,
+            color: Colors.black,
           ),
         ),
       );
@@ -51,7 +52,8 @@ class CustomLogicLayer extends StatelessWidget {
         alignment: Alignment.center,
         padding: EdgeInsets.all(defaultPadding),
         decoration: BoxDecoration(
-            color: color, borderRadius: BorderRadius.all(Radius.circular(5.0))),
+            color: Colors.black,
+            borderRadius: BorderRadius.all(Radius.circular(5.0))),
         child: Text(
           finishedText,
           textAlign: TextAlign.center,

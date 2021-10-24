@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:html' as html;
 import '../../../constants.dart';
+import 'demo_custom_record_page.dart';
 
 class StepperBackTesting extends StatelessWidget {
   const StepperBackTesting({Key? key}) : super(key: key);
@@ -45,40 +46,52 @@ class StepperBackTesting extends StatelessWidget {
         Container(
           padding: EdgeInsets.symmetric(horizontal: defaultPadding * 10),
           alignment: Alignment.centerLeft,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "1. 데모 테스트 영상을 선택하세요.",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline4!
-                    .copyWith(fontWeight: FontWeight.w500),
-              ),
-              SizedBox(
-                height: defaultPadding * 3,
-              ),
-              FileButton(),
-              SizedBox(
-                height: defaultPadding * 3,
-              ),
-              TextButton(onPressed: () {}, child: Text("분석 수행")),
-              SizedBox(
-                height: defaultPadding * 5,
-              ),
-              Text(
-                "2. 분석결과 확인",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline4!
-                    .copyWith(fontWeight: FontWeight.w500),
-              ),
-            ],
-          ),
+          child: DemoTestingContainer(),
         ),
+        // DemoCustomRecordPage(),
         Container(
-          height: 100,
+          height: 40,
         ),
+      ],
+    );
+  }
+}
+
+class DemoTestingContainer extends StatelessWidget {
+  const DemoTestingContainer({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "1. 데모 테스트 영상을 선택하세요.",
+          style: Theme.of(context)
+              .textTheme
+              .headline4!
+              .copyWith(fontWeight: FontWeight.w500),
+        ),
+        SizedBox(
+          height: defaultPadding * 3,
+        ),
+        FileButton(),
+        SizedBox(
+          height: defaultPadding * 3,
+        ),
+        TextButton(onPressed: () {}, child: Text("분석 수행")),
+        SizedBox(
+          height: defaultPadding * 5,
+        ),
+        // Text(
+        //   "2. 분석결과 확인",
+        //   style: Theme.of(context)
+        //       .textTheme
+        //       .headline4!
+        //       .copyWith(fontWeight: FontWeight.w500),
+        // ),
       ],
     );
   }
