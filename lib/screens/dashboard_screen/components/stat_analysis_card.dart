@@ -23,6 +23,7 @@ class StatAnalysisCard extends StatelessWidget {
     this.multiSubChild,
     this.singleMainContentFlex = 4,
     this.singleSubContentFlex = 1,
+    this.isTooltip = true,
   }) : super(key: key);
 
   final int videoSeconds;
@@ -38,6 +39,7 @@ class StatAnalysisCard extends StatelessWidget {
   final Widget? multiSubChild;
   final int singleMainContentFlex;
   final int singleSubContentFlex;
+  final bool isTooltip;
 
   @override
   Widget build(BuildContext context) {
@@ -57,15 +59,16 @@ class StatAnalysisCard extends StatelessWidget {
                 SizedBox(
                   width: defaultPadding,
                 ),
-                Tooltip(
-                  message: tooltipMessage,
-                  decoration: BoxDecoration(color: Colors.black87),
-                  child: Icon(
-                    Icons.info_outline,
-                    color: kMainColor,
-                    size: 20,
+                if (isTooltip)
+                  Tooltip(
+                    message: tooltipMessage,
+                    decoration: BoxDecoration(color: Colors.black87),
+                    child: Icon(
+                      Icons.info_outline,
+                      color: kMainColor,
+                      size: 20,
+                    ),
                   ),
-                ),
               ],
             ),
             SizedBox(

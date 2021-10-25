@@ -180,6 +180,8 @@ class CounselingRecordDattaSource extends DataGridSource {
                     if (value == 0) {
                       selectCounselingRecord(row.getCells()[0].value);
                       context.read<MenuController>().updateMenuIndex(2);
+                    } else if (value == 1) {
+                      context.read<MenuController>().updateMenuIndex(3);
                     }
                   },
                   icon: Icon(
@@ -189,7 +191,11 @@ class CounselingRecordDattaSource extends DataGridSource {
                   itemBuilder: (context) => [
                     const PopupMenuItem(
                       value: 0,
-                      child: Text('상담 기록 조회'),
+                      child: Text('분석결과 확인 및 일지 작성'),
+                    ),
+                    const PopupMenuItem(
+                      value: 1,
+                      child: Text('보고서 조회'),
                     ),
                   ],
                 ));

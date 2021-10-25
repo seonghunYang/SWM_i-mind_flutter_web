@@ -276,11 +276,11 @@ class _DashboardCounselingRecordManageScreenState
                   StatAnalysisCard(
                     singleSubContentFlex: 1,
                     singleMainContentFlex: 3,
-                    tooltipMessage: "asd",
+                    tooltipMessage: "감정별 신뢰도의 변화량",
                     title: "부모-아이 감정 분석",
                     hintMessageList: [
                       "- 감정수치가 0.8 이상인 장면은 부모-아이 관계가 두드러지는 장면일 수 있습니다.",
-                      "- 긍정/부정 감정의 비율은 부모와 아이의 애착 관계를 유추할 수 있습니다."
+                      "- 특정 감정의 부모-아이간 편차는 놀이에 대한 태도를 유추할 수 있습니다."
                     ],
                     videoSeconds: videoSeconds,
                     videoPlayerController: _videoPlayerController,
@@ -594,8 +594,8 @@ class _DashboardCounselingRecordManageScreenState
                       ],
                     ),
                     hintMessageList: [
-                      "- 대표행동의 반복 패턴과 지속 시간을 통해 아이의 지속성/몰입도를 알 수 있습니다. *대표행동: 영상 내에서 가장 많은 빈도를 보이는 행동",
-                      "- 데표행동의 최장지속 시간은 아이의 놀이 지속성을 유추해낼 수 있습니다."
+                      "- 대표행동의 반복 패턴과 지속 시간을 통해 아이의 성향을 파악할 수 있습니다. ",
+                      "* 대표행동: 영상 내에서 가장 많은 빈도를 보이는 행동"
                     ],
                     singleMainContent: Column(
                       children: [
@@ -717,6 +717,7 @@ class _DashboardCounselingRecordManageScreenState
                     height: defaultPadding * 2,
                   ),
                   StatAnalysisCard(
+                    isTooltip: false,
                     singleMainContentFlex: 2,
                     singleSubContentFlex: 1,
                     tooltipMessage: "asd",
@@ -737,9 +738,34 @@ class _DashboardCounselingRecordManageScreenState
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "대표행동 지속시간 비교",
-                                style: Theme.of(context).textTheme.bodyText1,
+                              Row(
+                                children: [
+                                  Text(
+                                    "대표행동 지속시간 비교",
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
+                                  ),
+                                  SizedBox(
+                                    width: defaultPadding * 0.5,
+                                  ),
+                                  Tooltip(
+                                    padding: EdgeInsets.all(defaultPadding),
+                                    textStyle: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2!
+                                        .copyWith(fontWeight: FontWeight.bold),
+                                    message:
+                                        "지속성/몰입도 : 9\n1분 40초 < 대표행동 지속시간(2분 4초) <= 2분 10초",
+                                    decoration: BoxDecoration(
+                                      color: Colors.black,
+                                    ),
+                                    child: Icon(
+                                      Icons.info_outline,
+                                      color: kMainColor,
+                                      size: 20,
+                                    ),
+                                  ),
+                                ],
                               ),
                               SizedBox(
                                 height: defaultPadding,
@@ -842,9 +868,32 @@ class _DashboardCounselingRecordManageScreenState
                     singleMainContent: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "아이 감정 시간대별 분포도",
-                          style: Theme.of(context).textTheme.bodyText1,
+                        Row(
+                          children: [
+                            Text(
+                              "아이 감정 시간대별 분포도",
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                            SizedBox(
+                              width: defaultPadding * 0.5,
+                            ),
+                            Tooltip(
+                              padding: EdgeInsets.all(defaultPadding),
+                              textStyle: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(fontWeight: FontWeight.bold),
+                              message: "즐거움 : 9\n28% < 행복 감정의 비율(29.4%) <= 30%",
+                              decoration: BoxDecoration(
+                                color: Colors.black,
+                              ),
+                              child: Icon(
+                                Icons.info_outline,
+                                color: kMainColor,
+                                size: 20,
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: defaultPadding * 2,
@@ -954,6 +1003,7 @@ class _DashboardCounselingRecordManageScreenState
                     height: defaultPadding * 2,
                   ),
                   StatAnalysisCard(
+                    isTooltip: false,
                     singleMainContentFlex: 3,
                     singleSubContentFlex: 2,
                     videoSeconds: videoSeconds,
@@ -973,6 +1023,26 @@ class _DashboardCounselingRecordManageScreenState
                               "부모-아이 발화 주도권 비율",
                               style: Theme.of(context).textTheme.bodyText1,
                             ),
+                            SizedBox(
+                              width: defaultPadding * 0.5,
+                            ),
+                            Tooltip(
+                              padding: EdgeInsets.all(defaultPadding),
+                              textStyle: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(fontWeight: FontWeight.bold),
+                              message:
+                                  "주도성 : 9\n35% < 부모-아이 발화비율 편차(39.6%) <= 40%",
+                              decoration: BoxDecoration(
+                                color: Colors.black,
+                              ),
+                              child: Icon(
+                                Icons.info_outline,
+                                color: kMainColor,
+                                size: 20,
+                              ),
+                            ),
                           ],
                         ),
                         SizedBox(
@@ -988,9 +1058,33 @@ class _DashboardCounselingRecordManageScreenState
                     singleSubContent: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "부모-아이 거리 편차 분포",
-                          style: Theme.of(context).textTheme.bodyText1,
+                        Row(
+                          children: [
+                            Text(
+                              "부모-아이 거리 편차 분포",
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                            SizedBox(
+                              width: defaultPadding * 0.5,
+                            ),
+                            Tooltip(
+                              padding: EdgeInsets.all(defaultPadding),
+                              textStyle: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(fontWeight: FontWeight.bold),
+                              message:
+                                  "유대감 : 9\n0.05 < 부모-아이 거리평균(0.06) <= 0.1",
+                              decoration: BoxDecoration(
+                                color: Colors.black,
+                              ),
+                              child: Icon(
+                                Icons.info_outline,
+                                color: kMainColor,
+                                size: 20,
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: defaultPadding * 2,
