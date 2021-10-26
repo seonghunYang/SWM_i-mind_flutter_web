@@ -17,6 +17,7 @@ import 'package:provider/provider.dart';
 import 'controllers/counseling_record_controller.dart';
 import 'controllers/customer_controller.dart';
 import 'controllers/logic_custom_controller.dart';
+import 'controllers/selected_counseling_record_controller.dart';
 import 'controllers/selected_customer_controller.dart';
 import 'screens/landing_screen.dart';
 
@@ -63,6 +64,9 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (context) => SelectedCustomerController(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => SelectedCounselingRecordController(),
           ),
         ],
         builder: (context, child) {
