@@ -20,6 +20,7 @@ class NetworkHelper {
       "$_ROOT_API/counselingrecord/recordlist";
 
   static String counselingRecordCreateUrl = "$_ROOT_API/recordcontrol";
+  static String counselingRecordGetVideoUrl = "$_ROOT_API/recordlist";
   static String counselingDetailEmotionAll =
       "$_ROOT_API/customer/detail/emotion/all";
   static String counselingDetailEmotionChild =

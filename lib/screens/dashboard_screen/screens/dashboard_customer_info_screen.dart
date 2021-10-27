@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:ai_counseling_platform/controllers/counseling_record_controller.dart';
 import 'package:ai_counseling_platform/controllers/customer_controller.dart';
 import 'package:ai_counseling_platform/controllers/selected_customer_controller.dart';
 import 'package:ai_counseling_platform/model/conseling_record.dart';
@@ -95,6 +96,10 @@ class DashBoardCustomerInfoScreen extends StatelessWidget {
               var data = snapshot.data;
               // print(data["avgIndicator"]["responsiveness"]);
               // print(data["avgIndicator"]["responsiveness"].runtimeType);
+              context
+                  .read<CounselingRecordController>()
+                  .setCounselingRecordList(
+                      data["counselingRecordList"], selectedCustomer.childName);
               return Container(
                 padding: EdgeInsets.all(defaultPadding * 1.5),
                 child: Row(
@@ -259,37 +264,7 @@ class DashBoardCustomerInfoScreen extends StatelessWidget {
                                         ),
                                         SizedBox(height: defaultPadding * 2),
                                         Expanded(
-                                          child: CounselingRecordTable(
-                                            counselingRecordList:
-                                                List<CounselingRecord>.generate(
-                                              data["counselingRecordList"]
-                                                  .length,
-                                              (index) => CounselingRecord(
-                                                counselingId:
-                                                    data["counselingRecordList"]
-                                                            [index]["ID"]
-                                                        .toString(),
-                                                customerId:
-                                                    data["counselingRecordList"]
-                                                                [index]
-                                                            ["patient_ID"]
-                                                        .toString(),
-                                                category:
-                                                    data["counselingRecordList"]
-                                                        [index]["category"],
-                                                childName:
-                                                    selectedCustomer.childName,
-                                                counselingStatus: "상담완료",
-                                                // data["counselingRecordList"]
-                                                //         [index]
-                                                //     ["counselingStatus"],
-                                                date:
-                                                    data["counselingRecordList"]
-                                                        [index]["date"],
-                                                counselor: "이다랑",
-                                              ),
-                                            ),
-                                          ),
+                                          child: CounselingRecordTable(),
                                         ),
                                       ],
                                     ),

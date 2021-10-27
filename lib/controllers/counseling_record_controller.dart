@@ -13,10 +13,33 @@ import '../constants.dart';
 
 class CounselingRecordController extends ChangeNotifier {
   String? selectedCounselingRecordId;
+  CounselingRecord? selectedCounselingRecord;
 
-  void selectCounselingRecord(String id) {
+  List<CounselingRecord> counselingRecords = [];
+
+  void selectCounselingRecord(String id, int index) {
     selectedCounselingRecordId = id;
+    selectedCounselingRecord = counselingRecords[index];
     //todo 탭바도 이
+    notifyListeners();
+  }
+
+  void setCounselingRecordList(List rawCounselingRecordList, String childName) {
+    counselingRecords = List<CounselingRecord>.generate(
+        rawCounselingRecordList.length,
+        (index) => CounselingRecord(
+              counselingId: rawCounselingRecordList[index]["ID"].toString(),
+              customerId:
+                  rawCounselingRecordList[index]["patient_ID"].toString(),
+              category: rawCounselingRecordList[index]["category"],
+              childName: childName,
+              counselingStatus: "상담완료",
+              // data["counselingRecordList"]
+              //         [index]
+              //     ["counselingStatus"],
+              date: rawCounselingRecordList[index]["date"],
+              counselor: "이다랑",
+            ));
     notifyListeners();
   }
 
@@ -84,9 +107,10 @@ class CounselingRecordController extends ChangeNotifier {
   }
 
   CounselingRecordDattaSource getCounselingRecordDattaSource(
-      BuildContext context, List<CounselingRecord> counselingRecordList) {
+    BuildContext context,
+  ) {
     return CounselingRecordDattaSource(
-      counselingRecordList: counselingRecordList,
+      counselingRecordList: counselingRecords,
       selectCounselingRecord: selectCounselingRecord,
       context: context,
     );
@@ -118,7 +142,7 @@ class CounselingRecordDattaSource extends DataGridSource {
 
   List<DataGridRow> _counselingRecordList = [];
 
-  late void Function(String) selectCounselingRecord;
+  late void Function(String, int) selectCounselingRecord;
   late BuildContext context;
   @override
   List<DataGridRow> get rows => _counselingRecordList;
@@ -177,8 +201,9 @@ class CounselingRecordDattaSource extends DataGridSource {
                 ),
                 child: PopupMenuButton(
                   onSelected: (value) {
+                    int index = _counselingRecordList.indexOf(row);
                     if (value == 0) {
-                      selectCounselingRecord(row.getCells()[0].value);
+                      selectCounselingRecord(row.getCells()[0].value, index);
                       context.read<MenuController>().updateMenuIndex(2);
                     } else if (value == 1) {
                       context.read<MenuController>().updateMenuIndex(3);

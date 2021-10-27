@@ -72,4 +72,36 @@ class SelectedCounselingRecordController extends ChangeNotifier {
 
     return json.decode(response.body);
   }
+
+  Future getRecordVideo(var userInfo, String recordId) async {
+    http.Response response = await http.get(
+        Uri.parse(
+            "${NetworkHelper.counselingRecordGetVideoUrl}?clientId=${userInfo["body"]["clientId"]}&num=$recordId"),
+        headers: {
+          "Authorization": userInfo["body"]["AuthenticationResult"]["IdToken"],
+        });
+
+    return json.decode(response.body);
+  }
+
+  Future getCounselingDetail(String recordId) async {
+    var userInfo = await testLogin();
+
+    var response1 = await getEmotionAll(userInfo, recordId);
+    var response2 = await getRecordVideo(userInfo, recordId);
+    // var emotionChild = await getEmotionChild(userInfo, recordId);
+    // var distance = await getDistance(userInfo, recordId);
+    // var actionList = await getActionList(userInfo, recordId);
+    // var actionTime = await getActionTime(userInfo, recordId);
+
+    Map emotionAll = {
+      "parentEmotion": response1['body'][0][0]["data"],
+      "childEmotion": response1['body'][1][0]["data"],
+      "emotion": "행복",
+    };
+    return {
+      "emotionAll": emotionAll,
+      "videoUrl": response2,
+    };
+  }
 }

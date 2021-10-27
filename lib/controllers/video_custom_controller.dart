@@ -3,11 +3,12 @@ import 'package:video_player/video_player.dart';
 
 class VideoCustomController extends ChangeNotifier {
   VideoPlayerController? _videoPlayerController;
+  int videoSeconds = 0;
+  bool isReadyVideoPlay = false;
 
   Future<VideoPlayerController?> initVideoController(String url) async {
     _videoPlayerController = VideoPlayerController.asset(url);
     await _videoPlayerController!.initialize();
-    print("호출");
     return _videoPlayerController;
   }
 

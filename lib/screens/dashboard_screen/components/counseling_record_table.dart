@@ -13,17 +13,11 @@ const EdgeInsetsGeometry headerPadding = EdgeInsets.symmetric(
     vertical: defaultPadding, horizontal: defaultPadding * 2);
 
 class CounselingRecordTable extends StatelessWidget {
-  final List<CounselingRecord> counselingRecordList;
-
-  CounselingRecordTable({
-    required this.counselingRecordList,
-  });
-
   @override
   Widget build(BuildContext context) {
     final CounselingRecordDattaSource counselingRecordDattaSource = context
         .watch<CounselingRecordController>()
-        .getCounselingRecordDattaSource(context, counselingRecordList);
+        .getCounselingRecordDattaSource(context);
     return SfDataGrid(
       selectionMode: SelectionMode.single,
       headerGridLinesVisibility: GridLinesVisibility.none,
