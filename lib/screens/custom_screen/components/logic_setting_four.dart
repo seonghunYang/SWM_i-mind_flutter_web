@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -234,25 +235,42 @@ class IndicatorInputCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(
-          "$index   >=",
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
+        if (index != 10)
+          Expanded(
+            flex: 1,
+            child: TextField(
+              controller: controller,
+              decoration: InputDecoration(
+                isDense: true,
+                // border: OutlineInputBorder(),
+                contentPadding: EdgeInsets.symmetric(
+                    vertical: defaultPadding * 0.75,
+                    horizontal: defaultPadding * 0.75),
+              ),
+            ),
+          ),
         SizedBox(
           width: defaultPadding,
         ),
-        Expanded(
-          flex: 2,
-          child: TextField(
-            controller: controller,
-            decoration: InputDecoration(
-              isDense: true,
-              // border: OutlineInputBorder(),
-              contentPadding: EdgeInsets.symmetric(
-                  vertical: defaultPadding * 0.75,
-                  horizontal: defaultPadding * 0.75),
-            ),
+        if (index != 10)
+          Text(
+            "이하는",
+            style: Theme.of(context).textTheme.bodyText1,
           ),
+        if (index == 10)
+          Text(
+            "나머지는",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        SizedBox(
+          width: defaultPadding,
+        ),
+        Text(
+          "$index점",
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1!
+              .copyWith(fontWeight: FontWeight.bold),
         ),
         Spacer(
           flex: 1,

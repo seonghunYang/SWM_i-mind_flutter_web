@@ -857,7 +857,7 @@ class _DashboardCounselingRecordManageScreenState
                                           isTooltip: true,
                                           singleMainContentFlex: 2,
                                           singleSubContentFlex: 0,
-                                          tooltipMessage: "asd",
+                                          tooltipMessage: indicatorHappyMessage,
                                           title: "즐거움 : 9점",
                                           // hintMessageList: [
                                           //   "- 행복 감정의 변화는 아이의 놀이에 대한 흥미를 확인할 수 있습니다.",
@@ -1067,7 +1067,8 @@ class _DashboardCounselingRecordManageScreenState
                                           isTooltip: true,
                                           singleMainContentFlex: 2,
                                           singleSubContentFlex: 0,
-                                          tooltipMessage: "asd",
+                                          tooltipMessage:
+                                              indicatorConsistenceMessage,
                                           title: "지속성/몰입도 : 9점",
                                           videoSeconds: videoSeconds,
                                           videoPlayerController:
@@ -1326,7 +1327,8 @@ class _DashboardCounselingRecordManageScreenState
                                           pointVideoDuration:
                                               pointVideoDuration,
                                           title: "주도성 : 9점",
-                                          tooltipMessage: "ㅁㄴ",
+                                          tooltipMessage:
+                                              indicatorLeadingMessage,
                                           // hintMessageList: [
                                           //   "- 발화의 비율을 통해 놀이에서 주도성을 파악할 수 있습니다.",
                                           //   "- 부모와 아이의 거리 편차를 이용하여 부모-아이 관계를 유추할 수 있습니다."
@@ -1621,7 +1623,8 @@ class _DashboardCounselingRecordManageScreenState
                                             pointVideoDuration:
                                                 pointVideoDuration,
                                             title: "밀착도 : 9점",
-                                            tooltipMessage: "ㅁㄴ",
+                                            tooltipMessage:
+                                                indicatorTouchMessage,
                                             singleSubContent: Container(),
                                           ))
                                     ],

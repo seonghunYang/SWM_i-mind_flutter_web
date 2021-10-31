@@ -22,6 +22,8 @@ const Map actionTime = {
   "time": 123,
   "avg_time": 0,
 };
+
+const List<Map> indicator = [];
 const Map talkPercentage = {"child": 23.4};
 
 class DemoCustomRecordPage extends StatefulWidget {
@@ -251,10 +253,6 @@ class _DemoCustomRecordPageState extends State<DemoCustomRecordPage> {
                                 singleSubContentFlex: 0,
                                 tooltipMessage: "asd",
                                 title: "즐거움 : 9점",
-                                // hintMessageList: [
-                                //   "- 행복 감정의 변화는 아이의 놀이에 대한 흥미를 확인할 수 있습니다.",
-                                //   "- 대표행동의 최장 지속시간은 아이의 놀이 지속성/몰입도를 유추해낼 수 있습니다."
-                                // ],
                                 videoSeconds: videoSeconds,
                                 videoPlayerController: _videoPlayerController,
                                 pointVideoDuration: pointVideoDuration,

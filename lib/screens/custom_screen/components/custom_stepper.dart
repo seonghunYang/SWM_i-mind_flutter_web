@@ -2,6 +2,7 @@ import 'package:ai_counseling_platform/controllers/scrollable_position_controlle
 import 'package:ai_counseling_platform/controllers/slider_controller.dart';
 import 'package:ai_counseling_platform/screens/custom_screen/components/stepper_advanced.dart';
 import 'package:ai_counseling_platform/screens/custom_screen/components/stepper_back_testing.dart';
+import 'package:ai_counseling_platform/screens/custom_screen/components/stepper_finish.dart';
 import 'package:ai_counseling_platform/screens/custom_screen/components/stepper_fundemental.dart';
 import 'package:ai_counseling_platform/screens/custom_screen/components/stepper_item.dart';
 import 'package:ai_counseling_platform/screens/custom_screen/components/stepper_line.dart';
@@ -91,7 +92,7 @@ class CustomStepper extends StatelessWidget {
                 } else if (currentNumberKey == 2) {
                   return const StepperBackTesting();
                 } else {
-                  return const StepperFinished();
+                  return const StepperFinish();
                 }
               },
             ),

@@ -61,7 +61,9 @@ class StatAnalysisCard extends StatelessWidget {
                 ),
                 if (isTooltip)
                   Tooltip(
+                    padding: EdgeInsets.all(defaultPadding),
                     message: tooltipMessage,
+                    textStyle: Theme.of(context).textTheme.bodyText2,
                     decoration: BoxDecoration(color: Colors.black87),
                     child: Icon(
                       Icons.info_outline,

@@ -37,9 +37,6 @@ class CounselingRecordController extends ChangeNotifier {
               category: rawCounselingRecordList[index]["category"],
               childName: childName,
               counselingStatus: "상담완료",
-              // data["counselingRecordList"]
-              //         [index]
-              //     ["counselingStatus"],
               date: rawCounselingRecordList[index]["date"],
               counselor: "이다랑",
             ));
@@ -68,6 +65,8 @@ class CounselingRecordController extends ChangeNotifier {
       Uri.parse(NetworkHelper.counselingRecordCreateUrl),
       body: json.encode({
         "clientId": userInfo["body"]["clientId"],
+        "ID": "s.h.yang0230@gmail.com",
+        "patientId": "11",
       }),
       headers: {
         "Authorization": userInfo["body"]["AuthenticationResult"]["IdToken"],
@@ -244,10 +243,12 @@ class CounselingRecordDattaSource extends DataGridSource {
                       value: 0,
                       child: Text('AI 분석리포트 조회'),
                     ),
-                    const PopupMenuItem(
-                      value: 1,
-                      child: Text('상담일지 조회'),
-                    ),
+                    if (row.getCells()[4].value == "상담완료" ||
+                        row.getCells()[4].value == "일지작성")
+                      PopupMenuItem(
+                        value: 1,
+                        child: Text('상담일지 조회'),
+                      ),
                   ],
                 ));
           } else {

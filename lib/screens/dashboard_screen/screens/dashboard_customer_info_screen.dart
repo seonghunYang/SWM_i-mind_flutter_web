@@ -94,12 +94,10 @@ class DashBoardCustomerInfoScreen extends StatelessWidget {
               );
             } else {
               var data = snapshot.data;
-              // print(data["avgIndicator"]["responsiveness"]);
-              // print(data["avgIndicator"]["responsiveness"].runtimeType);
               context
                   .read<CounselingRecordController>()
-                  .setCounselingRecordList(
-                      data["counselingRecordList"], selectedCustomer.childName);
+                  .setCounselingRecordList(data["counselingRecordList"]["list"],
+                      selectedCustomer.childName);
               return Container(
                 padding: EdgeInsets.all(defaultPadding * 1.5),
                 child: Row(
@@ -140,11 +138,17 @@ class DashBoardCustomerInfoScreen extends StatelessWidget {
                                                   ["persistence"],
                                               data["indicatorRecordList"]
                                                   ["scrupulosity"],
+                                              data["indicatorRecordList"]
+                                                  ["leading"],
+                                              data["indicatorRecordList"]
+                                                  ["sensitive"],
                                             ],
                                             lineChartBarColorList: [
                                               Color(0xff4af699),
                                               Color(0xffaa4cfc),
-                                              Color(0xff27b6fc)
+                                              Color(0xff27b6fc),
+                                              Colors.yellow,
+                                              Colors.deepOrangeAccent,
                                             ],
                                             getBottomTitle: (value) {
                                               return data["date"]

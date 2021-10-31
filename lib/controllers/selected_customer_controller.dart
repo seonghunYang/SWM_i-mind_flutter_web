@@ -67,17 +67,20 @@ class SelectedCustomerController extends ChangeNotifier {
       "responsiveness": [],
       "persistence": [],
       "scrupulosity": [],
+      "leading": [],
+      "sensitive": [],
     };
     List<String> counselingDate = [];
+    print(recentIndicator);
 
     recordIndicator.forEach((element) {
       counselingDate.add(element["date"]);
       recordIndicatorList["responsiveness"]!.add(element["responsiveness"]);
       recordIndicatorList["persistence"]!.add(element["persistence"]);
       recordIndicatorList["scrupulosity"]!.add(element["scrupulosity"]);
+      recordIndicatorList["leading"]!.add(element["point1"]);
+      recordIndicatorList["sensitive"]!.add(element["point2"]);
     });
-
-    print(recordIndicatorList);
 
     return {
       "indicatorRecordList": recordIndicatorList,

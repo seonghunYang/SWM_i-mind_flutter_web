@@ -47,6 +47,12 @@ class MultiLineChart extends StatelessWidget {
         getLineChartBarData(
             color: lineChartBarColorList[2],
             spotDataList: lineChartBarDataSpotList[2]),
+        getLineChartBarData(
+            color: lineChartBarColorList[3],
+            spotDataList: lineChartBarDataSpotList[3]),
+        getLineChartBarData(
+            color: lineChartBarColorList[4],
+            spotDataList: lineChartBarDataSpotList[4]),
       ];
 
   @override
@@ -71,6 +77,18 @@ class MultiLineChart extends StatelessWidget {
             ChartIndicator(
               color: Color(0xff27b6fc),
               text: "주도성",
+              isSquare: false,
+              size: 12,
+            ),
+            ChartIndicator(
+              color: Color(0xff27b6fc),
+              text: "반복하기",
+              isSquare: false,
+              size: 12,
+            ),
+            ChartIndicator(
+              color: Colors.deepOrangeAccent,
+              text: "밀착도",
               isSquare: false,
               size: 12,
             ),

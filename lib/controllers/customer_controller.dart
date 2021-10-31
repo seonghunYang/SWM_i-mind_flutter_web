@@ -243,9 +243,46 @@ class CustomerDataSource extends DataGridSource {
                       selectCustomer(index);
                       context.read<MenuController>().updateMenuIndex(1);
                     } else if (value == 1) {
-                      context
-                          .read<CustomerController>()
-                          .deleteCustomer(id: id, index: index);
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: Text(
+                                  "내담자 삭제",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                content: Container(
+                                  child: Text(
+                                    "내담자 삭제시, 해당 내담자의 상담기록도 삭제됩니다. 정말 삭제하겠습니까?",
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text(
+                                      "취소",
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      context
+                                          .read<CustomerController>()
+                                          .deleteCustomer(id: id, index: index);
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text(
+                                      "예",
+                                    ),
+                                  ),
+                                ],
+                              ));
                     }
                   },
                   icon: Icon(

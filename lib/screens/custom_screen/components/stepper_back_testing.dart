@@ -1,6 +1,8 @@
 import 'package:ai_counseling_platform/controllers/backtesting_controller.dart';
+import 'package:ai_counseling_platform/controllers/stepper_controller.dart';
 import 'package:ai_counseling_platform/screens/custom_screen/components/pretty_padding_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:provider/src/provider.dart';
 import 'dart:html' as html;
 import '../../../constants.dart';
@@ -184,11 +186,16 @@ class _DemoTestingContainerState extends State<DemoTestingContainer> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              PrettyPaddingButton(
-                backgroundColor: kSelectedContainerColor,
-                text: "이 옵션으로 문의하기",
-                onPressed: () {},
-              ),
+              Consumer<StepperController>(
+                  builder: (context, stepperController, _) {
+                return PrettyPaddingButton(
+                  backgroundColor: kSelectedContainerColor,
+                  text: "이 옵션으로 문의하기",
+                  onPressed: () {
+                    stepperController.plusCurrentNumberKey();
+                  },
+                );
+              }),
             ],
           )
 
