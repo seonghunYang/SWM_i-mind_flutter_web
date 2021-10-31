@@ -13,7 +13,7 @@ class StepperAdvanced extends StatelessWidget {
     return Column(
       children: [
         Text(
-          "상담센터 핵심 지표와 분석 로직을 선택하세요",
+          "상담센터 분석지표를 선택하세요.",
           style: Theme.of(context).textTheme.headline4!.copyWith(fontSize: 24),
         ),
         SizedBox(

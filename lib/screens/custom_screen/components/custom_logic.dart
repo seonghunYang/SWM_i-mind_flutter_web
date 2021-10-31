@@ -111,7 +111,7 @@ class _CustomLogicState extends State<CustomLogic> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    IndicatorName(index: widget.index + 1),
+                    IndicatorName(index: widget.index),
                     CustomLogicLayer(
                       isFinished: indicatorSave.finishedIndexList.contains(0),
                       index: 0,

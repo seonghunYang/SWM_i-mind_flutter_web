@@ -53,7 +53,7 @@ class _DashboardCounselingReportScreenState
           ],
           isLeading: false,
           onTap: () {},
-          title: "상담보고서",
+          title: "상담일지",
           infoList: [
             ProfileInfoCell(
               title: "아이 이름",

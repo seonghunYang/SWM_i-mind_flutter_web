@@ -1,4 +1,6 @@
 import 'package:ai_counseling_platform/controllers/custom_logic_controller.dart';
+import 'package:ai_counseling_platform/controllers/logic_custom_controller.dart';
+import 'package:ai_counseling_platform/model/custom_indiactor_save.dart';
 import 'package:ai_counseling_platform/model/logic_block.dart';
 import 'package:ai_counseling_platform/screens/custom_screen/components/stepper_item.dart';
 import 'package:flutter/cupertino.dart';
@@ -204,23 +206,23 @@ class IndicatorName extends StatefulWidget {
 }
 
 class _IndicatorNameState extends State<IndicatorName> {
-  String value = "";
-  bool isDone = false;
-
   @override
   Widget build(BuildContext context) {
+    final LogicCustomController logicCustomController =
+        context.watch<LogicCustomController>();
+    CustomIndicatorSave indicatorSave =
+        logicCustomController.customDbList[widget.index];
     return Container(
       width: 150,
       height: 60,
-      child: !isDone
+      child: !indicatorSave.isFinished
           ? TextField(
               onEditingComplete: () {
-                setState(() {
-                  isDone = true;
-                });
+                logicCustomController.updateFinishedControl(widget.index);
               },
               onChanged: (newValue) {
-                value = newValue;
+                logicCustomController.updateIndicatorName(
+                    widget.index, newValue);
               },
               decoration: InputDecoration(
                 hintText: "지표이름",
@@ -231,9 +233,8 @@ class _IndicatorNameState extends State<IndicatorName> {
               ),
             )
           : Text(
-              "지표: $value",
+              "지표: ${indicatorSave.indicatorName}",
               style: Theme.of(context).textTheme.headline4,
-              textAlign: TextAlign.center,
             ),
     );
   }

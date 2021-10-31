@@ -14,7 +14,7 @@ class LogicSettingThree extends StatelessWidget {
   final void Function(String) updateStepThreeText;
   final void Function(int) updateSelectedIndex;
 
-  List<String> labelList = ["지속시간 구하기", "거리 구하기", "비울 구하기"];
+  List<String> labelList = ["지속시간 구하기", "거리 구하기", "비울 구하기", "빈도 구하기"];
 
   @override
   Widget build(BuildContext context) {

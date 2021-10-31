@@ -21,7 +21,6 @@ class ThresholdSlider extends StatefulWidget {
 
 class _ThresholdSliderState extends State<ThresholdSlider> {
   SliderController sliderController = SliderController(value: 4);
-
   @override
   Widget build(BuildContext context) {
     return Container(

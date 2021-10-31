@@ -74,8 +74,8 @@ class _PieOddChartState extends State<PieOddChart> {
         case 0:
           return PieChartSectionData(
             color: kSelectedContainerColor,
-            value: 40,
-            title: '40%',
+            value: 52,
+            title: '52%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -85,8 +85,8 @@ class _PieOddChartState extends State<PieOddChart> {
         case 1:
           return PieChartSectionData(
             color: kMainColor,
-            value: 30,
-            title: '30%',
+            value: 28,
+            title: '28%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -96,8 +96,8 @@ class _PieOddChartState extends State<PieOddChart> {
         case 2:
           return PieChartSectionData(
             color: Colors.yellow,
-            value: 15,
-            title: '15%',
+            value: 8,
+            title: '8%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -107,8 +107,8 @@ class _PieOddChartState extends State<PieOddChart> {
         case 3:
           return PieChartSectionData(
             color: Colors.red,
-            value: 15,
-            title: '15%',
+            value: 7,
+            title: '7%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -118,8 +118,8 @@ class _PieOddChartState extends State<PieOddChart> {
         case 4:
           return PieChartSectionData(
             color: kDasboardTextColor,
-            value: 15,
-            title: '15%',
+            value: 5,
+            title: '5%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,

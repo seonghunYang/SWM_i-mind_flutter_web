@@ -12,7 +12,7 @@ class CounselingRecord {
   final String customerId;
   final String childName;
   final String counselor;
-  final String counselingStatus;
+  String counselingStatus;
   final String category;
   final String date;
 }

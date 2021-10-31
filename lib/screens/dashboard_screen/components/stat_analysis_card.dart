@@ -16,7 +16,7 @@ class StatAnalysisCard extends StatelessWidget {
     required this.pointVideoDuration,
     required this.title,
     required this.tooltipMessage,
-    required this.hintMessageList,
+    this.hintMessageList = const [],
     required this.singleMainContent,
     required this.singleSubContent,
     this.multiMainChild,
@@ -95,10 +95,11 @@ class StatAnalysisCard extends StatelessWidget {
                   flex: singleMainContentFlex,
                   child: singleMainContent,
                 ),
-                Expanded(
-                  child: singleSubContent,
-                  flex: singleSubContentFlex,
-                ),
+                if (singleSubContentFlex != 0)
+                  Expanded(
+                    child: singleSubContent,
+                    flex: singleSubContentFlex,
+                  ),
               ],
             ),
             SizedBox(

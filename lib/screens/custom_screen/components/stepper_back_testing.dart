@@ -1,7 +1,11 @@
+import 'package:ai_counseling_platform/controllers/backtesting_controller.dart';
+import 'package:ai_counseling_platform/screens/custom_screen/components/pretty_padding_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 import 'dart:html' as html;
 import '../../../constants.dart';
 import 'demo_custom_record_page.dart';
+import '../demo_report_screen.dart';
 
 class StepperBackTesting extends StatelessWidget {
   const StepperBackTesting({Key? key}) : super(key: key);
@@ -41,7 +45,7 @@ class StepperBackTesting extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: defaultPadding * 3,
+          height: defaultPadding * 6,
         ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: defaultPadding * 10),
@@ -57,13 +61,24 @@ class StepperBackTesting extends StatelessWidget {
   }
 }
 
-class DemoTestingContainer extends StatelessWidget {
+class DemoTestingContainer extends StatefulWidget {
   const DemoTestingContainer({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<DemoTestingContainer> createState() => _DemoTestingContainerState();
+}
+
+class _DemoTestingContainerState extends State<DemoTestingContainer> {
+  @override
   Widget build(BuildContext context) {
+    BacktestingController backtestingController =
+        context.watch<BacktestingController>();
+    bool stepTwo = backtestingController.stepTwo;
+    bool stepTwoLoading = backtestingController.stepTwoLoading;
+    bool stepThree = backtestingController.stepThree;
+    bool isShowResult = backtestingController.isShowResult;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -77,14 +92,106 @@ class DemoTestingContainer extends StatelessWidget {
         SizedBox(
           height: defaultPadding * 3,
         ),
-        FileButton(),
-        SizedBox(
-          height: defaultPadding * 3,
+        SizedBox(),
+        FileButton(
+          backtestingController: backtestingController,
+          onTap: () {
+            backtestingController.updateStepTwo();
+          },
         ),
-        TextButton(onPressed: () {}, child: Text("분석 수행")),
         SizedBox(
           height: defaultPadding * 5,
         ),
+        if (stepTwo)
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: defaultPadding * 5,
+              ),
+              Text(
+                "2. 선택하신 영상에 지표 분석을 수행하시겠습니까?",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4!
+                    .copyWith(fontWeight: FontWeight.w500),
+              ),
+              SizedBox(
+                height: defaultPadding * 3,
+              ),
+              stepTwoLoading
+                  ? Row(
+                      children: [
+                        CircularProgressIndicator(),
+                        SizedBox(
+                          width: defaultPadding * 3,
+                        ),
+                        Text("분석중입니다. 완료시 알람을 통해 알려드립니다.",
+                            style: Theme.of(context).textTheme.bodyText1)
+                      ],
+                    )
+                  : TextButton(
+                      onPressed: () {
+                        backtestingController.updateStepTwoLoading();
+                        if (stepThree) {
+                          backtestingController.updateStepThree();
+                        }
+                        Future.delayed(Duration(seconds: 15), () {
+                          backtestingController.updateStepTwoLoading();
+                          backtestingController.updateStepThree();
+                          if (isShowResult == true) {
+                            backtestingController.updateShowResult();
+                          }
+                        });
+                      },
+                      child: Text("분석 수행")),
+              SizedBox(
+                height: defaultPadding * 5,
+              ),
+            ],
+          ),
+        if (stepThree)
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: defaultPadding * 3,
+              ),
+              Text(
+                "3. 분석 결과를 확인하세요!",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4!
+                    .copyWith(fontWeight: FontWeight.w500),
+              ),
+              SizedBox(
+                height: defaultPadding * 3,
+              ),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, DemoReportScreen.id);
+                    backtestingController.updateShowResult();
+                  },
+                  child: Text("결과 확인하기")),
+              SizedBox(
+                height: defaultPadding * 6,
+              ),
+            ],
+          ),
+        if (isShowResult)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              PrettyPaddingButton(
+                backgroundColor: kSelectedContainerColor,
+                text: "이 옵션으로 문의하기",
+                onPressed: () {},
+              ),
+            ],
+          )
+
         // Text(
         //   "2. 분석결과 확인",
         //   style: Theme.of(context)
@@ -98,14 +205,17 @@ class DemoTestingContainer extends StatelessWidget {
 }
 
 class FileButton extends StatefulWidget {
-  const FileButton({Key? key}) : super(key: key);
+  const FileButton(
+      {Key? key, required this.onTap, required this.backtestingController})
+      : super(key: key);
+  final void Function() onTap;
+  final BacktestingController backtestingController;
 
   @override
   _FileButtonState createState() => _FileButtonState();
 }
 
 class _FileButtonState extends State<FileButton> {
-  String selectedFileName = "";
   void webFilePicker() async {
     html.FileUploadInputElement uploadInput = html.FileUploadInputElement();
     uploadInput.multiple = true;
@@ -113,37 +223,31 @@ class _FileButtonState extends State<FileButton> {
     uploadInput.click();
 
     uploadInput.onChange.listen((e) {
-      final files = uploadInput.files;
-      final file = files![0];
-      final reader = html.FileReader();
+      widget.backtestingController.updateLoading();
+      Future.delayed(Duration(seconds: 2), () {
+        widget.onTap();
+        widget.backtestingController.updateLoading();
+        final files = uploadInput.files;
+        final file = files![0];
 
-      setState(() {
-        selectedFileName = file.name;
+        widget.backtestingController.updateFileName(file.name);
       });
-
-      reader.onLoadEnd.listen((e) {
-        // print(reader.result);
-        // _handleResult(reader.result);
-        // print(reader.result);
-      });
-      reader.readAsDataUrl(file);
     });
   }
 
-  // void _handleResult(Object? result) {
-  //     _bytesData = Base64Decoder().convert(result.toString().split(",").last);
-  //     _selectedFile = _bytesData;
-  // }
-  //
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         ElevatedButton(
-          onPressed: () async {
-            webFilePicker();
-          },
+          onPressed: widget.backtestingController.isLoading ||
+                  widget.backtestingController.stepThree ||
+                  widget.backtestingController.stepTwoLoading
+              ? null
+              : () async {
+                  webFilePicker();
+                },
           style: ButtonStyle(
             padding: MaterialStateProperty.all(
               const EdgeInsets.symmetric(
@@ -170,9 +274,13 @@ class _FileButtonState extends State<FileButton> {
           ),
         ),
         SizedBox(
-          width: defaultPadding,
+          width: defaultPadding * 2,
         ),
-        Text(selectedFileName, style: Theme.of(context).textTheme.subtitle1),
+        Text(widget.backtestingController.selectedFileName,
+            style: Theme.of(context).textTheme.subtitle1),
+        widget.backtestingController.isLoading
+            ? CircularProgressIndicator()
+            : SizedBox()
       ],
     );
   }

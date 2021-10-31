@@ -8,12 +8,14 @@ import 'package:ai_counseling_platform/controllers/slider_controller.dart';
 import 'package:ai_counseling_platform/controllers/stepper_controller.dart';
 import 'package:ai_counseling_platform/controllers/user_controller.dart';
 import 'package:ai_counseling_platform/controllers/video_custom_controller.dart';
+import 'package:ai_counseling_platform/screens/custom_screen/demo_report_screen.dart';
 import 'package:ai_counseling_platform/screens/custom_screen/custom_screen.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/dashboard_router_screen.dart';
 import 'package:ai_counseling_platform/screens/login_screen.dart';
 import 'package:ai_counseling_platform/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'controllers/backtesting_controller.dart';
 import 'controllers/counseling_record_controller.dart';
 import 'controllers/customer_controller.dart';
 import 'controllers/logic_custom_controller.dart';
@@ -68,6 +70,9 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (context) => SelectedCounselingRecordController(),
           ),
+          ChangeNotifierProvider(
+            create: (context) => BacktestingController(),
+          ),
         ],
         builder: (context, child) {
           return MaterialApp(
@@ -87,6 +92,7 @@ class MyApp extends StatelessWidget {
                 SignupScreen.id: (context) => const SignupScreen(),
                 LoginScreen.id: (context) => const LoginScreen(),
                 LoginScreen.id: (context) => const LoginScreen(),
+                DemoReportScreen.id: (context) => const DemoReportScreen(),
               });
         });
   }

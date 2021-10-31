@@ -38,6 +38,7 @@ dependencies:
   syncfusion_flutter_datagrid: ^19.3.44
   table_calendar: ^3.0.2
   dio: ^4.0.0
+  stats: ^2.0.0
 
 dev_dependencies:
   flutter_test:

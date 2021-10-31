@@ -7,4 +7,6 @@ class CustomIndicatorSave {
   bool isTap = false;
   int selectedIndex = 0;
   List<int> finishedIndexList = [];
+  String indicatorName = "";
+  bool isFinished = false;
 }

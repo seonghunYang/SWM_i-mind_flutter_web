@@ -13,12 +13,14 @@ class FacialInfoCard extends StatelessWidget {
     required this.amount,
     required this.percent,
     required this.color,
+    required this.dataset,
     Key? key,
   }) : super(key: key);
 
   final String title, svgSrc, amount;
   final double percent;
   final Color color;
+  final LineChartRawDataSet dataset;
 
   @override
   Widget build(BuildContext context) {
@@ -117,31 +119,7 @@ class FacialInfoCard extends StatelessWidget {
               bottomLineVisible: false,
               leftLineVisible: false,
               gridLineVisible: false,
-              lineChartRawDataSets: [
-                LineChartRawDataSet(title: "--", color: color, values: [
-                  [0, 2],
-                  [1, 1.8],
-                  [2, 2],
-                  [3, 2.1],
-                  [4, 2.2],
-                  [5, 3.5],
-                  [6, 4.4],
-                  [7, 4.6],
-                  [8, 3.9],
-                  [9, 3.8],
-                  [10, 4.4],
-                  [11, 3.5],
-                  [12, 2.9],
-                  [13, 3.25],
-                  [14, 3.8],
-                  [15, 3.9],
-                  [16, 4.1],
-                  [17, 4.2],
-                  [18, 4.5],
-                  [19, 3.9],
-                  [20, 3.8],
-                ])
-              ],
+              lineChartRawDataSets: [dataset],
             )),
           ),
         ],

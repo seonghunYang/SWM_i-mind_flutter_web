@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:html' as html;
 import 'dart:typed_data';
 import 'package:ai_counseling_platform/controllers/counseling_record_controller.dart';
+import 'package:ai_counseling_platform/controllers/customer_controller.dart';
 import 'package:ai_counseling_platform/screens/dashboard_screen/components/user_text_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -28,6 +29,8 @@ class _CounselingRecordCreateAlertDialog
   late List<int> _selectedFile;
   late String binary;
   late Uint8List _bytesData;
+  bool isLoading = false;
+  late var file;
 
   void changeCategory(dynamic newValue) {
     setState(() {
@@ -35,23 +38,29 @@ class _CounselingRecordCreateAlertDialog
     });
   }
 
-  void webFilePicker(CounselingRecordController controller) async {
+  void webFilePicker(
+      CounselingRecordController counselingRecordController) async {
     html.FileUploadInputElement uploadInput = html.FileUploadInputElement();
     uploadInput.multiple = true;
     uploadInput.draggable = true;
     uploadInput.click();
 
     uploadInput.onChange.listen((e) {
+      setState(() {
+        isLoading = true;
+      });
       final files = uploadInput.files;
-      final file = files![0];
+      file = files![0];
       final reader = html.FileReader();
 
       reader.onLoadEnd.listen((e) {
         // print(reader.result);
         _handleResult(reader.result);
         binary = reader.result.toString();
-        controller.createCounselingRecord(
-            selectedFile: _selectedFile, bianry: binary);
+        setState(() {
+          isLoading = false;
+        });
+        counselingRecordController.updateFileName(file.name);
       });
       reader.readAsDataUrl(file);
     });
@@ -66,6 +75,9 @@ class _CounselingRecordCreateAlertDialog
 
   @override
   Widget build(BuildContext context) {
+    CounselingRecordController counselingRecordController =
+        context.watch<CounselingRecordController>();
+
     return AlertDialog(
       title: Text(
         "상담 기록 추가",
@@ -82,7 +94,7 @@ class _CounselingRecordCreateAlertDialog
                   Expanded(
                     child: UserTextFormField(
                       textEditingController: dateController,
-                      text: "생년월일",
+                      text: "상담일자",
                       onlyNumber: true,
                       onTap: () async {
                         DateTime? pickedDate = await showDatePicker(
@@ -127,37 +139,50 @@ class _CounselingRecordCreateAlertDialog
                 Expanded(
                   child: Row(
                     children: [
-                      Consumer<CounselingRecordController>(
-                          builder: (context, counselingRecordController, _) {
-                        return ElevatedButton(
-                          onPressed: () async {
-                            webFilePicker(counselingRecordController);
-                          },
-                          style: ButtonStyle(
-                            padding: MaterialStateProperty.all(
-                              const EdgeInsets.symmetric(
-                                  horizontal: defaultPadding * 2.5,
-                                  vertical: defaultPadding * 2.5),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ElevatedButton(
+                            onPressed: isLoading
+                                ? null
+                                : () async {
+                                    webFilePicker(counselingRecordController);
+                                  },
+                            style: ButtonStyle(
+                              padding: MaterialStateProperty.all(
+                                const EdgeInsets.symmetric(
+                                    horizontal: defaultPadding * 2.5,
+                                    vertical: defaultPadding * 2.5),
+                              ),
+                              elevation: MaterialStateProperty.all(0),
                             ),
-                            elevation: MaterialStateProperty.all(0),
+                            child: Row(
+                              children: [
+                                Icon(Icons.upload_file),
+                                SizedBox(
+                                  width: defaultPadding,
+                                ),
+                                Text(
+                                  "동영상 업로드",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2!
+                                      .copyWith(fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
                           ),
-                          child: Row(
-                            children: [
-                              Icon(Icons.upload_file),
-                              SizedBox(
-                                width: defaultPadding,
-                              ),
-                              Text(
-                                "동영상 업로드",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText2!
-                                    .copyWith(fontWeight: FontWeight.w500),
-                              ),
-                            ],
+                          SizedBox(
+                            width: defaultPadding * 2,
                           ),
-                        );
-                      }),
+                          Text(counselingRecordController.selectedFileName,
+                              style: Theme.of(context).textTheme.subtitle1),
+                          isLoading
+                              ? Text("업로드 중. . .",
+                                  style: Theme.of(context).textTheme.subtitle1)
+                              : SizedBox(),
+                        ],
+                      ),
                     ],
                   ),
                 )
@@ -178,6 +203,12 @@ class _CounselingRecordCreateAlertDialog
         TextButton(
           onPressed: () {
             Navigator.pop(context);
+            counselingRecordController.createCounselingRecord(
+                selectedFile: _selectedFile,
+                bianry: binary,
+                fileName: file.name,
+                selectedCustomer:
+                    context.read<CustomerController>().selectedCustomer);
           },
           child: Text(
             "등록",

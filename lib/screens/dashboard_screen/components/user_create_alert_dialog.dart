@@ -78,6 +78,7 @@ class _UserCreateAlertDialogState extends State<UserCreateAlertDialog> {
                         textEditingController: childAgeController,
                         text: "아이 생년월일",
                         onlyNumber: true,
+                        hintMessage: "yyyy-mm-dd",
                         onTap: () async {
                           DateTime? pickedDate = await showDatePicker(
                               context: context,
@@ -162,6 +163,7 @@ class _UserCreateAlertDialogState extends State<UserCreateAlertDialog> {
                       child: UserTextFormField(
                         textEditingController: parentAgeController,
                         text: "부모 생년월일",
+                        hintMessage: "yyyy-mm-dd",
                         onlyNumber: true,
                         onTap: () async {
                           DateTime? pickedDate = await showDatePicker(

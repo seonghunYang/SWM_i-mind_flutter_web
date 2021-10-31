@@ -44,26 +44,27 @@ class StepperRemoteButtons extends StatelessWidget {
                     .copyWith(fontSize: 16, color: kSelectedContainerColor),
               ),
             ),
-            InkWell(
-              onTap: () {
-                if (currentNumberKey < 2) {
-                  stepperController.plusCurrentNumberKey();
-                  context
-                      .read<ScrollPositionController>()
-                      .scrollToPosition(scrollController);
-                }
-              },
-              child: const StepperItem(
-                text: "Next",
-                numberKey: 7,
-                currentNumberKey: 7,
-                fontSize: 16,
-                borderWidth: 5,
-                padding: EdgeInsets.symmetric(
-                    horizontal: defaultPadding * 6,
-                    vertical: defaultPadding * 1.5),
-              ),
-            )
+            if (currentNumberKey < 2)
+              InkWell(
+                onTap: () {
+                  if (currentNumberKey < 2) {
+                    stepperController.plusCurrentNumberKey();
+                    context
+                        .read<ScrollPositionController>()
+                        .scrollToPosition(scrollController);
+                  }
+                },
+                child: StepperItem(
+                  text: "Next",
+                  numberKey: 7,
+                  currentNumberKey: 7,
+                  fontSize: 16,
+                  borderWidth: 5,
+                  padding: EdgeInsets.symmetric(
+                      horizontal: defaultPadding * 6,
+                      vertical: defaultPadding * 1.5),
+                ),
+              )
           ],
         );
       }),

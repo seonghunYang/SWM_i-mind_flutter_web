@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ai_counseling_platform/model/customer.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:dio/dio.dart';
 import 'package:ai_counseling_platform/controllers/menu_controller.dart';
@@ -14,6 +15,8 @@ import '../constants.dart';
 class CounselingRecordController extends ChangeNotifier {
   String? selectedCounselingRecordId;
   CounselingRecord? selectedCounselingRecord;
+  String selectedFileName = "";
+  bool isLoading = false;
 
   List<CounselingRecord> counselingRecords = [];
 
@@ -75,12 +78,32 @@ class CounselingRecordController extends ChangeNotifier {
     return jsonDecode(response.body);
   }
 
-  Future createCounselingRecord(
-      {required List<int> selectedFile, required String bianry}) async {
+  void updateFileName(String newValue) {
+    selectedFileName = newValue;
+    notifyListeners();
+  }
+
+  Future createCounselingRecord({
+    required List<int> selectedFile,
+    required String bianry,
+    required String fileName,
+    required Customer selectedCustomer,
+  }) async {
     var metaVideoInfo = await getVideoFileSavedUrl();
     var userInfo = await testLogin();
-    print(metaVideoInfo);
-
+    DateTime current = DateTime.now();
+    counselingRecords.insert(
+        0,
+        CounselingRecord(
+            counselingStatus: "전송중...",
+            customerId: selectedCustomer.id,
+            childName: selectedCustomer.childName,
+            counselingId: "9",
+            date: "${current.year}-${current.month}-${current.day}",
+            category: "놀이분석",
+            counselor: "이다랑"));
+    print("a");
+    notifyListeners();
     var dio = Dio();
 
     FormData formData = FormData.fromMap({
@@ -102,7 +125,8 @@ class CounselingRecordController extends ChangeNotifier {
         },
       ),
     );
-    print(response);
+    counselingRecords[0].counselingStatus = "분석중";
+    notifyListeners();
     return false;
   }
 
@@ -160,9 +184,11 @@ class CounselingRecordDattaSource extends DataGridSource {
 
     Color getCounselingStatus(String status) {
       if (status == "분석중") {
-        return Colors.red;
+        return Colors.blue;
       } else if (status == "분석완료") {
         return Colors.blue;
+      } else if (status == "전송중...") {
+        return Colors.red;
       } else {
         return kSelectedDashboardTextColor;
       }
@@ -216,11 +242,11 @@ class CounselingRecordDattaSource extends DataGridSource {
                   itemBuilder: (context) => [
                     const PopupMenuItem(
                       value: 0,
-                      child: Text('분석결과 확인 및 일지 작성'),
+                      child: Text('AI 분석리포트 조회'),
                     ),
                     const PopupMenuItem(
                       value: 1,
-                      child: Text('보고서 조회'),
+                      child: Text('상담일지 조회'),
                     ),
                   ],
                 ));

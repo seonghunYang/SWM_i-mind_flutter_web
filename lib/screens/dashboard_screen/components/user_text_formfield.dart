@@ -13,8 +13,10 @@ class UserTextFormField extends StatelessWidget {
     this.isDropDownButton = false,
     this.dropDownMenuItems = const [],
     this.dropDownMenuOnChanged,
+    this.hintMessage = "",
     this.onTap,
   }) : super(key: key);
+  final String hintMessage;
 
   final bool onlyNumber;
   final String text;
@@ -35,6 +37,7 @@ class UserTextFormField extends StatelessWidget {
         onTap: onTap,
         // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         decoration: InputDecoration(
+          hintText: hintMessage,
           isDense: true,
           contentPadding: EdgeInsets.symmetric(
               horizontal: defaultPadding, vertical: defaultPadding * 1.75),
@@ -49,6 +52,7 @@ class UserTextFormField extends StatelessWidget {
           return value!.isNotEmpty ? null : "항목을 입력해주세요";
         },
         decoration: InputDecoration(
+          hintText: hintMessage,
           isDense: true,
           contentPadding: EdgeInsets.symmetric(
               horizontal: defaultPadding, vertical: defaultPadding * 1.75),

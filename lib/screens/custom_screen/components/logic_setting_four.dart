@@ -24,7 +24,7 @@ class LogicSettingFour extends StatefulWidget {
 }
 
 class _LogicSettingFourState extends State<LogicSettingFour> {
-  List<String> labelList = ["최대값 비교", "최소값 비교", "평균값 비교", "편차 비교"];
+  List<String> labelList = ["최대값 비교", "최소값 비교", "평균값 비교", "차이 비교", "값 비교"];
 
   int selectedIndex = 0;
   bool isTap = false;
@@ -59,7 +59,7 @@ class _LogicSettingFourState extends State<LogicSettingFour> {
               selectedIndex = index;
             });
           },
-          buttons: ["시간", "확률(%)", "상대거리", "빈도수"],
+          buttons: ["시간(초)", "확률(%)", "상대거리", "빈도수(개)"],
           textPadding: EdgeInsets.zero,
           selectedColor: Colors.black,
           borderRadius: BorderRadius.all(Radius.circular(defaultPadding * 0.5)),
@@ -162,16 +162,26 @@ class _LogicSettingFourState extends State<LogicSettingFour> {
         ),
         if (isTap)
           SizedBox(
-            height: defaultPadding * 2,
+            height: defaultPadding * 3,
           ),
         if (isTap)
           Expanded(
             child: Column(
               children: List.generate(5, (index) {
-                return Row(
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Expanded(child: IndicatorInputCell(index: index * 2 + 1)),
-                    Expanded(child: IndicatorInputCell(index: index * 2 + 2)),
+                    Row(
+                      children: [
+                        Expanded(
+                            child: IndicatorInputCell(index: index * 2 + 1)),
+                        Expanded(
+                            child: IndicatorInputCell(index: index * 2 + 2)),
+                      ],
+                    ),
+                    SizedBox(
+                      height: defaultPadding,
+                    ),
                   ],
                 );
               }),
@@ -184,7 +194,7 @@ class _LogicSettingFourState extends State<LogicSettingFour> {
   @override
   Widget build(BuildContext context) {
     return LogicSettingBlock(
-      height: isTap ? 450 : 280,
+      height: isTap ? 500 : 280,
       title: "4. 지표 산출",
       titleButtonList: labelList,
       onSelectedButton: (int index, _) {

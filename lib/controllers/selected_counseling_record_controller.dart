@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 import '../network_helper.dart';
+import 'package:stats/stats.dart';
 
 class SelectedCounselingRecordController extends ChangeNotifier {
   Future testLogin() async {
@@ -26,7 +27,23 @@ class SelectedCounselingRecordController extends ChangeNotifier {
           "Authorization": userInfo["body"]["AuthenticationResult"]["IdToken"],
         });
 
-    return json.decode(response.body);
+    var response1 = json.decode(response.body);
+    Map emotionAll = {
+      "parentEmotion": List<List<double>>.generate(
+          response1['body'][0][0]["data"].length,
+          (index) => [
+                response1['body'][0][0]["data"][index][0].toDouble() / 1000,
+                response1['body'][0][0]["data"][index][1]
+              ]),
+      "childEmotion": List<List<double>>.generate(
+          response1['body'][1][0]["data"].length,
+          (index) => [
+                response1['body'][1][0]["data"][index][0].toDouble() / 1000,
+                response1['body'][1][0]["data"][index][1]
+              ]),
+      "emotion": "행복",
+    };
+    return emotionAll;
   }
 
   Future getEmotionChild(var userInfo, String recordId) async {
@@ -37,7 +54,21 @@ class SelectedCounselingRecordController extends ChangeNotifier {
           "Authorization": userInfo["body"]["AuthenticationResult"]["IdToken"],
         });
 
-    return json.decode(response.body);
+    var response1 = json.decode(response.body);
+    Map emotionChild = {
+      "dataList": [],
+      "emotionCategory": [],
+    };
+    for (int i = 0; i < response1["body"].length; i++) {
+      emotionChild["dataList"].add(List<List<double>>.generate(
+          response1["body"][i]["data"].length,
+          (index) => [
+                response1["body"][i]["data"][index][0].toDouble() / 1000,
+                response1["body"][i]["data"][index][1]
+              ]));
+      emotionChild["emotionCategory"].add(response1["body"][i]["emotion"]);
+    }
+    return emotionChild;
   }
 
   Future getDistance(var userInfo, String recordId) async {
@@ -47,7 +78,6 @@ class SelectedCounselingRecordController extends ChangeNotifier {
         headers: {
           "Authorization": userInfo["body"]["AuthenticationResult"]["IdToken"],
         });
-
     return json.decode(response.body);
   }
 
@@ -59,7 +89,21 @@ class SelectedCounselingRecordController extends ChangeNotifier {
           "Authorization": userInfo["body"]["AuthenticationResult"]["IdToken"],
         });
 
-    return json.decode(response.body);
+    var response1 = json.decode(response.body);
+    Map actionList = {
+      "dataList": [],
+      "actionCategory": [],
+    };
+    for (int i = 0; i < response1["body"].length; i++) {
+      actionList["dataList"].add(List<List<double>>.generate(
+          response1["body"][i]["data"].length,
+          (index) => [
+                response1["body"][i]["data"][index][0].toDouble() / 1000,
+                response1["body"][i]["data"][index][1] * 100
+              ]));
+      actionList["actionCategory"].add(response1["body"][i]["action"]);
+    }
+    return actionList;
   }
 
   Future getActionTime(var userInfo, String recordId) async {
@@ -71,6 +115,27 @@ class SelectedCounselingRecordController extends ChangeNotifier {
         });
 
     return json.decode(response.body);
+  }
+
+  Future getTalk(var userInfo, String recordId) async {
+    http.Response response = await http.get(
+        Uri.parse(
+            "${NetworkHelper.counselingDetailTalk}?clientId=${userInfo["body"]["clientId"]}&num=$recordId"),
+        headers: {
+          "Authorization": userInfo["body"]["AuthenticationResult"]["IdToken"],
+        });
+
+    var response1 = json.decode(response.body);
+    int totalCount = response1["child_talk"] + response1["parent_talk"];
+    double childPercentage = double.parse(
+        (response1["child_talk"] / totalCount * 100).toStringAsFixed(1));
+
+    Map talkPercentage = {
+      "child": childPercentage,
+      "parent": 100 - childPercentage,
+    };
+    print(talkPercentage);
+    return talkPercentage;
   }
 
   Future getRecordVideo(var userInfo, String recordId) async {
@@ -87,20 +152,21 @@ class SelectedCounselingRecordController extends ChangeNotifier {
   Future getCounselingDetail(String recordId) async {
     var userInfo = await testLogin();
 
-    var response1 = await getEmotionAll(userInfo, recordId);
+    Map emotionAll = await getEmotionAll(userInfo, recordId);
     var response2 = await getRecordVideo(userInfo, recordId);
-    // var emotionChild = await getEmotionChild(userInfo, recordId);
+    var emotionChild = await getEmotionChild(userInfo, recordId);
     // var distance = await getDistance(userInfo, recordId);
-    // var actionList = await getActionList(userInfo, recordId);
-    // var actionTime = await getActionTime(userInfo, recordId);
+    var actionList = await getActionList(userInfo, recordId);
+    var actionTime = await getActionTime(userInfo, recordId);
+    var talkPercentage = await getTalk(userInfo, recordId);
 
-    Map emotionAll = {
-      "parentEmotion": response1['body'][0][0]["data"],
-      "childEmotion": response1['body'][1][0]["data"],
-      "emotion": "행복",
-    };
     return {
       "emotionAll": emotionAll,
+      "emotionChild": emotionChild,
+      "actionTime": actionTime,
+      "actionList": actionList,
+      "talkPercentage": talkPercentage,
+      // "distance": distance,
       "videoUrl": response2,
     };
   }

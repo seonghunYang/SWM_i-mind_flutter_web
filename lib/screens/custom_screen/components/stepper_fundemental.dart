@@ -104,7 +104,7 @@ class StepperFundemental extends StatelessWidget {
           height: defaultPadding * 12,
         ),
         Text(
-          "3. 분석 속도와 정확도를 선택하세요",
+          "3. 분석 속도 및 정확도를 선택하세요",
           style: Theme.of(context).textTheme.headline4!.copyWith(fontSize: 20),
         ),
         const SizedBox(

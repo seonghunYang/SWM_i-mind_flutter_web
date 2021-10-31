@@ -69,4 +69,16 @@ class LogicCustomController extends ChangeNotifier {
     customIndicatorSave.stepFourText = newText;
     notifyListeners();
   }
+
+  void updateIndicatorName(int index, String newText) {
+    CustomIndicatorSave customIndicatorSave = customDbList[index];
+    customIndicatorSave.indicatorName = newText;
+    notifyListeners();
+  }
+
+  void updateFinishedControl(int index) {
+    CustomIndicatorSave customIndicatorSave = customDbList[index];
+    customIndicatorSave.isFinished = !customIndicatorSave.isFinished;
+    notifyListeners();
+  }
 }

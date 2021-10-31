@@ -54,8 +54,7 @@ class LineAreaChart extends StatelessWidget {
         lineTouchData: LineTouchData(
           touchCallback: (FlTouchEvent event, LineTouchResponse? response) {
             if (event is FlTapUpEvent) {
-              print("tap");
-              onTap(response!.lineBarSpots![0].spotIndex);
+              onTap(response!.lineBarSpots![0].x.toInt());
             }
           },
           touchTooltipData: LineTouchTooltipData(

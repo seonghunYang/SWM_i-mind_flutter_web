@@ -86,7 +86,7 @@ class SideMenu extends StatelessWidget {
                 height: defaultPadding * 1.5,
               ),
               DrawerItem(
-                title: '상담 보고서 조회',
+                title: '상담일지 조회',
                 svgSrc: "assets/icons/menu_tran.svg",
                 index: 3,
               ),
