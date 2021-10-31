@@ -71,7 +71,6 @@ const List<String> emotionLabels = [
   "공포",
   "놀람",
   "혼란",
-  "앉기",
 ];
 
 const kDashboardMenuColor = Color(0xffFEFDFF);
@@ -82,3 +81,13 @@ const kSelectedDashboardTextColor = Color(0xff49AD77);
 const kDasboardTextColor = Color(0xffD1F8E4);
 
 const kLandingMainColor = Color(0xff49c196);
+
+const indicatorHappyMessage = "";
+
+const List<String> stepFourlabelList = [
+  "최대값 비교",
+  "최소값 비교",
+  "평균값 비교",
+  "차이 비교",
+  "값 비교"
+];

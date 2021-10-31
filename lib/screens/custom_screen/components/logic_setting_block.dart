@@ -65,7 +65,7 @@ class LogicSettingBlock extends StatelessWidget {
               TextButton(
                   onPressed: onTapButton,
                   child: Text(
-                    "다음",
+                    "확인",
                     style: Theme.of(context).textTheme.bodyText1,
                   ))
             ],

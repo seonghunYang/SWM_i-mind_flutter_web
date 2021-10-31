@@ -77,11 +77,24 @@ class _CustomLogicState extends State<CustomLogic> {
         );
       case 3:
         return LogicSettingFour(
+          isTap: logicCustomController.getIsTap(widget.index),
+          updateIsTap: () {
+            logicCustomController.updateTap(widget.index);
+          },
+          indicatorTextControllers:
+              logicCustomController.getStepFourindicatorTextList(widget.index),
+          typeSelectedIndex:
+              logicCustomController.getStepFourTypeIndex(widget.index),
+          updateStepFourTypeIndex: (int newIndex) {
+            logicCustomController.updateStepFourTypeIndex(
+                widget.index, newIndex);
+          },
           updateSelectedIndex: (int newIndex) {
             logicCustomController.updateFinishIndex(widget.index, newIndex);
           },
-          updateStepFourText: (String newText) {
-            logicCustomController.updateStepFourText(widget.index, newText);
+          updateStepFourText: (int newTextIndex) {
+            logicCustomController.updateStepFourText(
+                widget.index, newTextIndex);
           },
           selectedValue: indicatorSave.stepFourText,
           updateSubContent: (String newValue, bool isSelected) {
@@ -91,7 +104,7 @@ class _CustomLogicState extends State<CustomLogic> {
         );
       default:
         return Container();
-    }
+    } //
   }
 
   @override

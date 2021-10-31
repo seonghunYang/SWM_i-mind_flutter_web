@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../constants.dart';
 import 'components/demo_custom_record_page.dart';
+import 'components/logic_custom_dialog.dart';
 
 class DemoReportScreen extends StatefulWidget {
   const DemoReportScreen({Key? key}) : super(key: key);
@@ -34,7 +35,7 @@ class _DemoReportScreenState extends State<DemoReportScreen> {
       ),
       child: Scaffold(
         backgroundColor: Colors.white,
-        floatingActionButton:  Padding(
+        floatingActionButton: Padding(
           padding: const EdgeInsets.all(defaultPadding * 2),
           child: SizedBox(
             width: 80,
@@ -45,11 +46,11 @@ class _DemoReportScreenState extends State<DemoReportScreen> {
                 showDialog(
                     context: context,
                     builder: (context) {
-                      return ();
+                      return LogicCustomDialog();
                     });
               },
               child: Text(
-                "로직\n변경",
+                "로직\n수정",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
             ),

@@ -88,8 +88,10 @@ class CustomStepper extends StatelessWidget {
                   return const StepperFundemental();
                 } else if (currentNumberKey == 1) {
                   return StepperAdvanced();
-                } else {
+                } else if (currentNumberKey == 2) {
                   return const StepperBackTesting();
+                } else {
+                  return const StepperFinished();
                 }
               },
             ),

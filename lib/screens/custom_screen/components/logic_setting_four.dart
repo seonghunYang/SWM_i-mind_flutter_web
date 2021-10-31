@@ -12,12 +12,22 @@ class LogicSettingFour extends StatefulWidget {
     required this.updateSelectedIndex,
     required this.selectedValue,
     required this.updateSubContent,
+    required this.typeSelectedIndex,
+    required this.updateStepFourTypeIndex,
+    required this.indicatorTextControllers,
+    required this.updateIsTap,
+    required this.isTap,
   }) : super(key: key);
 
-  final void Function(String) updateStepFourText;
+  final void Function(int) updateStepFourText;
+  final void Function(int) updateStepFourTypeIndex;
   final void Function(int) updateSelectedIndex;
+  final void Function() updateIsTap;
   final String selectedValue;
   final void Function(String, bool) updateSubContent;
+  final int typeSelectedIndex;
+  final bool isTap;
+  final List<TextEditingController> indicatorTextControllers;
 
   @override
   State<LogicSettingFour> createState() => _LogicSettingFourState();
@@ -27,7 +37,6 @@ class _LogicSettingFourState extends State<LogicSettingFour> {
   List<String> labelList = ["최대값 비교", "최소값 비교", "평균값 비교", "차이 비교", "값 비교"];
 
   int selectedIndex = 0;
-  bool isTap = false;
 
   Widget? getSubContent(BuildContext context) {
     return Column(
@@ -50,14 +59,12 @@ class _LogicSettingFourState extends State<LogicSettingFour> {
           // selectedTextStyle: TextStyle(),
           groupRunAlignment: GroupRunAlignment.start,
           mainGroupAlignment: MainGroupAlignment.start,
-          selectedButton: 0,
+          selectedButton: widget.typeSelectedIndex,
           isRadio: true,
           spacing: 20,
           runSpacing: 10,
           onSelected: (index, bool) {
-            setState(() {
-              selectedIndex = index;
-            });
+            widget.updateStepFourTypeIndex(index);
           },
           buttons: ["시간(초)", "확률(%)", "상대거리", "빈도수(개)"],
           textPadding: EdgeInsets.zero,
@@ -108,6 +115,7 @@ class _LogicSettingFourState extends State<LogicSettingFour> {
                     Expanded(
                       child: TextField(
                         decoration: InputDecoration(
+                          labelText: widget.isTap ? "1" : "",
                           isDense: true,
                           border: OutlineInputBorder(),
                           contentPadding: EdgeInsets.symmetric(
@@ -129,6 +137,7 @@ class _LogicSettingFourState extends State<LogicSettingFour> {
                     Expanded(
                       child: TextField(
                         decoration: InputDecoration(
+                          labelText: widget.isTap ? "10" : "",
                           isDense: true,
                           border: OutlineInputBorder(),
                           contentPadding: EdgeInsets.symmetric(
@@ -140,11 +149,7 @@ class _LogicSettingFourState extends State<LogicSettingFour> {
                       width: defaultPadding * 2,
                     ),
                     TextButton(
-                        onPressed: () {
-                          setState(() {
-                            isTap = true;
-                          });
-                        },
+                        onPressed: widget.updateIsTap,
                         child: Text(
                           "선택",
                           style: Theme.of(context)
@@ -160,11 +165,11 @@ class _LogicSettingFourState extends State<LogicSettingFour> {
               ),
           ],
         ),
-        if (isTap)
+        if (widget.isTap)
           SizedBox(
             height: defaultPadding * 3,
           ),
-        if (isTap)
+        if (widget.isTap)
           Expanded(
             child: Column(
               children: List.generate(5, (index) {
@@ -174,9 +179,17 @@ class _LogicSettingFourState extends State<LogicSettingFour> {
                     Row(
                       children: [
                         Expanded(
-                            child: IndicatorInputCell(index: index * 2 + 1)),
+                            child: IndicatorInputCell(
+                          index: index * 2 + 1,
+                          controller:
+                              widget.indicatorTextControllers[index * 2],
+                        )),
                         Expanded(
-                            child: IndicatorInputCell(index: index * 2 + 2)),
+                            child: IndicatorInputCell(
+                          index: index * 2 + 2,
+                          controller:
+                              widget.indicatorTextControllers[index * 2 + 1],
+                        )),
                       ],
                     ),
                     SizedBox(
@@ -194,11 +207,11 @@ class _LogicSettingFourState extends State<LogicSettingFour> {
   @override
   Widget build(BuildContext context) {
     return LogicSettingBlock(
-      height: isTap ? 550 : 350,
+      height: widget.isTap ? 550 : 350,
       title: "4. 지표 산출",
       titleButtonList: labelList,
       onSelectedButton: (int index, _) {
-        widget.updateStepFourText(labelList[index]);
+        widget.updateStepFourText(index);
       },
       onTapButton: () {
         widget.updateSelectedIndex(3);
@@ -212,8 +225,10 @@ class IndicatorInputCell extends StatelessWidget {
   const IndicatorInputCell({
     Key? key,
     required this.index,
+    required this.controller,
   }) : super(key: key);
   final int index;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -229,6 +244,7 @@ class IndicatorInputCell extends StatelessWidget {
         Expanded(
           flex: 2,
           child: TextField(
+            controller: controller,
             decoration: InputDecoration(
               isDense: true,
               // border: OutlineInputBorder(),
