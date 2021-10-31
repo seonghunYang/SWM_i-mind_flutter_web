@@ -1,4 +1,5 @@
 import 'package:ai_counseling_platform/screens/components/rounded_button.dart';
+import 'package:ai_counseling_platform/screens/custom_screen/custom_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
@@ -46,13 +47,15 @@ class AboveTheFold extends StatelessWidget {
                   ),
                   RoundedButton(
                     text: Text(
-                      "바로 체험하기",
+                      "데모 체험하기",
                       style: Theme.of(context)
                           .textTheme
                           .subtitle2!
                           .copyWith(fontWeight: FontWeight.bold),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, CustomScreen.id);
+                    },
                   ),
                 ],
               ),

@@ -34,6 +34,27 @@ class _DemoReportScreenState extends State<DemoReportScreen> {
       ),
       child: Scaffold(
         backgroundColor: Colors.white,
+        floatingActionButton:  Padding(
+          padding: const EdgeInsets.all(defaultPadding * 2),
+          child: SizedBox(
+            width: 80,
+            height: 80,
+            child: FloatingActionButton(
+              backgroundColor: kMainColor,
+              onPressed: () async {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return ();
+                    });
+              },
+              child: Text(
+                "로직\n변경",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+            ),
+          ),
+        ),
         appBar: AppBar(
           centerTitle: false,
           leading: InkWell(

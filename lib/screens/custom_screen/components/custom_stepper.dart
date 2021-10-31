@@ -27,7 +27,7 @@ class CustomStepper extends StatelessWidget {
             height: defaultPadding * 6,
           ),
           Text(
-            "맞춤 모델 문의하기",
+            "센터 맞춤모델 만들기",
             style: Theme.of(context).textTheme.headline2,
           ),
           const SizedBox(

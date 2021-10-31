@@ -194,7 +194,7 @@ class _LogicSettingFourState extends State<LogicSettingFour> {
   @override
   Widget build(BuildContext context) {
     return LogicSettingBlock(
-      height: isTap ? 500 : 280,
+      height: isTap ? 550 : 350,
       title: "4. 지표 산출",
       titleButtonList: labelList,
       onSelectedButton: (int index, _) {
@@ -220,7 +220,7 @@ class IndicatorInputCell extends StatelessWidget {
     return Row(
       children: [
         Text(
-          "$index   <=",
+          "$index   >=",
           style: Theme.of(context).textTheme.bodyText1,
         ),
         SizedBox(
@@ -231,7 +231,7 @@ class IndicatorInputCell extends StatelessWidget {
           child: TextField(
             decoration: InputDecoration(
               isDense: true,
-              border: OutlineInputBorder(),
+              // border: OutlineInputBorder(),
               contentPadding: EdgeInsets.symmetric(
                   vertical: defaultPadding * 0.75,
                   horizontal: defaultPadding * 0.75),

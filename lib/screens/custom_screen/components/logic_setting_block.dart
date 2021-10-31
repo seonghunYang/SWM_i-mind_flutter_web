@@ -45,6 +45,7 @@ class LogicSettingBlock extends StatelessWidget {
             groupRunAlignment: GroupRunAlignment.start,
             mainGroupAlignment: MainGroupAlignment.start,
             selectedButton: 0,
+            runSpacing: 10,
             isRadio: true,
             spacing: 20,
             onSelected: onSelectedButton,
