@@ -70,7 +70,7 @@ class SideMenu extends StatelessWidget {
                 height: defaultPadding * 1.5,
               ),
               DrawerItem(
-                title: '고객 관리',
+                title: '내담자 관리',
                 svgSrc: "assets/icons/menu_dashbord.svg",
                 index: 1,
               ),

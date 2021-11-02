@@ -26,13 +26,6 @@ import 'package:video_player/video_player.dart';
 
 import '../../../constants.dart';
 
-const colorList = [
-  kTextColor,
-  kSelectedDashboardTextColor,
-  Colors.yellow,
-  Colors.yellow,
-  Colors.yellow
-];
 const Map<String?, String> wordDic = {
   "stand": "서기",
   "touch sth.": "접촉하기",
@@ -40,8 +33,20 @@ const Map<String?, String> wordDic = {
   "listen to sb.": "듣기",
   "sit": "앉기",
   "HAPPY": "행복",
-  "CALM": "침착",
+  "CALM": "중립",
+  "ANGRY": "분노"
 };
+
+const List<Map> indicator = [
+  {
+    "indicator": [8, 8, 4, 8, 7],
+    "result": [48, 139, 18.6, 0.27],
+  },
+  {
+    "indicator": [10, 8, 6, 6, 8],
+    "result": [55, 139, 18.6, 0.27],
+  },
+];
 
 class DashboardCounselingRecordManageScreen extends StatefulWidget {
   const DashboardCounselingRecordManageScreen({Key? key}) : super(key: key);
@@ -106,6 +111,7 @@ class _DashboardCounselingRecordManageScreenState
         context.read<CounselingRecordController>();
     CounselingRecord? selectedCounselingRecord =
         counselingRecordController.selectedCounselingRecord;
+    int currentIndex = counselingRecordController.currentIndex;
 
     return Container(
       color: Color(0xffd1f8e4).withOpacity(0.3),
@@ -301,11 +307,16 @@ class _DashboardCounselingRecordManageScreenState
                                                     color:
                                                         kSelectedDashboardTextColor,
                                                     values: [
-                                                      10,
-                                                      8,
-                                                      9,
-                                                      10,
-                                                      7,
+                                                      indicator[currentIndex]
+                                                          ["indicator"][0],
+                                                      indicator[currentIndex]
+                                                          ["indicator"][1],
+                                                      indicator[currentIndex]
+                                                          ["indicator"][2],
+                                                      indicator[currentIndex]
+                                                          ["indicator"][3],
+                                                      indicator[currentIndex]
+                                                          ["indicator"][4],
                                                     ],
                                                   ),
                                                 ],
@@ -323,24 +334,34 @@ class _DashboardCounselingRecordManageScreenState
                                                           .spaceEvenly,
                                                   children: [
                                                     ScoreCard(
-                                                      title: "유대감",
-                                                      score: 9,
-                                                    ),
-                                                    ScoreCard(
-                                                      title: "반복하기",
-                                                      score: 9,
-                                                    ),
-                                                    ScoreCard(
                                                       title: "즐거움",
-                                                      score: 9,
-                                                    ),
-                                                    ScoreCard(
-                                                      title: "주도성",
-                                                      score: 9,
+                                                      score: indicator[
+                                                              currentIndex]
+                                                          ["indicator"][0],
                                                     ),
                                                     ScoreCard(
                                                       title: "지속성/몰입도",
-                                                      score: 9,
+                                                      score: indicator[
+                                                              currentIndex]
+                                                          ["indicator"][1],
+                                                    ),
+                                                    ScoreCard(
+                                                      title: "주도성",
+                                                      score: indicator[
+                                                              currentIndex]
+                                                          ["indicator"][2],
+                                                    ),
+                                                    ScoreCard(
+                                                      title: "밀착도",
+                                                      score: indicator[
+                                                              currentIndex]
+                                                          ["indicator"][3],
+                                                    ),
+                                                    ScoreCard(
+                                                      title: "반복하기",
+                                                      score: indicator[
+                                                              currentIndex]
+                                                          ["indicator"][4],
                                                     ),
                                                   ],
                                                 ),
@@ -401,7 +422,7 @@ class _DashboardCounselingRecordManageScreenState
                                   ),
                                   StatAnalysisCard(
                                     singleSubContentFlex: 1,
-                                    singleMainContentFlex: 3,
+                                    singleMainContentFlex: 5,
                                     tooltipMessage: "감정별 신뢰도의 변화량",
                                     title: "부모-아이 감정 분석",
                                     hintMessageList: [
@@ -427,16 +448,15 @@ class _DashboardCounselingRecordManageScreenState
                                             Row(
                                               children: [
                                                 ChartIndicator(
-                                                    color: kTextColor,
-                                                    text: "보호자",
+                                                    color: colorList[0],
+                                                    text: "아이",
                                                     isSquare: true),
                                                 SizedBox(
                                                   width: defaultPadding,
                                                 ),
                                                 ChartIndicator(
-                                                    color:
-                                                        kSelectedDashboardTextColor,
-                                                    text: "자녀",
+                                                    color: colorList[1],
+                                                    text: "부모",
                                                     isSquare: true),
                                                 SizedBox(
                                                   width: defaultPadding * 2,
@@ -523,14 +543,13 @@ class _DashboardCounselingRecordManageScreenState
                                             lineChartRawDataSets: [
                                               LineChartRawDataSet(
                                                 title: "--",
-                                                color:
-                                                    kSelectedDashboardTextColor,
+                                                color: colorList[0],
                                                 values:
                                                     emotionAll["childEmotion"],
                                               ),
                                               LineChartRawDataSet(
                                                 title: "--",
-                                                color: kTextColor,
+                                                color: colorList[1],
                                                 values:
                                                     emotionAll["parentEmotion"],
                                               ),
@@ -539,89 +558,90 @@ class _DashboardCounselingRecordManageScreenState
                                         ),
                                       ],
                                     ),
-                                    singleSubContent: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: defaultPadding * 2),
-                                      child: Column(
-                                        children: [
-                                          // Row(
-                                          //   children: [
-                                          //     Text("분석 신뢰도: ",
-                                          //         style: Theme.of(context).textTheme.bodyText1),
-                                          //     Text("90%",
-                                          //         style: Theme.of(context).textTheme.bodyText1),
-                                          //   ],
-                                          // ),
-                                          Column(
-                                            children: [
-                                              Text("부모-아이 감정 비율",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText1),
-                                              SizedBox(
-                                                height: defaultPadding * 1.5,
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    "부모",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyText1!
-                                                        .copyWith(fontSize: 12),
-                                                  ),
-                                                  Text(
-                                                    "아이",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyText1!
-                                                        .copyWith(fontSize: 12),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: defaultPadding * 0.5,
-                                              ),
-                                              ProgressLine(
-                                                color: kSelectedContainerColor,
-                                                percentage: 30,
-                                              ),
-                                              SizedBox(
-                                                height: defaultPadding * 0.5,
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    "30%",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyText1!
-                                                        .copyWith(
-                                                            fontSize: 11,
-                                                            color: Colors.grey),
-                                                  ),
-                                                  Text(
-                                                    "70%",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyText1!
-                                                        .copyWith(
-                                                            fontSize: 11,
-                                                            color: Colors.grey),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
+                                    singleSubContent: Container(),
+                                    // singleSubContent: Padding(
+                                    //   padding: EdgeInsets.symmetric(
+                                    //       horizontal: defaultPadding * 2),
+                                    //   child: Column(
+                                    //     children: [
+                                    //       // Row(
+                                    //       //   children: [
+                                    //       //     Text("분석 신뢰도: ",
+                                    //       //         style: Theme.of(context).textTheme.bodyText1),
+                                    //       //     Text("90%",
+                                    //       //         style: Theme.of(context).textTheme.bodyText1),
+                                    //       //   ],
+                                    //       // ),
+                                    //       Column(
+                                    //         children: [
+                                    //           Text("부모-아이 감정 비율",
+                                    //               style: Theme.of(context)
+                                    //                   .textTheme
+                                    //                   .bodyText1),
+                                    //           SizedBox(
+                                    //             height: defaultPadding * 1.5,
+                                    //           ),
+                                    //           Row(
+                                    //             mainAxisAlignment:
+                                    //                 MainAxisAlignment
+                                    //                     .spaceBetween,
+                                    //             children: [
+                                    //               Text(
+                                    //                 "부모",
+                                    //                 style: Theme.of(context)
+                                    //                     .textTheme
+                                    //                     .bodyText1!
+                                    //                     .copyWith(fontSize: 12),
+                                    //               ),
+                                    //               Text(
+                                    //                 "아이",
+                                    //                 style: Theme.of(context)
+                                    //                     .textTheme
+                                    //                     .bodyText1!
+                                    //                     .copyWith(fontSize: 12),
+                                    //               ),
+                                    //             ],
+                                    //           ),
+                                    //           SizedBox(
+                                    //             height: defaultPadding * 0.5,
+                                    //           ),
+                                    //           ProgressLine(
+                                    //             color: kSelectedContainerColor,
+                                    //             percentage: 30,
+                                    //           ),
+                                    //           SizedBox(
+                                    //             height: defaultPadding * 0.5,
+                                    //           ),
+                                    //           Row(
+                                    //             mainAxisAlignment:
+                                    //                 MainAxisAlignment
+                                    //                     .spaceBetween,
+                                    //             children: [
+                                    //               Text(
+                                    //                 "30%",
+                                    //                 style: Theme.of(context)
+                                    //                     .textTheme
+                                    //                     .bodyText1!
+                                    //                     .copyWith(
+                                    //                         fontSize: 11,
+                                    //                         color: Colors.grey),
+                                    //               ),
+                                    //               Text(
+                                    //                 "70%",
+                                    //                 style: Theme.of(context)
+                                    //                     .textTheme
+                                    //                     .bodyText1!
+                                    //                     .copyWith(
+                                    //                         fontSize: 11,
+                                    //                         color: Colors.grey),
+                                    //               ),
+                                    //             ],
+                                    //           ),
+                                    //         ],
+                                    //       )
+                                    //     ],
+                                    //   ),
+                                    // ),
                                   ),
                                   SizedBox(
                                     height: defaultPadding * 2,
@@ -740,8 +760,8 @@ class _DashboardCounselingRecordManageScreenState
                                       ],
                                     ),
                                     hintMessageList: [
-                                      "- 대표행동의 반복 패턴과 지속 시간을 통해 아이의 성향을 파악할 수 있습니다. ",
-                                      "* 대표행동: 영상 내에서 가장 많은 빈도를 보이는 행동"
+                                      "- 대표행동의 반복 패턴과 비율을 통해 아이의 성향을 파악할 수 있습니다. ",
+                                      "* 대표행동: 사전에 선정한 대표행동이 없는경우 영상 내에서 가장 많은 빈도를 보이는 행동을 보여줍니다."
                                     ],
                                     singleMainContent: Column(
                                       children: [
@@ -858,7 +878,8 @@ class _DashboardCounselingRecordManageScreenState
                                           singleMainContentFlex: 2,
                                           singleSubContentFlex: 0,
                                           tooltipMessage: indicatorHappyMessage,
-                                          title: "즐거움 : 9점",
+                                          title:
+                                              "즐거움 : ${indicator[currentIndex]["indicator"][0]}점",
                                           // hintMessageList: [
                                           //   "- 행복 감정의 변화는 아이의 놀이에 대한 흥미를 확인할 수 있습니다.",
                                           //   "- 대표행동의 최장 지속시간은 아이의 놀이 지속성/몰입도를 유추해낼 수 있습니다."
@@ -922,12 +943,13 @@ class _DashboardCounselingRecordManageScreenState
                                                                 FontWeight
                                                                     .bold),
                                                   ),
-                                                  Text("23.7%",
+                                                  Text(
+                                                      "${indicator[currentIndex]["result"][0]}%",
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .bodyText1),
                                                   Text(
-                                                      " (21% <= 대표감정비율(23.7%) < 25% => 9점)",
+                                                      " (40% < 대표감정비율(${indicator[currentIndex]["result"][0]}%) <= 50% => ${indicator[currentIndex]["indicator"][0]}점)",
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .bodyText1!
@@ -1069,7 +1091,8 @@ class _DashboardCounselingRecordManageScreenState
                                           singleSubContentFlex: 0,
                                           tooltipMessage:
                                               indicatorConsistenceMessage,
-                                          title: "지속성/몰입도 : 9점",
+                                          title:
+                                              "지속성/몰입도 : ${indicator[currentIndex]["indicator"][1]}점",
                                           videoSeconds: videoSeconds,
                                           videoPlayerController:
                                               _videoPlayerController,
@@ -1159,7 +1182,7 @@ class _DashboardCounselingRecordManageScreenState
                                                                 .textTheme
                                                                 .bodyText1),
                                                         Text(
-                                                            " (140초 <= 대표행동 지속시간(154초) < 160초 => 9점)",
+                                                            " (150초 < 대표행동 지속시간(${actionTime["time"] + 1}초) <= 180초 => ${indicator[currentIndex]["indicator"][1]}점)",
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
@@ -1216,8 +1239,7 @@ class _DashboardCounselingRecordManageScreenState
                                                           ],
                                                           [
                                                             1,
-                                                            actionTime[
-                                                                "avg_time"]
+                                                            93,
                                                           ],
                                                         ],
                                                         maxY: 220,
@@ -1326,7 +1348,8 @@ class _DashboardCounselingRecordManageScreenState
                                               _videoPlayerController,
                                           pointVideoDuration:
                                               pointVideoDuration,
-                                          title: "주도성 : 9점",
+                                          title:
+                                              "주도성 : ${indicator[currentIndex]["indicator"][2]}점",
                                           tooltipMessage:
                                               indicatorLeadingMessage,
                                           // hintMessageList: [
@@ -1386,12 +1409,13 @@ class _DashboardCounselingRecordManageScreenState
                                                                 FontWeight
                                                                     .bold),
                                                   ),
-                                                  Text("0%",
+                                                  Text(
+                                                      "${indicator[currentIndex]["indicator"][2]}%",
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .bodyText1),
                                                   Text(
-                                                      " (-5% <= 대표행동 차이 비교(0%) < +5% => 9점)",
+                                                      " (-10% < 대표행동 차이 비교(${talkPercentage['child']}%) <= +0% => ${indicator[currentIndex]["indicator"][2]}점)",
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .bodyText1!
@@ -1500,12 +1524,13 @@ class _DashboardCounselingRecordManageScreenState
                                                                   FontWeight
                                                                       .bold),
                                                     ),
-                                                    Text("0.67",
+                                                    Text(
+                                                        "${indicator[currentIndex]["result"][3]}",
                                                         style: Theme.of(context)
                                                             .textTheme
                                                             .bodyText1),
                                                     Text(
-                                                        " (0.6 <= 평균 거리 비교(0.67) < 0.7 => 9점)",
+                                                        " (0.25 <= 평균 거리 비교(${indicator[currentIndex]["result"][3]}) < 0.3 => ${indicator[currentIndex]["indicator"][3]}점)",
                                                         style: Theme.of(context)
                                                             .textTheme
                                                             .bodyText1!
@@ -1546,36 +1571,37 @@ class _DashboardCounselingRecordManageScreenState
                                                     lineChartMetaData:
                                                         LineChartMetaData(
                                                       minX: 0,
-                                                      maxX: 10,
+                                                      maxX: videoSeconds
+                                                          .toDouble(),
                                                       minY: 0,
-                                                      maxY: 10,
+                                                      maxY: 100,
                                                       leftTitle: (value) {
                                                         switch (value.toInt()) {
-                                                          case 2:
-                                                            return '20';
-                                                          case 4:
-                                                            return '40';
-                                                          case 6:
-                                                            return '60';
-                                                          case 8:
-                                                            return '80';
-                                                          case 10:
-                                                            return '100';
+                                                          case 20:
+                                                            return '0.2';
+                                                          case 40:
+                                                            return '0.4';
+                                                          case 60:
+                                                            return '0.6';
+                                                          case 80:
+                                                            return '0.8';
+                                                          case 100:
+                                                            return '1.0';
                                                         }
                                                         return '';
                                                       },
                                                       bottomTitle: (value) {
                                                         switch (value.toInt()) {
-                                                          case 2:
-                                                            return '0.2';
-                                                          case 4:
-                                                            return '0.4';
-                                                          case 6:
-                                                            return '0.6';
-                                                          case 8:
-                                                            return '0.8';
-                                                          case 10:
-                                                            return '1.0';
+                                                          case 60:
+                                                            return '1분';
+                                                          case 120:
+                                                            return '2분';
+                                                          case 180:
+                                                            return '3분';
+                                                          case 240:
+                                                            return '4분';
+                                                          case 300:
+                                                            return '5분';
                                                         }
                                                         return '';
                                                       },
@@ -1586,27 +1612,30 @@ class _DashboardCounselingRecordManageScreenState
                                                         color:
                                                             kSelectedDashboardTextColor,
                                                         values: [
-                                                          [0, 2],
-                                                          [0.5, 4],
-                                                          [1, 6],
-                                                          [1.5, 2],
-                                                          [2, 2],
-                                                          [2.5, 5],
-                                                          [3, 7.2],
-                                                          [3.5, 8.3],
-                                                          [4, 2.1],
-                                                          [4.5, 2.5],
-                                                          [5, 3],
-                                                          [5.5, 4.4],
-                                                          [6, 4.6],
-                                                          [6.5, 7],
-                                                          [7, 7.4],
-                                                          [7.5, 8.9],
-                                                          [8, 9.4],
-                                                          [8.5, 9.4],
-                                                          [9, 6.4],
-                                                          [9.5, 3.2],
-                                                          [10.0, 1, 2]
+                                                          [0, 20],
+                                                          [10, 20],
+                                                          [15, 22],
+                                                          [20, 23],
+                                                          [30, 27],
+                                                          [35, 30],
+                                                          [40, 28],
+                                                          [50, 26],
+                                                          [55, 24],
+                                                          [60, 25],
+                                                          [65, 26],
+                                                          [70, 24],
+                                                          [80, 27],
+                                                          [85, 26],
+                                                          [90, 26],
+                                                          [100, 28],
+                                                          [105, 27],
+                                                          [110, 25],
+                                                          [115, 27],
+                                                          [120, 25],
+                                                          [125, 27],
+                                                          [130, 27],
+                                                          [140, 27],
+                                                          [145, 27],
                                                         ],
                                                       ),
                                                     ],
@@ -1622,7 +1651,8 @@ class _DashboardCounselingRecordManageScreenState
                                                 _videoPlayerController,
                                             pointVideoDuration:
                                                 pointVideoDuration,
-                                            title: "밀착도 : 9점",
+                                            title:
+                                                "밀착도 : ${indicator[currentIndex]["indicator"][3]}점",
                                             tooltipMessage:
                                                 indicatorTouchMessage,
                                             singleSubContent: Container(),

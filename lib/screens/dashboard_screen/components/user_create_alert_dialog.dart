@@ -55,7 +55,7 @@ class _UserCreateAlertDialogState extends State<UserCreateAlertDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(
-        "신규 고객 등록",
+        "신규 내담자 등록",
         style: Theme.of(context).textTheme.headline4,
       ),
       content: Container(

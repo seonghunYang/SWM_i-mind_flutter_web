@@ -114,7 +114,7 @@ class MultiLineChart extends StatelessWidget {
         borderData: borderData,
         lineBarsData: lineBarsData,
         minX: 0,
-        maxX: 3,
+        maxX: lineChartBarDataSpotList[0].length.toDouble() - 1,
         maxY: 10,
         minY: 1,
       );

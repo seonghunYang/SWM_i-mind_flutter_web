@@ -39,6 +39,7 @@ class CustomerTable extends StatelessWidget {
         gridLinesVisibility: GridLinesVisibility.none,
         columnWidthMode: ColumnWidthMode.fill,
         rowHeight: 60,
+        allowSorting: true,
         source: customerDataSource,
         columns: <GridColumn>[
           GridColumn(
@@ -48,7 +49,7 @@ class CustomerTable extends StatelessWidget {
                   padding: headerPadding,
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    '고객번호',
+                    '번호',
                     style: headerTextStyle,
                   ))),
           GridColumn(

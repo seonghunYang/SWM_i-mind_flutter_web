@@ -63,7 +63,7 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
                           Expanded(
                             flex: 1,
                             child: NumberDataCard(
-                              title: "상담한 고객수",
+                              title: "상담한 내담자수",
                               number: "302",
                               icon: Icon(
                                 Icons.people_outline,
@@ -136,7 +136,7 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "신규 고객 추이",
+                                        "신규 내담자 추이(월)",
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle1!
@@ -237,7 +237,7 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "신규 고객 추이",
+                                        "신규 내담자 추이(주)",
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle1!
@@ -364,7 +364,7 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "고객 관리",
+                                  "내담자 관리",
                                   style: Theme.of(context)
                                       .textTheme
                                       .subtitle1!

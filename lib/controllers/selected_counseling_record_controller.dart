@@ -28,6 +28,8 @@ class SelectedCounselingRecordController extends ChangeNotifier {
         });
 
     var response1 = json.decode(response.body);
+    print(response1);
+
     Map emotionAll = {
       "parentEmotion": List<List<double>>.generate(
           response1['body'][0][0]["data"].length,
@@ -55,6 +57,7 @@ class SelectedCounselingRecordController extends ChangeNotifier {
         });
 
     var response1 = json.decode(response.body);
+    print(response1);
     Map emotionChild = {
       "dataList": [],
       "emotionCategory": [],
@@ -153,12 +156,14 @@ class SelectedCounselingRecordController extends ChangeNotifier {
     var userInfo = await testLogin();
 
     Map emotionAll = await getEmotionAll(userInfo, recordId);
+    print(emotionAll);
     var response2 = await getRecordVideo(userInfo, recordId);
     var emotionChild = await getEmotionChild(userInfo, recordId);
     // var distance = await getDistance(userInfo, recordId);
     var actionList = await getActionList(userInfo, recordId);
     var actionTime = await getActionTime(userInfo, recordId);
     var talkPercentage = await getTalk(userInfo, recordId);
+    print(talkPercentage);
 
     return {
       "emotionAll": emotionAll,

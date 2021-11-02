@@ -22,7 +22,7 @@ class PlatformInfo extends StatelessWidget {
             height: defaultPadding,
           ),
           Text(
-            "인공지능 활용한 아동심리분석을 통해 상담사의 업무 효율을 상승시키고 고객에게 최고의 만족도를 선사하세요",
+            "인공지능 활용한 아동심리분석을 통해 상담사의 업무 효율을 상승시키고 내담자에게 최고의 만족도를 선사하세요",
             style: Theme.of(context).textTheme.subtitle1,
           ),
           const SizedBox(

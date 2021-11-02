@@ -18,6 +18,7 @@ class LogicSettingFour extends StatefulWidget {
     required this.indicatorTextControllers,
     required this.updateIsTap,
     required this.isTap,
+    required this.selectedButton,
   }) : super(key: key);
 
   final void Function(int) updateStepFourText;
@@ -28,6 +29,7 @@ class LogicSettingFour extends StatefulWidget {
   final void Function(String, bool) updateSubContent;
   final int typeSelectedIndex;
   final bool isTap;
+  final int selectedButton;
   final List<TextEditingController> indicatorTextControllers;
 
   @override
@@ -35,48 +37,48 @@ class LogicSettingFour extends StatefulWidget {
 }
 
 class _LogicSettingFourState extends State<LogicSettingFour> {
-  List<String> labelList = ["최대값 비교", "최소값 비교", "평균값 비교", "차이 비교", "값 비교"];
-
+  bool isTap = false;
   int selectedIndex = 0;
 
   Widget? getSubContent(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // SizedBox(
+        //   height: defaultPadding * 3,
+        // ),
+        // Text(
+        //   "4-1. 데이터 속성",
+        //   style: Theme.of(context)
+        //       .textTheme
+        //       .subtitle1!
+        //       .copyWith(fontWeight: FontWeight.bold),
+        // ),
         SizedBox(
           height: defaultPadding * 3,
         ),
+        // GroupButton(
+        //   // selectedTextStyle: TextStyle(),
+        //   groupRunAlignment: GroupRunAlignment.start,
+        //   mainGroupAlignment: MainGroupAlignment.start,
+        //   selectedButton: widget.typeSelectedIndex,
+        //
+        //   isRadio: true,
+        //   spacing: 20,
+        //   runSpacing: 10,
+        //   onSelected: (index, bool) {
+        //     widget.updateStepFourTypeIndex(index);
+        //   },
+        //   buttons: ["시간(초)", "확률(%)", "상대거리", "빈도수(개)"],
+        //   textPadding: EdgeInsets.zero,
+        //   selectedColor: Colors.black,
+        //   borderRadius: BorderRadius.all(Radius.circular(defaultPadding * 0.5)),
+        // ),
+        // SizedBox(
+        //   height: defaultPadding,
+        // ),
         Text(
-          "4-1. 데이터 속성",
-          style: Theme.of(context)
-              .textTheme
-              .subtitle1!
-              .copyWith(fontWeight: FontWeight.bold),
-        ),
-        SizedBox(
-          height: defaultPadding * 3,
-        ),
-        GroupButton(
-          // selectedTextStyle: TextStyle(),
-          groupRunAlignment: GroupRunAlignment.start,
-          mainGroupAlignment: MainGroupAlignment.start,
-          selectedButton: widget.typeSelectedIndex,
-          isRadio: true,
-          spacing: 20,
-          runSpacing: 10,
-          onSelected: (index, bool) {
-            widget.updateStepFourTypeIndex(index);
-          },
-          buttons: ["시간(초)", "확률(%)", "상대거리", "빈도수(개)"],
-          textPadding: EdgeInsets.zero,
-          selectedColor: Colors.black,
-          borderRadius: BorderRadius.all(Radius.circular(defaultPadding * 0.5)),
-        ),
-        SizedBox(
-          height: defaultPadding,
-        ),
-        Text(
-          "4-2. 지표유형 선택",
+          "4-1. 지표유형 선택",
           style: Theme.of(context)
               .textTheme
               .subtitle1!
@@ -116,12 +118,16 @@ class _LogicSettingFourState extends State<LogicSettingFour> {
                     Expanded(
                       child: TextField(
                         decoration: InputDecoration(
-                          labelText: widget.isTap ? "1" : "",
+                          labelText: widget.isTap
+                              ? isTap == false
+                                  ? "1"
+                                  : ""
+                              : "",
                           isDense: true,
                           border: OutlineInputBorder(),
                           contentPadding: EdgeInsets.symmetric(
                               vertical: defaultPadding * 0.75,
-                              horizontal: defaultPadding * 0.5),
+                              horizontal: defaultPadding),
                         ),
                       ),
                     ),
@@ -138,11 +144,16 @@ class _LogicSettingFourState extends State<LogicSettingFour> {
                     Expanded(
                       child: TextField(
                         decoration: InputDecoration(
-                          labelText: widget.isTap ? "10" : "",
+                          labelText: widget.isTap
+                              ? isTap == false
+                                  ? "10"
+                                  : ""
+                              : "",
                           isDense: true,
                           border: OutlineInputBorder(),
                           contentPadding: EdgeInsets.symmetric(
-                              vertical: defaultPadding * 0.75),
+                              vertical: defaultPadding * 0.75,
+                              horizontal: defaultPadding * 0.5),
                         ),
                       ),
                     ),
@@ -150,7 +161,12 @@ class _LogicSettingFourState extends State<LogicSettingFour> {
                       width: defaultPadding * 2,
                     ),
                     TextButton(
-                        onPressed: widget.updateIsTap,
+                        onPressed: () {
+                          widget.updateIsTap();
+                          setState(() {
+                            isTap = true;
+                          });
+                        },
                         child: Text(
                           "선택",
                           style: Theme.of(context)
@@ -208,9 +224,11 @@ class _LogicSettingFourState extends State<LogicSettingFour> {
   @override
   Widget build(BuildContext context) {
     return LogicSettingBlock(
+      selectedButton: widget.selectedButton,
       height: widget.isTap ? 550 : 350,
+      disableButton: [3],
       title: "4. 지표 산출",
-      titleButtonList: labelList,
+      titleButtonList: stepFourlabelList,
       onSelectedButton: (int index, _) {
         widget.updateStepFourText(index);
       },

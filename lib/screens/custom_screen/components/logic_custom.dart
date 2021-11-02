@@ -213,7 +213,7 @@ class _IndicatorNameState extends State<IndicatorName> {
     CustomIndicatorSave indicatorSave =
         logicCustomController.customDbList[widget.index];
     return Container(
-      width: 150,
+      width: 180,
       height: 60,
       child: !indicatorSave.isFinished
           ? TextField(

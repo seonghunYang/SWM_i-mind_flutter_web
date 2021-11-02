@@ -24,7 +24,7 @@ class ServiceInfo extends StatelessWidget {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
               Text(
-                "우리 센터만의 맞춤 모델로\n상담효율과 고객 만족도를 높이세요",
+                "우리 센터만의 맞춤 모델로\n상담효율과 상담 만족도를 높이세요",
                 style: Theme.of(context).textTheme.headline2!.copyWith(
                       fontSize: 28,
                     ),

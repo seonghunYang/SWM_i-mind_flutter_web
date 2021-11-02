@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LogicCustomDialog extends StatelessWidget {
-  const LogicCustomDialog({Key? key}) : super(key: key);
+  const LogicCustomDialog({Key? key, required this.onTap}) : super(key: key);
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,26 @@ class LogicCustomDialog extends StatelessWidget {
           }),
         ),
       ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text(
+            "취소",
+            style: TextStyle(color: Colors.red),
+          ),
+        ),
+        TextButton(
+          onPressed: () {
+            onTap();
+            Navigator.pop(context);
+          },
+          child: Text(
+            "변경",
+          ),
+        ),
+      ],
     );
   }
 }

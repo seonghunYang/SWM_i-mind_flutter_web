@@ -58,7 +58,6 @@ class SelectedCustomerController extends ChangeNotifier {
 
   Future getCustomerDetail(String customerId) async {
     var userInfo = await testLogin();
-    print(customerId);
 
     List recordIndicator = await getRecordIndicator(userInfo, customerId);
     var recentIndicator = await getRecentIndicator(userInfo, customerId);
@@ -72,6 +71,7 @@ class SelectedCustomerController extends ChangeNotifier {
     };
     List<String> counselingDate = [];
     print(recentIndicator);
+    print(counselingRecordList);
 
     recordIndicator.forEach((element) {
       counselingDate.add(element["date"]);

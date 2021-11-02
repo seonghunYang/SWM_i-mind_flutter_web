@@ -85,7 +85,7 @@ class _DemoTestingContainerState extends State<DemoTestingContainer> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "1. 데모 테스트 영상을 선택하세요.",
+          "1. 데모 테스트 영상을 선택하세요. ",
           style: Theme.of(context)
               .textTheme
               .headline4!
@@ -190,7 +190,7 @@ class _DemoTestingContainerState extends State<DemoTestingContainer> {
                   builder: (context, stepperController, _) {
                 return PrettyPaddingButton(
                   backgroundColor: kSelectedContainerColor,
-                  text: "이 옵션으로 문의하기",
+                  text: "이 설정으로 문의하기",
                   onPressed: () {
                     stepperController.plusCurrentNumberKey();
                   },

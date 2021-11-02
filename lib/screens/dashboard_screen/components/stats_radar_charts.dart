@@ -46,13 +46,13 @@ class _StatsRadarChartState extends State<StatsRadarChart> {
               getTitle: (index) {
                 switch (index) {
                   case 0:
-                    return '민감도';
+                    return '즐거움';
                   case 1:
                     return '지속성/몰입도';
                   case 2:
                     return '주도성';
                   case 3:
-                    return '즐거움';
+                    return '밀착도';
                   case 4:
                     return '반복하기';
                   default:

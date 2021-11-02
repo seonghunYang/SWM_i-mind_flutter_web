@@ -41,7 +41,7 @@ class ProfileCard extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
             child: Text(
-              '이다랑 상담사',
+              '권윤정 상담사',
               style: Theme.of(context).textTheme.bodyText1,
             ),
           ),

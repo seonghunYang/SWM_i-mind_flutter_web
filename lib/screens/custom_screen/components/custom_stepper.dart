@@ -52,7 +52,7 @@ class CustomStepper extends StatelessWidget {
                       currentNumberKey: currentNumberKey,
                     ),
                     StepperItem(
-                      text: "2단계: 분석 로직 설정",
+                      text: "2단계: 분석지표 로직 설정",
                       numberKey: 1,
                       currentNumberKey: currentNumberKey,
                       width: 210,
@@ -62,7 +62,7 @@ class CustomStepper extends StatelessWidget {
                       currentNumberKey: currentNumberKey,
                     ),
                     StepperItem(
-                      text: "3단계: 옵셔 선택 및 문의 완료",
+                      text: "3단계: 데모 테스트 진행",
                       currentNumberKey: currentNumberKey,
                       numberKey: 2,
                       width: 210,

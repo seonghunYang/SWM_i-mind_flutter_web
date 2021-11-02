@@ -1,4 +1,6 @@
+import 'package:ai_counseling_platform/controllers/customer_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 
 import '../../../constants.dart';
 
@@ -10,6 +12,9 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: (String newValue) {
+        context.read<CustomerController>().searchChangeCustomer(newValue);
+      },
       obscureText: false,
       decoration: InputDecoration(
         suffixIcon: Container(
@@ -30,7 +35,7 @@ class SearchBar extends StatelessWidget {
           Icons.filter_alt_outlined,
           color: Colors.black26,
         ),
-        hintText: "고객 검색 필터",
+        hintText: "내담자 검색 필터",
         hintStyle: TextStyle(fontSize: 13, color: Colors.black38),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(30)),

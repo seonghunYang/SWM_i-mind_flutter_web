@@ -65,7 +65,7 @@ class DashboardCustomerManageScreen extends StatelessWidget {
                     )
                   ],
                   title: Text(
-                    "고객 관리",
+                    "내담자 관리",
                     style: Theme.of(context)
                         .textTheme
                         .headline1!
@@ -76,7 +76,7 @@ class DashboardCustomerManageScreen extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Container(
-                        width: 380,
+                        width: 400,
                         child: TabBar(
                           unselectedLabelColor: Colors.grey,
                           labelColor: kSelectedDashboardTextColor,
@@ -84,14 +84,14 @@ class DashboardCustomerManageScreen extends StatelessWidget {
                           tabs: <Widget>[
                             Tab(
                               child: Text(
-                                "전체 고객",
+                                "전체 내담자",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 14),
                               ),
                             ),
                             Tab(
                               child: Text(
-                                "오늘 방문 고객",
+                                "오늘 방문 내담자",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 14),
                               ),
@@ -124,7 +124,7 @@ class DashboardCustomerManageScreen extends StatelessWidget {
                               child: SearchBar(),
                             ),
                             RoundedCreateButton(
-                              text: "신규 고객 생성",
+                              text: "신규 내담자 생성",
                               onTap: () {
                                 showUserCreateDialog(context);
                               },

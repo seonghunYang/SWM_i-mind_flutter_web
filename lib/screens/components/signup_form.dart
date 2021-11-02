@@ -55,7 +55,7 @@ class _SignupFormState extends State<SignupForm> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text("-디지털 플랫픔을 통해 고객정보를 관리할 수 있습니다.",
+              Text("-디지털 플랫픔을 통해 내담자정보를 관리할 수 있습니다.",
                   style: TextStyle(
                     color: Colors.grey,
                     fontSize: 13,
@@ -114,6 +114,7 @@ class _SignupFormState extends State<SignupForm> {
                 textEditingController: widget.clientIdController,
                 title: "상담센터 인증코드",
                 hintText: "센터 계정에서 발급된 인증코드를 입력하세요",
+                obscureText: true,
               ),
             ),
           Expanded(

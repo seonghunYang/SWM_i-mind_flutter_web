@@ -59,6 +59,16 @@ class LineAreaChart extends StatelessWidget {
           },
           touchTooltipData: LineTouchTooltipData(
             tooltipBgColor: Colors.black,
+            getTooltipItems: (lineBarSpotList) {
+              List<LineTooltipItem> lineTooltipList = [];
+              for (int i = 0; i < lineBarSpotList.length; i++) {
+                lineTooltipList.add(LineTooltipItem(
+                    lineBarSpotList[i].y.toStringAsFixed(2),
+                    Theme.of(context).textTheme.bodyText2!.copyWith(
+                        color: colorList[lineBarSpotList[i].barIndex])));
+              }
+              return lineTooltipList;
+            },
           ),
         ),
         gridData: FlGridData(

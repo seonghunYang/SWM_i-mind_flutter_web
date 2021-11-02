@@ -10,7 +10,9 @@ class ThresholdSlider extends StatefulWidget {
     Key? key,
     required this.labelFormatterCallback,
     required this.tooltipTextFormatterCallback,
+    this.defaultValue = 4,
   }) : super(key: key);
+  final int defaultValue;
 
   final String Function(dynamic, String)? labelFormatterCallback;
   final String Function(dynamic, String)? tooltipTextFormatterCallback;
@@ -20,7 +22,14 @@ class ThresholdSlider extends StatefulWidget {
 }
 
 class _ThresholdSliderState extends State<ThresholdSlider> {
-  SliderController sliderController = SliderController(value: 4);
+  late SliderController sliderController;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    sliderController = SliderController(value: widget.defaultValue);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

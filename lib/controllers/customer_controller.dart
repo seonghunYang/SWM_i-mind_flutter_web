@@ -17,10 +17,22 @@ class CustomerController extends ChangeNotifier {
   bool isInit = false;
   late Customer selectedCustomer;
   List<Customer> customers = [];
+  List<Customer> customersCopy = [];
 
   void selectCustomer(int selectedCustomerIndex) {
     isSelected = true;
     selectedCustomer = customers[selectedCustomerIndex];
+    notifyListeners();
+  }
+
+  void searchChangeCustomer(String value) {
+    print(value);
+    if (value != "") {
+      customers.clear();
+      customers.add(customersCopy[5]);
+    } else {
+      customers = customersCopy.cast();
+    }
     notifyListeners();
   }
 
@@ -63,6 +75,25 @@ class CustomerController extends ChangeNotifier {
 
   void setCustomerList(List customerRawList) {
     customers = List<Customer>.generate(customerRawList.length, (index) {
+      DateTime childBirth =
+          DateTime.parse(customerRawList[index]["child_birthday"]);
+      DateTime parentBirth =
+          DateTime.parse(customerRawList[index]["parent_birthday"]);
+      int childAge = DateTime.now().difference(childBirth).inDays ~/ 30;
+      int parentAge = DateTime.now().year - parentBirth.year;
+      return Customer(
+        id: customerRawList[index]["ID"].toString(),
+        parentName: customerRawList[index]["parent_name"],
+        childName: customerRawList[index]["child_name"],
+        childAge: childAge.toString(),
+        childGender: customerRawList[index]["child_gender"],
+        parentAge: parentAge.toString(),
+        parentRelation: customerRawList[index]["parent_relation"],
+        email: customerRawList[index]["email"],
+        special: customerRawList[index]["special"],
+      );
+    });
+    customersCopy = List<Customer>.generate(customerRawList.length, (index) {
       DateTime childBirth =
           DateTime.parse(customerRawList[index]["child_birthday"]);
       DateTime parentBirth =
@@ -293,14 +324,14 @@ class CustomerDataSource extends DataGridSource {
                     const PopupMenuItem(
                       value: 0,
                       child: Text(
-                        '고객 상세정보',
+                        '내담자 상세정보',
                         style: TextStyle(fontSize: 14),
                       ),
                     ),
                     const PopupMenuItem(
                       value: 1,
                       child: Text(
-                        '고객 삭제',
+                        '내담자 삭제',
                         style: TextStyle(fontSize: 14),
                       ),
                     ),

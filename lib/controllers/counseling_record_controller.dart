@@ -17,6 +17,7 @@ class CounselingRecordController extends ChangeNotifier {
   CounselingRecord? selectedCounselingRecord;
   String selectedFileName = "";
   bool isLoading = false;
+  int currentIndex = 0;
 
   List<CounselingRecord> counselingRecords = [];
 
@@ -29,17 +30,18 @@ class CounselingRecordController extends ChangeNotifier {
 
   void setCounselingRecordList(List rawCounselingRecordList, String childName) {
     counselingRecords = List<CounselingRecord>.generate(
-        rawCounselingRecordList.length,
-        (index) => CounselingRecord(
-              counselingId: rawCounselingRecordList[index]["ID"].toString(),
-              customerId:
-                  rawCounselingRecordList[index]["patient_ID"].toString(),
-              category: rawCounselingRecordList[index]["category"],
-              childName: childName,
-              counselingStatus: "상담완료",
-              date: rawCounselingRecordList[index]["date"],
-              counselor: "이다랑",
-            ));
+        rawCounselingRecordList.length, (index) {
+      index = rawCounselingRecordList.length - index - 1;
+      return CounselingRecord(
+        counselingId: rawCounselingRecordList[index]["ID"].toString(),
+        customerId: rawCounselingRecordList[index]["patient_ID"].toString(),
+        category: rawCounselingRecordList[index]["category"],
+        childName: childName,
+        counselingStatus: "상담완료",
+        date: rawCounselingRecordList[index]["date"],
+        counselor: "권윤정",
+      );
+    });
     notifyListeners();
   }
 
@@ -88,22 +90,26 @@ class CounselingRecordController extends ChangeNotifier {
     required String fileName,
     required Customer selectedCustomer,
   }) async {
-    var metaVideoInfo = await getVideoFileSavedUrl();
+    var counselingInfo = await getVideoFileSavedUrl();
     var userInfo = await testLogin();
-    DateTime current = DateTime.now();
-    counselingRecords.insert(
-        0,
-        CounselingRecord(
-            counselingStatus: "전송중...",
-            customerId: selectedCustomer.id,
-            childName: selectedCustomer.childName,
-            counselingId: "9",
-            date: "${current.year}-${current.month}-${current.day}",
-            category: "놀이분석",
-            counselor: "이다랑"));
-    print("a");
-    notifyListeners();
+    // DateTime current = DateTime.now();
+    // counselingRecords.insert(
+    //     0,
+    //     CounselingRecord(
+    //         counselingStatus: "전송중...",
+    //         customerId: selectedCustomer.id,
+    //         childName: selectedCustomer.childName,
+    //         counselingId: "9",
+    //         date: "${current.year}-${current.month}-${current.day}",
+    //         category: "놀이분석",
+    //         counselor: "이다랑"));
+    // print("a");
+    // notifyListeners();
     var dio = Dio();
+    var metaVideoInfo = counselingInfo["url"];
+    var counseling = counselingInfo["list"];
+    print(counseling);
+    setCounselingRecordList(counseling["list"], "이아름");
 
     FormData formData = FormData.fromMap({
       "key": metaVideoInfo["fields"]["key"],

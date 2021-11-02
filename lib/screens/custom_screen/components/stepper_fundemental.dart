@@ -131,6 +131,7 @@ class StepperFundemental extends StatelessWidget {
           height: defaultPadding * 3,
         ),
         ThresholdSlider(
+          defaultValue: 3,
           labelFormatterCallback: (dynamic value, String formattedText) {
             switch (value) {
               case 1:

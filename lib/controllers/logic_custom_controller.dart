@@ -28,6 +28,11 @@ class LogicCustomController extends ChangeNotifier {
     return customIndicatorSave.stepFourTypeSelectedIndex;
   }
 
+  int getStepFourIndex(int index) {
+    CustomIndicatorSave customIndicatorSave = customDbList[index];
+    return customIndicatorSave.stepFourText;
+  }
+
   bool getIsTap(int index) {
     CustomIndicatorSave customIndicatorSave = customDbList[index];
     return customIndicatorSave.isTap;
@@ -89,7 +94,7 @@ class LogicCustomController extends ChangeNotifier {
 
   void updateStepFourText(int index, int textIndex) {
     CustomIndicatorSave customIndicatorSave = customDbList[index];
-    customIndicatorSave.stepFourText = stepFourlabelList[textIndex];
+    customIndicatorSave.stepFourText = textIndex;
     notifyListeners();
   }
 

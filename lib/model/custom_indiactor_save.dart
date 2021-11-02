@@ -6,7 +6,7 @@ class CustomIndicatorSave {
   String stepOneText = "아이";
   String stepTwoText = "대표행동";
   String stepThreeText = "지속시간 구하기";
-  String stepFourText = stepFourlabelList[0];
+  int stepFourText = 0;
   List<String> stepTwoSubList = [];
   bool isTap = false;
   int selectedIndex = 0;

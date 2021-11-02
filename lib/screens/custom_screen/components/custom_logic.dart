@@ -77,6 +77,7 @@ class _CustomLogicState extends State<CustomLogic> {
         );
       case 3:
         return LogicSettingFour(
+          selectedButton: logicCustomController.getStepFourIndex(widget.index),
           isTap: logicCustomController.getIsTap(widget.index),
           updateIsTap: () {
             logicCustomController.updateTap(widget.index);
@@ -96,11 +97,30 @@ class _CustomLogicState extends State<CustomLogic> {
             logicCustomController.updateStepFourText(
                 widget.index, newTextIndex);
           },
-          selectedValue: indicatorSave.stepFourText,
+          selectedValue: stepFourlabelList[indicatorSave.stepFourText],
           updateSubContent: (String newValue, bool isSelected) {
             logicCustomController.updateStepTwoSubList(
                 widget.index, newValue, isSelected);
           },
+        );
+      case 4:
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.check_circle,
+              color: Colors.black,
+              size: 110,
+            ),
+            SizedBox(
+              height: defaultPadding,
+            ),
+            Text(
+              "지표 설정을 완료했습니다.",
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+          ],
         );
       default:
         return Container();
@@ -181,7 +201,8 @@ class _CustomLogicState extends State<CustomLogic> {
                             widget.index, newIndex);
                       },
                       isSelected: 3 == indicatorSave.selectedIndex,
-                      finishedText: indicatorSave.stepFourText,
+                      finishedText:
+                          stepFourlabelList[indicatorSave.stepFourText],
                     ),
                   ],
                 ),

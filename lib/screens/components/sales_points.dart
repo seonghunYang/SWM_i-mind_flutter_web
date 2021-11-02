@@ -52,11 +52,11 @@ class SalesPoints extends StatelessWidget {
           ),
           SalesPointItem(
             title: Text(
-              "체계적인 시스템을 통한\n고객 데이터 관리",
+              "체계적인 시스템을 통한\n내담자 데이터 관리",
               style: Theme.of(context).textTheme.headline2,
             ),
             subTitle: Text(
-              "하나의 플랫폼으로 고객 정보, 상담 정보를 관리하고 이를 분석하여\n고객을 체계적으로 관리해 고객에게 최고의 상담경험을 줄 수 있습니다.",
+              "하나의 플랫폼으로 내담자 정보, 상담 정보를 관리하고 이를 분석하여\n내담자르 체계적으로 관리해 내담자에게 최고의 상담경험을 줄 수 있습니다.",
               style: Theme.of(context).textTheme.subtitle1,
             ),
             image: const Image(

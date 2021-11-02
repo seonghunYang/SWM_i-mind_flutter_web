@@ -23,6 +23,16 @@ import 'package:file_picker/file_picker.dart';
 import 'package:provider/src/provider.dart';
 import '../../../constants.dart';
 
+const List<Map> indicator = [
+  {
+    "indicator": [4, 4, 4, 4, 4],
+  },
+  {
+    "indicator": [8, 8, 4, 8, 7],
+    "result": [48, 139, 18.6, 0.27],
+  },
+];
+
 class DashBoardCustomerInfoScreen extends StatelessWidget {
   const DashBoardCustomerInfoScreen({
     Key? key,
@@ -42,6 +52,9 @@ class DashBoardCustomerInfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Customer? selectedCustomer = customerController.selectedCustomer;
+    CounselingRecordController counselingRecordController =
+        context.watch<CounselingRecordController>();
+    int currentIndex = counselingRecordController.currentIndex;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: BottomInfoAppBar(
@@ -133,15 +146,20 @@ class DashBoardCustomerInfoScreen extends StatelessWidget {
                                               child: MultiLineChart(
                                             lineChartBarDataSpotList: [
                                               data["indicatorRecordList"]
-                                                  ["responsiveness"],
+                                                      ["responsiveness"]
+                                                  .sublist(0, 4 + currentIndex),
                                               data["indicatorRecordList"]
-                                                  ["persistence"],
+                                                      ["persistence"]
+                                                  .sublist(0, 4 + currentIndex),
                                               data["indicatorRecordList"]
-                                                  ["scrupulosity"],
+                                                      ["scrupulosity"]
+                                                  .sublist(0, 4 + currentIndex),
                                               data["indicatorRecordList"]
-                                                  ["leading"],
+                                                      ["leading"]
+                                                  .sublist(0, 4 + currentIndex),
                                               data["indicatorRecordList"]
-                                                  ["sensitive"],
+                                                      ["sensitive"]
+                                                  .sublist(0, 4 + currentIndex),
                                             ],
                                             lineChartBarColorList: [
                                               Color(0xff4af699),
@@ -201,11 +219,11 @@ class DashBoardCustomerInfoScreen extends StatelessWidget {
                                                 title: 'mean',
                                                 color: kSelectedContainerColor,
                                                 values: [
-                                                  data["avgIndicator"][0],
-                                                  data["avgIndicator"][1],
-                                                  data["avgIndicator"][2],
-                                                  data["avgIndicator"][3],
-                                                  data["avgIndicator"][4],
+                                                  7,
+                                                  6,
+                                                  7,
+                                                  6,
+                                                  7,
                                                 ],
                                               ),
                                               RadarChartRawDataSet(
@@ -213,16 +231,16 @@ class DashBoardCustomerInfoScreen extends StatelessWidget {
                                                 color:
                                                     kSelectedDashboardTextColor,
                                                 values: [
-                                                  data["recentIndicator"]
-                                                      ["responsiveness"],
-                                                  data["recentIndicator"]
-                                                      ["persistence"],
-                                                  data["recentIndicator"]
-                                                      ["scrupulosity"],
-                                                  data["recentIndicator"]
-                                                      ["point1"],
-                                                  data["recentIndicator"]
-                                                      ["point2"],
+                                                  indicator[currentIndex]
+                                                      ["indicator"][0],
+                                                  indicator[currentIndex]
+                                                      ["indicator"][1],
+                                                  indicator[currentIndex]
+                                                      ["indicator"][2],
+                                                  indicator[currentIndex]
+                                                      ["indicator"][3],
+                                                  indicator[currentIndex]
+                                                      ["indicator"][4],
                                                 ],
                                               ),
                                             ],

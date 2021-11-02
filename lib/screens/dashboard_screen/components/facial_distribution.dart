@@ -28,7 +28,7 @@ class FacialDistribution extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             ChartIndicator(
-                color: kSelectedContainerColor, text: "침착", isSquare: true),
+                color: kSelectedContainerColor, text: "중립", isSquare: true),
             ChartIndicator(color: kMainColor, text: "행복", isSquare: true),
           ],
         ),

@@ -12,15 +12,19 @@ class LogicSettingBlock extends StatelessWidget {
     required this.onSelectedButton,
     required this.onTapButton,
     this.subContent,
+    this.disableButton = const [],
     this.height = 200,
+    this.selectedButton = 0,
   }) : super(key: key);
   final String title;
   final List<String> titleButtonList;
   final Widget? subContent;
+  final int selectedButton;
 
   final void Function(int, bool) onSelectedButton;
   final void Function() onTapButton;
   final double height;
+  final List<int> disableButton;
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +45,11 @@ class LogicSettingBlock extends StatelessWidget {
             height: defaultPadding * 2,
           ),
           GroupButton(
+            disabledButtons: disableButton,
             // selectedTextStyle: TextStyle(),
             groupRunAlignment: GroupRunAlignment.start,
             mainGroupAlignment: MainGroupAlignment.start,
-            selectedButton: 0,
+            selectedButton: selectedButton,
             runSpacing: 10,
             isRadio: true,
             spacing: 20,

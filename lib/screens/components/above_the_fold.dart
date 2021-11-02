@@ -36,7 +36,7 @@ class AboveTheFold extends StatelessWidget {
                     height: defaultPadding * 3,
                   ),
                   Text(
-                    "i-mind는 인공지능기반 아동놀이영상 분석으로 업무의 효율성을 높이고\n대시보드를 통해 고객 정보관리와 상담 정보관리까지 지원되는\n심리상담센터 현장에 최적화된 통합 서비스입니다.",
+                    "i-mind는 인공지능기반 아동놀이영상 분석으로 업무의 효율성을 높이고\n대시보드를 통해 내담자 정보관리와 상담 정보관리까지 지원되는\n심리상담센터 현장에 최적화된 통합 서비스입니다.",
                     style: Theme.of(context)
                         .textTheme
                         .subtitle1!

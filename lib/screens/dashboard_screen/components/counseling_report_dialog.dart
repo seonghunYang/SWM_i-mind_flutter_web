@@ -65,23 +65,16 @@ class CounselingReportDialog extends StatelessWidget {
                     ),
                     Expanded(
                       child: StatusCell(
-                        text: "민감도",
-                        sliderController:
-                            counselingReportController.statSensitivity,
-                        enabled: counselingReportController.checkedStatus,
-                      ),
-                    ),
-                    Expanded(
-                      child: StatusCell(
-                        text: "반복하기",
-                        sliderController: counselingReportController.statRepeat,
-                        enabled: counselingReportController.checkedStatus,
-                      ),
-                    ),
-                    Expanded(
-                      child: StatusCell(
                         text: "즐거움",
                         sliderController: counselingReportController.statHappy,
+                        enabled: counselingReportController.checkedStatus,
+                      ),
+                    ),
+                    Expanded(
+                      child: StatusCell(
+                        text: "지속성/몰입도",
+                        sliderController:
+                            counselingReportController.statPersistence,
                         enabled: counselingReportController.checkedStatus,
                       ),
                     ),
@@ -95,9 +88,16 @@ class CounselingReportDialog extends StatelessWidget {
                     ),
                     Expanded(
                       child: StatusCell(
-                        text: "지속성/몰입도",
+                        text: "밀착도",
                         sliderController:
-                            counselingReportController.statPersistence,
+                            counselingReportController.statSensitivity,
+                        enabled: counselingReportController.checkedStatus,
+                      ),
+                    ),
+                    Expanded(
+                      child: StatusCell(
+                        text: "반복하기",
+                        sliderController: counselingReportController.statRepeat,
                         enabled: counselingReportController.checkedStatus,
                       ),
                     ),
@@ -156,16 +156,6 @@ class CounselingReportDialog extends StatelessWidget {
                 child: LongTextField(
                   title: "총평",
                   textEditingController: counselingReportController.total,
-                ),
-              ),
-              SizedBox(
-                height: defaultPadding * 4,
-              ),
-              SizedBox(
-                height: 100,
-                child: LongTextField(
-                  title: "추천 전략",
-                  textEditingController: counselingReportController.recommended,
                 ),
               ),
               SizedBox(

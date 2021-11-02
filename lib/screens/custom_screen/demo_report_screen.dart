@@ -16,12 +16,20 @@ class DemoReportScreen extends StatefulWidget {
 class _DemoReportScreenState extends State<DemoReportScreen> {
   final ScrollController _scrollController = ScrollController();
   bool visible = false;
+  int currentIndex = 0;
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
     _scrollController.dispose();
+  }
+
+  void changeIndicator() {
+    setState(() {
+      visible = false;
+      currentIndex = 1;
+    });
   }
 
   @override
@@ -46,7 +54,9 @@ class _DemoReportScreenState extends State<DemoReportScreen> {
                 showDialog(
                     context: context,
                     builder: (context) {
-                      return LogicCustomDialog();
+                      return LogicCustomDialog(
+                        onTap: changeIndicator,
+                      );
                     });
               },
               child: Text(
@@ -100,7 +110,9 @@ class _DemoReportScreenState extends State<DemoReportScreen> {
                     ),
                   );
                 } else {
-                  return DemoCustomRecordPage();
+                  return DemoCustomRecordPage(
+                    currentIndex: currentIndex,
+                  );
                 }
               },
             ),
