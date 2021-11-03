@@ -77,7 +77,9 @@ class ScrollableAppbar extends StatelessWidget with PreferredSizeWidget {
             width: 30,
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              context.read<UserController>().delete();
+            },
             child: Text(
               "이용 요금",
               style: textStyle,
@@ -118,14 +120,14 @@ class ScrollableAppbar extends StatelessWidget with PreferredSizeWidget {
         ),
         InkWell(
           onTap: () {
-            Navigator.pushNamed(context, DashboardRouterScreen.id);
-            // if (userController.user != null) {
-            //   Navigator.pushNamed(context, DashboardRouterScreen.id);
-            // } else {
-            //   // userController.signUp();
-            //   // userController.confirm();
-            //   Navigator.pushNamed(context, SignupScreen.id);
-            // }
+            // Navigator.pushNamed(context, DashboardRouterScreen.id);
+            if (userController.user != null) {
+              Navigator.pushNamed(context, DashboardRouterScreen.id);
+            } else {
+              // userController.signUp();
+              // userController.confirm();
+              Navigator.pushNamed(context, SignupScreen.id);
+            }
           },
           child: Container(
             alignment: Alignment.center,

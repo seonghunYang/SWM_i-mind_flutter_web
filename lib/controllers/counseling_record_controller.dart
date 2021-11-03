@@ -18,8 +18,19 @@ class CounselingRecordController extends ChangeNotifier {
   String selectedFileName = "";
   bool isLoading = false;
   int currentIndex = 0;
+  int counselingIndex = 0;
 
   List<CounselingRecord> counselingRecords = [];
+
+  void updateCurrentIndex() {
+    currentIndex = 1;
+    notifyListeners();
+  }
+
+  void updateCounselingIndex() {
+    counselingIndex = 1;
+    notifyListeners();
+  }
 
   void selectCounselingRecord(String id, int index) {
     selectedCounselingRecordId = id;
@@ -29,15 +40,24 @@ class CounselingRecordController extends ChangeNotifier {
   }
 
   void setCounselingRecordList(List rawCounselingRecordList, String childName) {
+    print("c");
     counselingRecords = List<CounselingRecord>.generate(
         rawCounselingRecordList.length, (index) {
       index = rawCounselingRecordList.length - index - 1;
+
       return CounselingRecord(
-        counselingId: rawCounselingRecordList[index]["ID"].toString(),
+        counselingId: "${3 + index}",
+        realId: rawCounselingRecordList[index]["ID"].toString(),
         customerId: rawCounselingRecordList[index]["patient_ID"].toString(),
         category: rawCounselingRecordList[index]["category"],
         childName: childName,
-        counselingStatus: "상담완료",
+        counselingStatus: "${3 + index}" == "7"
+            ? currentIndex == 1
+                ? counselingIndex == 1
+                    ? "일지작성"
+                    : "분석완료"
+                : "분석중..."
+            : "상담완료",
         date: rawCounselingRecordList[index]["date"],
         counselor: "권윤정",
       );
@@ -92,25 +112,10 @@ class CounselingRecordController extends ChangeNotifier {
   }) async {
     var counselingInfo = await getVideoFileSavedUrl();
     var userInfo = await testLogin();
-    // DateTime current = DateTime.now();
-    // counselingRecords.insert(
-    //     0,
-    //     CounselingRecord(
-    //         counselingStatus: "전송중...",
-    //         customerId: selectedCustomer.id,
-    //         childName: selectedCustomer.childName,
-    //         counselingId: "9",
-    //         date: "${current.year}-${current.month}-${current.day}",
-    //         category: "놀이분석",
-    //         counselor: "이다랑"));
-    // print("a");
-    // notifyListeners();
-    var dio = Dio();
-    var metaVideoInfo = counselingInfo["url"];
-    var counseling = counselingInfo["list"];
-    print(counseling);
-    setCounselingRecordList(counseling["list"], "이아름");
+    DateTime current = DateTime.now();
 
+    var metaVideoInfo = counselingInfo["url"];
+    var dio = Dio();
     FormData formData = FormData.fromMap({
       "key": metaVideoInfo["fields"]["key"],
       "x-amz-algorithm": metaVideoInfo["fields"]["x-amz-algorithm"],
@@ -188,12 +193,14 @@ class CounselingRecordDattaSource extends DataGridSource {
     }
 
     Color getCounselingStatus(String status) {
-      if (status == "분석중") {
-        return Colors.blue;
+      if (status == "분석중...") {
+        return Colors.red;
       } else if (status == "분석완료") {
         return Colors.blue;
       } else if (status == "전송중...") {
         return Colors.red;
+      } else if (status == "일지작성") {
+        return kMainColor;
       } else {
         return kSelectedDashboardTextColor;
       }

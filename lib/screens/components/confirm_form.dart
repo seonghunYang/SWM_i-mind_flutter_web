@@ -84,6 +84,8 @@ class _ConfirmFormState extends State<ConfirmForm> {
                 Navigator.pushNamed(context, LandingScreen.id);
                 ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
                   padding: EdgeInsets.all(defaultPadding * 0.5),
+                  leadingPadding:
+                      EdgeInsets.symmetric(horizontal: defaultPadding * 3),
                   content: Text(
                     '회원가입이 완료되었습니다.',
                     style: Theme.of(context).textTheme.subtitle2,
@@ -92,10 +94,13 @@ class _ConfirmFormState extends State<ConfirmForm> {
                     Icons.check_circle_outline,
                     color: Colors.white,
                   ),
-                  backgroundColor: kSelectedContainerColor,
+                  backgroundColor: kLandingMainColor,
                   actions: <Widget>[
                     TextButton(
-                      child: Text("로그인 하기"),
+                      child: Text(
+                        "로그인 하기",
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
                       onPressed: () {},
                     )
                   ],

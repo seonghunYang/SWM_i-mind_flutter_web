@@ -7,6 +7,7 @@ class NetworkHelper {
 
   static String loginUrl = "$_ROOT_API/member/login";
   static String signupUrl = "$_ROOT_API/member/signup";
+  static String deleteUser = "$_ROOT_API/test/delete";
   static String confirmUrl = "$_ROOT_API/member/confirm";
   static String customerReadListUrl = "$_ROOT_API/customer/customerlist";
   static String customerCreateUrl = "$_ROOT_API/customer/create";

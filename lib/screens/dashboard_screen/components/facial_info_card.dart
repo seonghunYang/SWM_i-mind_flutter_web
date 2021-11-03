@@ -84,7 +84,7 @@ class FacialInfoCard extends StatelessWidget {
                 minX: 0,
                 maxX: 20,
                 minY: 0,
-                maxY: 6,
+                maxY: 10,
                 leftTitle: (value) {
                   switch (value.toInt()) {
                     case 1:

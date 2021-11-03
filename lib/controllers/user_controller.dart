@@ -8,6 +8,32 @@ import '../network_helper.dart';
 class UserController extends ChangeNotifier {
   User? user;
 
+  Future testLogin() async {
+    Uri test = Uri.parse(NetworkHelper.loginUrl);
+    http.Response data = await http.post(
+      test,
+      body: json.encode({"ID": "dkdlakdlsem@gmail.com", "PW": "hj@1027612"}),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+    print(data);
+    return jsonDecode(data.body);
+  }
+
+  Future delete() async {
+    var user = await testLogin();
+    var url = Uri.parse(NetworkHelper.deleteUser);
+    print(user);
+    http.Response response = await http.delete(url, headers: {
+      "ID": "dkdladklsem@gmail.com",
+      "clientId": "32glofcblb4gr72ffs5uheskjs",
+      "accessToken": user["body"]["AuthenticationResult"]["AccessToken"],
+      "Authorization": user["body"]["AuthenticationResult"]["IdToken"]
+    });
+    print(response);
+  }
+
   Future login({required String email, required String password}) async {
     var url = Uri.parse(NetworkHelper.loginUrl);
     http.Response response = await http.post(

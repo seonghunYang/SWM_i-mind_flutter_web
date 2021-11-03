@@ -1,3 +1,4 @@
+import 'package:ai_counseling_platform/controllers/counseling_record_controller.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
@@ -15,9 +16,11 @@ class PieOddChart extends StatefulWidget {
 
 class _PieOddChartState extends State<PieOddChart> {
   int touchedIndex = -1;
-
   @override
   Widget build(BuildContext context) {
+    CounselingRecordController counselingRecordController =
+        context.watch<CounselingRecordController>();
+    int currentIndex = counselingRecordController.currentIndex;
     return SizedBox(
       height: 250,
       child: Stack(
@@ -26,7 +29,7 @@ class _PieOddChartState extends State<PieOddChart> {
             PieChartData(
               startDegreeOffset: -90,
               centerSpaceRadius: 60,
-              sections: showingSections(),
+              sections: showingSections(currentIndex: currentIndex),
               pieTouchData: PieTouchData(
                   touchCallback: (FlTouchEvent event, pieTouchResponse) {
                 setState(() {
@@ -65,7 +68,7 @@ class _PieOddChartState extends State<PieOddChart> {
     );
   }
 
-  List<PieChartSectionData> showingSections() {
+  List<PieChartSectionData> showingSections({required int currentIndex}) {
     return List.generate(5, (i) {
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 12.0 : 10.0;
@@ -74,8 +77,8 @@ class _PieOddChartState extends State<PieOddChart> {
         case 0:
           return PieChartSectionData(
             color: kSelectedContainerColor,
-            value: 52,
-            title: '52%',
+            value: currentIndex == 0 ? 18 : 32,
+            title: currentIndex == 0 ? "18%" : '32%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -85,8 +88,8 @@ class _PieOddChartState extends State<PieOddChart> {
         case 1:
           return PieChartSectionData(
             color: kMainColor,
-            value: 28,
-            title: '28%',
+            value: currentIndex == 0 ? 69 : 48,
+            title: currentIndex == 0 ? "69%" : '48%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -96,8 +99,8 @@ class _PieOddChartState extends State<PieOddChart> {
         case 2:
           return PieChartSectionData(
             color: Colors.yellow,
-            value: 8,
-            title: '8%',
+            value: currentIndex == 0 ? 6 : 8,
+            title: currentIndex == 0 ? "6%" : '8%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -107,8 +110,8 @@ class _PieOddChartState extends State<PieOddChart> {
         case 3:
           return PieChartSectionData(
             color: Colors.red,
-            value: 7,
-            title: '7%',
+            value: currentIndex == 0 ? 5 : 8,
+            title: currentIndex == 0 ? "5%" : '8%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -118,8 +121,8 @@ class _PieOddChartState extends State<PieOddChart> {
         case 4:
           return PieChartSectionData(
             color: kDasboardTextColor,
-            value: 5,
-            title: '5%',
+            value: currentIndex == 0 ? 2 : 4,
+            title: currentIndex == 0 ? "2%" : '4%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,

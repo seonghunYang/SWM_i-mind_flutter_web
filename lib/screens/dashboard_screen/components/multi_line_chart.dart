@@ -81,7 +81,7 @@ class MultiLineChart extends StatelessWidget {
               size: 12,
             ),
             ChartIndicator(
-              color: Color(0xff27b6fc),
+              color: Colors.yellow,
               text: "반복하기",
               isSquare: false,
               size: 12,

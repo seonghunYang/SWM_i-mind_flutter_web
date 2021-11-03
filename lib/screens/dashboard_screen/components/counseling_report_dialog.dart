@@ -1,3 +1,4 @@
+import 'package:ai_counseling_platform/controllers/counseling_record_controller.dart';
 import 'package:ai_counseling_platform/controllers/counseling_report_controller.dart';
 import 'package:ai_counseling_platform/controllers/slider_controller.dart';
 import 'package:flutter/cupertino.dart';

@@ -29,22 +29,25 @@ import '../../../constants.dart';
 const Map<String?, String> wordDic = {
   "stand": "서기",
   "touch sth.": "접촉하기",
-  "carry/hold sth.": "장난감 잡기",
+  "carry/hold sth.": "물체 잡기",
   "listen to sb.": "듣기",
   "sit": "앉기",
   "HAPPY": "행복",
   "CALM": "중립",
-  "ANGRY": "분노"
+  "ANGRY": "분노",
+  "talk": "말하기",
 };
 
 const List<Map> indicator = [
   {
     "indicator": [8, 8, 4, 8, 7],
     "result": [48, 139, 18.6, 0.27],
+    "action": [23, 22, 55]
   },
   {
     "indicator": [10, 8, 6, 6, 8],
     "result": [55, 139, 18.6, 0.27],
+    "action": [30, 33, 37]
   },
 ];
 
@@ -108,10 +111,10 @@ class _DashboardCounselingRecordManageScreenState
   @override
   Widget build(BuildContext context) {
     CounselingRecordController counselingRecordController =
-        context.read<CounselingRecordController>();
+        context.watch<CounselingRecordController>();
     CounselingRecord? selectedCounselingRecord =
         counselingRecordController.selectedCounselingRecord;
-    int currentIndex = counselingRecordController.currentIndex;
+    int currentIndex = counselingRecordController.counselingIndex;
 
     return Container(
       color: Color(0xffd1f8e4).withOpacity(0.3),
@@ -142,6 +145,7 @@ class _DashboardCounselingRecordManageScreenState
           backgroundColor: Colors.white,
           appBar: BottomInfoAppBar(
             onTap: () {
+              counselingRecordController.updateCounselingIndex();
               context.read<MenuController>().updateMenuIndex(1);
             },
             title: "AI 분석리포트",
@@ -168,7 +172,8 @@ class _DashboardCounselingRecordManageScreenState
             if (isLoading) {
               context
                   .read<SelectedCounselingRecordController>()
-                  .getCounselingDetail("6")
+                  .getCounselingDetail(counselingRecordController
+                      .selectedCounselingRecord!.realId)
                   .then((value) {
                 setState(() {
                   data = value;
@@ -449,14 +454,14 @@ class _DashboardCounselingRecordManageScreenState
                                               children: [
                                                 ChartIndicator(
                                                     color: colorList[0],
-                                                    text: "아이",
+                                                    text: "부모",
                                                     isSquare: true),
                                                 SizedBox(
                                                   width: defaultPadding,
                                                 ),
                                                 ChartIndicator(
                                                     color: colorList[1],
-                                                    text: "부모",
+                                                    text: "아이",
                                                     isSquare: true),
                                                 SizedBox(
                                                   width: defaultPadding * 2,
@@ -545,13 +550,13 @@ class _DashboardCounselingRecordManageScreenState
                                                 title: "--",
                                                 color: colorList[0],
                                                 values:
-                                                    emotionAll["childEmotion"],
+                                                    emotionAll["parentEmotion"],
                                               ),
                                               LineChartRawDataSet(
                                                 title: "--",
                                                 color: colorList[1],
                                                 values:
-                                                    emotionAll["parentEmotion"],
+                                                    emotionAll["childEmotion"],
                                               ),
                                             ],
                                           ),
@@ -681,9 +686,21 @@ class _DashboardCounselingRecordManageScreenState
                                                       drawHorizontalLine: true,
                                                       drawVerticalLine: false),
                                                   barDataList: [
-                                                    [0, 56],
-                                                    [1, 54],
-                                                    [2, 86],
+                                                    [
+                                                      0,
+                                                      indicator[currentIndex]
+                                                          ["action"][0]
+                                                    ],
+                                                    [
+                                                      1,
+                                                      indicator[currentIndex]
+                                                          ["action"][1]
+                                                    ],
+                                                    [
+                                                      2,
+                                                      indicator[currentIndex]
+                                                          ["action"][2]
+                                                    ],
                                                   ],
                                                   maxY: 120,
                                                   getLeftTitle: (value) {
@@ -703,11 +720,11 @@ class _DashboardCounselingRecordManageScreenState
                                                       (double value) {
                                                     switch (value.toInt()) {
                                                       case 0:
-                                                        return '대화듣기';
+                                                        return '듣기';
                                                       case 1:
                                                         return '말하기';
                                                       case 2:
-                                                        return '앉기';
+                                                        return '물체 잡기';
                                                       default:
                                                         return '';
                                                     }
@@ -719,13 +736,13 @@ class _DashboardCounselingRecordManageScreenState
                                                     String profile;
                                                     switch (group.x.toInt()) {
                                                       case 0:
-                                                        profile = '대화듣기';
+                                                        profile = '듣기';
                                                         break;
                                                       case 1:
                                                         profile = '말하기';
                                                         break;
                                                       case 2:
-                                                        profile = '앉기';
+                                                        profile = '물체 잡기';
                                                         break;
                                                       default:
                                                         throw Error();
@@ -1415,7 +1432,7 @@ class _DashboardCounselingRecordManageScreenState
                                                           .textTheme
                                                           .bodyText1),
                                                   Text(
-                                                      " (-10% < 대표행동 차이 비교(${talkPercentage['child']}%) <= +0% => ${indicator[currentIndex]["indicator"][2]}점)",
+                                                      " (-5% < 대표행동 차이 비교(${talkPercentage['child']}%) <= +5% => ${indicator[currentIndex]["indicator"][2]}점)",
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .bodyText1!

@@ -25,7 +25,7 @@ import '../../../constants.dart';
 
 const List<Map> indicator = [
   {
-    "indicator": [4, 4, 4, 4, 4],
+    "indicator": [10, 8, 6, 6, 8],
   },
   {
     "indicator": [8, 8, 4, 8, 7],
@@ -59,6 +59,7 @@ class DashBoardCustomerInfoScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: BottomInfoAppBar(
         onTap: () {
+          context.read<CounselingRecordController>().updateCurrentIndex();
           customerController.unSelectCustomer();
         },
         title: selectedCustomer.childName,

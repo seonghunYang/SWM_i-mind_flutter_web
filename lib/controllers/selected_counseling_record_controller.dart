@@ -71,6 +71,15 @@ class SelectedCounselingRecordController extends ChangeNotifier {
               ]));
       emotionChild["emotionCategory"].add(response1["body"][i]["emotion"]);
     }
+    emotionChild["dataList"].add(List<List<double>>.generate(
+        response1["body"][0]["data"].length,
+        (index) => [
+              response1["body"][0]["data"][index][0].toDouble() / 1000,
+              100.0 -
+                  (response1["body"][0]["data"][index][1] +
+                      response1["body"][1]["data"][index][1])
+            ]));
+    emotionChild["emotionCategory"].add("부정 감정");
     return emotionChild;
   }
 
