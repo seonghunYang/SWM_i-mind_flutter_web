@@ -64,7 +64,7 @@ class MultiLineChart extends StatelessWidget {
           children: [
             ChartIndicator(
               color: Color(0xff4af699),
-              text: "민감도",
+              text: "즐거움",
               isSquare: false,
               size: 12,
             ),

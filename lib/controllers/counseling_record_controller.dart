@@ -42,16 +42,16 @@ class CounselingRecordController extends ChangeNotifier {
   void setCounselingRecordList(List rawCounselingRecordList, String childName) {
     print("c");
     counselingRecords = List<CounselingRecord>.generate(
-        rawCounselingRecordList.length, (index) {
+        rawCounselingRecordList.length - 4, (index) {
       index = rawCounselingRecordList.length - index - 1;
 
       return CounselingRecord(
-        counselingId: "${3 + index}",
+        counselingId: "${index - 1}",
         realId: rawCounselingRecordList[index]["ID"].toString(),
         customerId: rawCounselingRecordList[index]["patient_ID"].toString(),
         category: rawCounselingRecordList[index]["category"],
         childName: childName,
-        counselingStatus: "${3 + index}" == "7"
+        counselingStatus: "${index - 1}" == "7"
             ? currentIndex == 1
                 ? counselingIndex == 1
                     ? "일지작성"

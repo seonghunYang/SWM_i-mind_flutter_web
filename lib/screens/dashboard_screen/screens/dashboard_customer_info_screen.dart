@@ -146,20 +146,15 @@ class DashBoardCustomerInfoScreen extends StatelessWidget {
                                           Expanded(
                                               child: MultiLineChart(
                                             lineChartBarDataSpotList: [
-                                              data["indicatorRecordList"]
-                                                      ["responsiveness"]
+                                              [6, 8, 6, 10, 8]
                                                   .sublist(0, 4 + currentIndex),
-                                              data["indicatorRecordList"]
-                                                      ["persistence"]
+                                              [4, 6, 6, 8, 8]
                                                   .sublist(0, 4 + currentIndex),
-                                              data["indicatorRecordList"]
-                                                      ["scrupulosity"]
+                                              [3, 4, 4, 6, 4]
                                                   .sublist(0, 4 + currentIndex),
-                                              data["indicatorRecordList"]
-                                                      ["leading"]
+                                              [4, 4, 6, 6, 9]
                                                   .sublist(0, 4 + currentIndex),
-                                              data["indicatorRecordList"]
-                                                      ["sensitive"]
+                                              [4, 4, 6, 8, 7]
                                                   .sublist(0, 4 + currentIndex),
                                             ],
                                             lineChartBarColorList: [

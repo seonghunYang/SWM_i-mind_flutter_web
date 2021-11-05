@@ -169,11 +169,13 @@ class _DashboardCounselingRecordManageScreenState
             ],
           ),
           body: Builder(builder: (context) {
+            String id = currentIndex == 0
+                ? counselingRecordController.selectedCounselingRecord!.realId
+                : "6";
             if (isLoading) {
               context
                   .read<SelectedCounselingRecordController>()
-                  .getCounselingDetail(counselingRecordController
-                      .selectedCounselingRecord!.realId)
+                  .getCounselingDetail(id)
                   .then((value) {
                 setState(() {
                   data = value;
@@ -658,7 +660,7 @@ class _DashboardCounselingRecordManageScreenState
                                     videoPlayerController:
                                         _videoPlayerController,
                                     pointVideoDuration: pointVideoDuration,
-                                    title: "아이 대표헹동 분석",
+                                    title: "아이 대표행동 분석",
                                     tooltipMessage: "ㅁㅁ",
                                     singleSubContent: Column(
                                       mainAxisSize: MainAxisSize.min,
